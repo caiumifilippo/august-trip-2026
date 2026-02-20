@@ -17,34 +17,6 @@
             overflow-x: hidden;
         }
 
-        /* ===== BUBBLES ===== */
-        .bubble {
-            position: fixed; border-radius: 50%; overflow: hidden;
-            border: 3px solid rgba(255,255,255,0.10);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 0 30px rgba(0,0,0,0.2);
-            z-index: 1; opacity: 0;
-            animation: bubbleIn 1s ease-out forwards;
-        }
-        .bubble img { width:100%; height:100%; object-fit:cover; filter:brightness(0.55) saturate(1.2); }
-        .bubble::after {
-            content:''; position:absolute; inset:0; border-radius:50%;
-            background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.12) 0%,transparent 60%);
-            pointer-events:none;
-        }
-
-        .bubble-a { width:190px;height:190px;top:2%;right:1%; animation:bubbleIn 1s ease-out .2s forwards,dA 14s ease-in-out 1.2s infinite; }
-        .bubble-b { width:155px;height:155px;bottom:4%;right:3%; animation:bubbleIn 1s ease-out .5s forwards,dB 12s ease-in-out 1.5s infinite; }
-        .bubble-c { width:130px;height:130px;top:50%;right:0.5%; animation:bubbleIn 1s ease-out .7s forwards,dC 16s ease-in-out 1.7s infinite; }
-        .bubble-d { width:170px;height:170px;top:5%;left:1%; animation:bubbleIn 1s ease-out .4s forwards,dD 13s ease-in-out 1.4s infinite; }
-        .bubble-e { width:115px;height:115px;bottom:8%;left:2%; animation:bubbleIn 1s ease-out .8s forwards,dE 11s ease-in-out 1.8s infinite; }
-
-        @keyframes bubbleIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
-        @keyframes dA{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-14px,-22px) rotate(2deg)}50%{transform:translate(10px,-30px) rotate(-1deg)}75%{transform:translate(-18px,-8px) rotate(3deg)}}
-        @keyframes dB{0%,100%{transform:translate(0,0)}25%{transform:translate(16px,14px)}50%{transform:translate(-12px,22px)}75%{transform:translate(14px,-10px)}}
-        @keyframes dC{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-20px,16px) rotate(-2deg)}50%{transform:translate(12px,10px) rotate(1deg)}75%{transform:translate(-8px,-14px) rotate(-1deg)}}
-        @keyframes dD{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(12px,-16px) rotate(1deg)}50%{transform:translate(-10px,-28px) rotate(-2deg)}75%{transform:translate(16px,-10px) rotate(2deg)}}
-        @keyframes dE{0%,100%{transform:translate(0,0)}33%{transform:translate(14px,-12px)}66%{transform:translate(-10px,16px)}}
-
         /* ===== LAYOUT ===== */
         .slide-container { max-width:1100px; margin:0 auto; padding:40px 50px 60px; position:relative; z-index:10; }
 
@@ -257,7 +229,6 @@
             .cruise-card{grid-template-columns:1fr}
             .food-grid{grid-template-columns:1fr}
             .cost-grid{grid-template-columns:repeat(2,1fr)}
-            .bubble{display:none}
         }
 
         /* ===== SLIDE NAV ===== */
@@ -288,24 +259,6 @@
         <a href="14-giorno13-20agosto.html" class="nav-dot" title="G13 · 20 Ago"></a>
         <a href="15-giorno14-21agosto.html" class="nav-dot" title="G14 · 21 Ago"></a>
         <a href="16-riepilogo-budget.html" class="nav-dot" title="Budget"></a>
-    </div>
-
-    <!-- Bubbles -->
-    <div class="bubble bubble-a">
-        <img src="https://images.unsplash.com/photo-1548115184-bc6544d06a58?w=500&q=80" alt="Hongdae Street">
-    </div>
-    <div class="bubble bubble-b">
-        <img src="https://images.unsplash.com/photo-1578037571214-25e07ed4a943?w=400&q=80" alt="Han River">
-    </div>
-    <div class="bubble bubble-c">
-        <img src="https://images.unsplash.com/photo-1546874177-9e664107314e?w=400&q=80" alt="Neon Seoul">
-    </div>
-    <div class="bubble bubble-d">
-        <img src="https://images.unsplash.com/photo-1517154421773-0529f29ea451?w=400&q=80" alt="Seoul Skyline">
-    </div>
-    <div class="bubble bubble-e">
-        <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=300&q=80" alt="Korean Fried Chicken">
-    </div>
     </div>
 
     <div class="slide-container">
