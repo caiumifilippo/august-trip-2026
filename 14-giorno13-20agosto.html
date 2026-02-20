@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giorno 13 – 20 Agosto | Siargao: Ultimo Giorno & Beach Party</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0a2e38 0%,#0d4f4f 35%,#1a5c3a 100%);color:#fff;min-height:100vh;overflow-x:hidden}
+
+        /* ===== BUBBLES ===== */
+        .bubble{position:fixed;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.10);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 0 30px rgba(0,0,0,.2);z-index:1;opacity:0;animation:bubbleIn 1s ease-out forwards}
+        .bubble img{width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3)}
+        .bubble::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.12) 0%,transparent 60%);pointer-events:none}
+
+        .bubble-a{width:195px;height:195px;top:2%;right:1%;animation:bubbleIn 1s ease-out .2s forwards,dA 14s ease-in-out 1.2s infinite}
+        .bubble-b{width:145px;height:145px;bottom:4%;right:2.5%;animation:bubbleIn 1s ease-out .5s forwards,dB 12s ease-in-out 1.5s infinite}
+        .bubble-c{width:130px;height:130px;top:48%;right:1.5%;animation:bubbleIn 1s ease-out .7s forwards,dC 15s ease-in-out 1.7s infinite}
+        .bubble-d{width:160px;height:160px;top:3%;left:1%;animation:bubbleIn 1s ease-out .35s forwards,dD 13s ease-in-out 1.35s infinite}
+        .bubble-e{width:115px;height:115px;bottom:5%;left:1.5%;animation:bubbleIn 1s ease-out .85s forwards,dE 11s ease-in-out 1.85s infinite}
+
+        @keyframes bubbleIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+        @keyframes dA{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-14px,-20px) rotate(2deg)}50%{transform:translate(10px,-28px) rotate(-1deg)}75%{transform:translate(-16px,-8px) rotate(3deg)}}
+        @keyframes dB{0%,100%{transform:translate(0,0)}25%{transform:translate(12px,14px)}50%{transform:translate(-10px,22px)}75%{transform:translate(14px,-10px)}}
+        @keyframes dC{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-16px,12px) rotate(-2deg)}50%{transform:translate(10px,20px) rotate(1deg)}75%{transform:translate(-12px,-10px) rotate(-1deg)}}
+        @keyframes dD{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(14px,-16px) rotate(1deg)}50%{transform:translate(-10px,-24px) rotate(-2deg)}75%{transform:translate(12px,-6px) rotate(2deg)}}
+        @keyframes dE{0%,100%{transform:translate(0,0)}33%{transform:translate(14px,-12px)}66%{transform:translate(-12px,14px)}}
+
+        /* ===== LAYOUT ===== */
+        .slide-container{max-width:1100px;margin:0 auto;padding:40px 50px 60px;position:relative;z-index:10}
+
+        /* ===== TOP BAR ===== */
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeIn .8s ease-out}
+        .day-badge{display:flex;align-items:center;gap:14px}
+        .day-number{background:linear-gradient(135deg,#4ecdc4,#2eb5a6);color:#0a2e38;font-size:2.4rem;font-weight:800;width:70px;height:70px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;box-shadow:0 4px 20px rgba(78,205,196,.35)}
+        .day-info h2{font-size:1.5rem;font-weight:700;line-height:1.2}
+        .day-info p{font-size:.85rem;color:rgba(255,255,255,.5)}
+        .slide-tag{background:rgba(255,107,107,.12);backdrop-filter:blur(10px);border:1px solid rgba(255,107,107,.2);padding:8px 20px;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#ff6b6b}
+
+        /* ===== THEME ===== */
+        .theme-banner{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 28px;margin-bottom:28px;display:flex;align-items:center;gap:16px;animation:slideUp .8s ease-out .15s both}
+        .theme-emoji{font-size:2.2rem}
+        .theme-text h3{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#ff6b6b,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .theme-text p{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:2px}
+
+        /* ===== LAST DAY BANNER ===== */
+        .lastday-banner{
+            background:linear-gradient(135deg,rgba(255,107,107,.06),rgba(255,230,109,.04));
+            border:1px solid rgba(255,107,107,.15);border-radius:16px;padding:16px 24px;
+            margin-bottom:28px;display:flex;align-items:center;gap:14px;
+            animation:slideUp .8s ease-out .18s both;
+        }
+        .lastday-icon{font-size:1.8rem;animation:heartbeat 2s ease-in-out infinite}
+        @keyframes heartbeat{0%,100%{transform:scale(1)}15%{transform:scale(1.15)}30%{transform:scale(1)}45%{transform:scale(1.1)}}
+        .lastday-text{font-size:.85rem;color:rgba(255,255,255,.6);line-height:1.5}
+        .lastday-text strong{color:#ff6b6b}
+
+        /* ===== ACTIVITY CARDS ===== */
+        .activities{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+        .activity-card{background:rgba(255,255,255,.05);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;transition:transform .3s,border-color .3s,background .3s;animation:slideUp .8s ease-out both}
+        .activity-card:nth-child(1){animation-delay:.25s}
+        .activity-card:nth-child(2){animation-delay:.32s}
+        .activity-card:nth-child(3){animation-delay:.39s}
+        .activity-card:nth-child(4){animation-delay:.46s}
+        .activity-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
+        .activity-card.full-width{grid-column:1/-1}
+
+        .card-time{display:inline-block;background:rgba(78,205,196,.12);color:#4ecdc4;font-size:.7rem;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:12px}
+        .card-title{font-size:1.1rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+        .card-title .emoji{font-size:1.3rem}
+        .card-desc{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:12px}
+        .card-highlights{display:flex;flex-wrap:wrap;gap:8px}
+        .highlight-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:20px;font-size:.68rem;color:rgba(255,255,255,.6)}
+        .card-cost{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 14px;background:rgba(78,205,196,.1);border:1px solid rgba(78,205,196,.15);border-radius:10px;font-size:.8rem;font-weight:600;color:#4ecdc4}
+
+        /* ===== BONFIRE PARTY SPECIAL CARD ===== */
+        .bonfire-card{
+            background:linear-gradient(135deg,rgba(255,107,107,.08),rgba(255,165,0,.06));
+            border:1px solid rgba(255,107,107,.18);border-radius:22px;padding:30px 34px;
+            margin-bottom:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px;
+            animation:slideUp .8s ease-out .5s both;position:relative;overflow:hidden;
+        }
+        .bonfire-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,107,107,.15);color:#ff6b6b;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+        .bonfire-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#ff6b6b,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .bonfire-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:16px}
+        .bonfire-checklist{list-style:none;display:flex;flex-direction:column;gap:8px}
+        .bonfire-checklist li{font-size:.78rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:8px}
+        .bonfire-checklist li span{font-size:1.1rem}
+
+        .bonfire-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;min-height:260px}
+
+        /* Fire animation */
+        .fire-container{position:relative;z-index:2}
+        .fire{font-size:4rem;animation:fireFlicker 1.5s ease-in-out infinite}
+        @keyframes fireFlicker{0%,100%{transform:scale(1) rotate(-2deg);filter:brightness(1)}25%{transform:scale(1.05) rotate(1deg);filter:brightness(1.2)}50%{transform:scale(.98) rotate(-1deg);filter:brightness(.9)}75%{transform:scale(1.08) rotate(2deg);filter:brightness(1.15)}}
+
+        /* Sparks */
+        .spark{position:absolute;font-size:.8rem;opacity:0}
+        .spark-1{animation:sparkUp 2s ease-out infinite}
+        .spark-2{animation:sparkUp 2.5s ease-out .4s infinite}
+        .spark-3{animation:sparkUp 1.8s ease-out .8s infinite}
+        .spark-4{animation:sparkUp 2.2s ease-out 1.2s infinite}
+        .spark-5{animation:sparkUp 2.8s ease-out .6s infinite}
+        @keyframes sparkUp{
+            0%{opacity:0;transform:translate(0,0)}
+            20%{opacity:.8}
+            100%{opacity:0;transform:translate(var(--sx),var(--sy))}
+        }
+        .spark-1{--sx:-30px;--sy:-60px;left:45%;top:30%}
+        .spark-2{--sx:25px;--sy:-70px;left:55%;top:35%}
+        .spark-3{--sx:-15px;--sy:-80px;left:50%;top:25%}
+        .spark-4{--sx:35px;--sy:-55px;left:60%;top:30%}
+        .spark-5{--sx:-40px;--sy:-50px;left:40%;top:35%}
+
+        /* Stars */
+        .stars{position:absolute;top:0;left:0;right:0;height:60%;display:flex;flex-wrap:wrap;justify-content:center;gap:20px;padding:10px}
+        .star{font-size:.7rem;opacity:.3;animation:twinkle 3s ease-in-out infinite}
+        .star:nth-child(1){animation-delay:0s}
+        .star:nth-child(2){animation-delay:.5s;opacity:.2}
+        .star:nth-child(3){animation-delay:1s}
+        .star:nth-child(4){animation-delay:1.5s;opacity:.15}
+        .star:nth-child(5){animation-delay:2s}
+        .star:nth-child(6){animation-delay:.3s;opacity:.25}
+        .star:nth-child(7){animation-delay:1.2s}
+        .star:nth-child(8){animation-delay:.8s;opacity:.2}
+        @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.5;transform:scale(1.2)}}
+
+        /* Music notes */
+        .music-notes{position:absolute;bottom:25%;width:100%;text-align:center}
+        .mnote{font-size:1rem;opacity:.3;display:inline-block;margin:0 8px}
+        .mnote:nth-child(1){animation:noteFloat 3s ease-in-out infinite}
+        .mnote:nth-child(2){animation:noteFloat 3.5s ease-in-out .5s infinite}
+        .mnote:nth-child(3){animation:noteFloat 2.8s ease-in-out 1s infinite}
+        @keyframes noteFloat{0%,100%{transform:translateY(0) rotate(0);opacity:.2}50%{transform:translateY(-12px) rotate(10deg);opacity:.5}}
+
+        .bonfire-fire-glow{
+            position:absolute;width:200px;height:200px;border-radius:50%;bottom:10%;
+            background:radial-gradient(circle,rgba(255,107,107,.12) 0%,rgba(255,165,0,.06) 40%,transparent 70%);
+            animation:fireGlow 3s ease-in-out infinite;
+        }
+        @keyframes fireGlow{0%,100%{opacity:.4;transform:scale(.9)}50%{opacity:.7;transform:scale(1.1)}}
+
+        /* ===== PACKING REMINDER ===== */
+        .packing-bar{
+            background:rgba(255,230,109,.06);border:1px solid rgba(255,230,109,.15);
+            border-radius:16px;padding:18px 24px;margin-bottom:28px;
+            display:flex;align-items:flex-start;gap:14px;
+            animation:slideUp .8s ease-out .58s both;
+        }
+        .packing-icon{font-size:1.6rem;margin-top:2px}
+        .packing-content h4{font-size:.85rem;font-weight:700;color:#ffe66d;margin-bottom:8px}
+        .packing-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+        .packing-item{font-size:.72rem;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:6px}
+        .packing-item span{font-size:.9rem}
+
+        /* ===== FOOD ===== */
+        .food-section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px 28px;margin-bottom:28px;animation:slideUp .8s ease-out .65s both}
+        .food-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:#ffe66d;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+        .food-item{text-align:center;padding:16px 12px;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .food-item:hover{transform:translateY(-3px)}
+        .food-emoji{font-size:2rem;margin-bottom:8px}
+        .food-name{font-size:.85rem;font-weight:600;margin-bottom:2px}
+        .food-desc{font-size:.7rem;color:rgba(255,255,255,.4)}
+        .food-price{font-size:.75rem;color:#ffe66d;font-weight:600;margin-top:4px}
+
+        /* ===== COST BAR ===== */
+        .cost-bar{background:rgba(255,255,255,.05);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:26px 36px;animation:slideUp .8s ease-out .72s both}
+        .cost-bar-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);margin-bottom:18px;font-weight:600}
+        .cost-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+        .cost-item{text-align:center;padding:14px 6px;background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .cost-item:hover{transform:translateY(-3px)}
+        .cost-icon{font-size:1.3rem;margin-bottom:6px}
+        .cost-label{font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+        .cost-value{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .cost-note{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:2px}
+        .cost-total{text-align:center;padding:14px 6px;background:rgba(78,205,196,.08);border-radius:12px;border:1px solid rgba(78,205,196,.15)}
+        .cost-total .cost-value{font-size:1.3rem}
+
+        /* ===== BOTTOM ===== */
+        .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#4ecdc4,#ffe66d,#ff6b6b,#4ecdc4);background-size:300% 100%;animation:shimmer 4s linear infinite;z-index:50}
+        @keyframes shimmer{0%{background-position:0% 0}100%{background-position:300% 0}}
+        .nav-indicator{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+        .nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);transition:all .3s}
+        .nav-dot.active{background:#ff6b6b;border-color:#ff6b6b;box-shadow:0 0 10px rgba(255,107,107,.4);transform:scale(1.3)}
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .slide-container{padding:24px 20px 50px}
+            .top-bar{flex-direction:column;gap:12px;align-items:flex-start}
+            .bonfire-card{grid-template-columns:1fr}
+            .activities{grid-template-columns:1fr}
+            .food-grid{grid-template-columns:1fr}
+            .cost-grid{grid-template-columns:repeat(2,1fr)}
+            .packing-grid{grid-template-columns:1fr}
+            .bubble{display:none}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles -->
+    <div class="bubble bubble-a">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&q=80" alt="Beach Sunset">
+    </div>
+    <div class="bubble bubble-b">
+        <img src="https://images.unsplash.com/photo-1504700610630-ac6edd918aa0?w=400&q=80" alt="Bonfire">
+    </div>
+    <div class="bubble bubble-c">
+        <img src="https://images.unsplash.com/photo-1476673160081-cf065607f449?w=400&q=80" alt="Palm Sunset">
+    </div>
+    <div class="bubble bubble-d">
+        <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&q=80" alt="Tropical Beach">
+    </div>
+    <div class="bubble bubble-e">
+        <img src="https://images.unsplash.com/photo-1509233725247-49e657c54213?w=300&q=80" alt="Sunset Palms">
+    </div>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <div class="nav-dot" title="Copertina"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Trasferimento"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot active" title="Ultimo Giorno"></div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="day-badge">
+                <div class="day-number">13</div>
+                <div class="day-info">
+                    <h2>Giovedì 20 Agosto 2026</h2>
+                    <p>Siargao — Ultimo Giorno: Relax, Surf & Beach Party d'Addio</p>
+                </div>
+            </div>
+            <div class="slide-tag">Ultimo Giorno</div>
+        </div>
+
+        <!-- THEME -->
+        <div class="theme-banner">
+            <div class="theme-emoji">🥹</div>
+            <div class="theme-text">
+                <h3>L'ultimo tramonto sull'isola — viviamolo alla grande, tutti insieme</h3>
+                <p>Mattinata di relax, ultimo tuffo nell'oceano e la festa d'addio più bella sulla spiaggia</p>
+            </div>
+        </div>
+
+        <!-- LAST DAY EMOTIONAL BANNER -->
+        <div class="lastday-banner">
+            <div class="lastday-icon">💛</div>
+            <div class="lastday-text">
+                <strong>Ultimo giorno completo a Siargao.</strong>
+                Domani si vola verso casa. Oggi niente fretta, niente sveglie presto —
+                godetevi ogni momento. Questa giornata è vostra: surf, spiaggia, sole e
+                la festa di addio che ricorderete per sempre.
+            </div>
+        </div>
+
+        <!-- MORNING & AFTERNOON ACTIVITIES -->
+        <div class="activities">
+
+            <div class="activity-card">
+                <div class="card-time">☀️ 09:00 – 10:30 · Mattina</div>
+                <div class="card-title">
+                    <span class="emoji">🥞</span> Brunch con Calma
+                </div>
+                <div class="card-desc">
+                    Sveglia senza sveglia! Brunch rilassato al <strong>Shaka Siargao</strong> o
+                    al <strong>Kermit Surf Resort</strong>: açaí bowl, pancake, caffè freddo e
+                    succo di mango fresco. Tempo per rivedere le foto della settimana
+                    e programmare le ultime ore sull'isola.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🥣 Açaí bowl ~€5</span>
+                    <span class="highlight-chip">☕ Cold brew ~€2</span>
+                    <span class="highlight-chip">📸 Foto ricordo</span>
+                </div>
+                <div class="card-cost">🍽️ Brunch: ~€7</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-time">🏄 10:30 – 12:30 · Mattina</div>
+                <div class="card-title">
+                    <span class="emoji">🏄‍♂️</span> Ultima Session di Surf
+                </div>
+                <div class="card-desc">
+                    Un'ultima cavalcata sulle onde di Cloud 9! Che siate diventati pro o
+                    ancora principianti, questo è il momento di salutare l'oceano.
+                    Chi non surfa: relax sulla boardwalk, cocco fresco e ultimo bagno.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🏄 Board rental ~€4</span>
+                    <span class="highlight-chip">🥥 Cocco fresco ~€1</span>
+                    <span class="highlight-chip">🌊 Ultimo bagno!</span>
+                </div>
+                <div class="card-cost">🏄 Surf + beach: ~€5</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-time">🛍️ 13:00 – 15:00 · Pomeriggio</div>
+                <div class="card-title">
+                    <span class="emoji">🎁</span> Souvenirs & Mercato Locale
+                </div>
+                <div class="card-desc">
+                    Tempo per gli ultimi acquisti! Al mercato di General Luna e nei negozietti
+                    trovate: magliette Siargao, braccialetti fatti a mano, olio di cocco,
+                    dried mango (il migliore del mondo!) e souvenirs in bambù.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">👕 T-shirt Siargao ~€3</span>
+                    <span class="highlight-chip">🥭 Dried mango ~€2</span>
+                    <span class="highlight-chip">🥥 Olio di cocco ~€2</span>
+                    <span class="highlight-chip">📿 Braccialetti ~€1</span>
+                </div>
+                <div class="card-cost">🛍️ Souvenirs: ~€8</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-time">🏖️ 15:00 – 17:30 · Pomeriggio</div>
+                <div class="card-title">
+                    <span class="emoji">🏖️</span> Ultimo Pomeriggio in Spiaggia
+                </div>
+                <div class="card-desc">
+                    Le ultime ore sulla sabbia bianca. Amache, beach volley, ultimo snorkeling
+                    o semplicemente sdraiarsi e ascoltare il rumore delle onde.
+                    Godetevi ogni secondo — lo meritate dopo 2 settimane incredibili.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🏐 Beach volley</span>
+                    <span class="highlight-chip">🤿 Ultimo snorkeling</span>
+                    <span class="highlight-chip">😴 Amaca & relax</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BONFIRE PARTY SPECIAL CARD -->
+        <div class="bonfire-card">
+            <div>
+                <div class="bonfire-badge">🎉 Evento della Sera</div>
+                <div class="bonfire-title">Beach Party d'Addio</div>
+                <div class="bonfire-desc">
+                    La serata che chiude il viaggio in bellezza: <strong>falò sulla spiaggia</strong>,
+                    cena di gruppo a base di seafood grigliato, birre ghiacciate, musica e
+                    stelle. Organizzate con il resort o i locali una postazione BBQ con tavoli
+                    sulla sabbia. È il momento dei discorsi, delle risate e dei brindisi
+                    a questo viaggio indimenticabile.
+                </div>
+                <ul class="bonfire-checklist">
+                    <li><span>🔥</span> Falò sulla spiaggia (chiedete al resort)</li>
+                    <li><span>🦞</span> Seafood BBQ di gruppo: gamberi, pesce, calamari</li>
+                    <li><span>🍺</span> Bucket di San Miguel & Red Horse</li>
+                    <li><span>🎵</span> Speaker bluetooth con playlist del viaggio</li>
+                    <li><span>📸</span> Foto di gruppo con timer sotto le stelle</li>
+                    <li><span>🥂</span> Brindisi finale: "A Seoul, Siargao e a noi 13!"</li>
+                </ul>
+            </div>
+            <div class="bonfire-visual">
+                <div class="stars">
+                    <span class="star">✦</span>
+                    <span class="star">✧</span>
+                    <span class="star">✦</span>
+                    <span class="star">✧</span>
+                    <span class="star">✦</span>
+                    <span class="star">✧</span>
+                    <span class="star">✦</span>
+                    <span class="star">✧</span>
+                </div>
+
+                <div class="bonfire-fire-glow"></div>
+
+                <div class="fire-container">
+                    <span class="spark spark-1">✨</span>
+                    <span class="spark spark-2">✨</span>
+                    <span class="spark spark-3">✨</span>
+                    <span class="spark spark-4">✨</span>
+                    <span class="spark spark-5">✨</span>
+                    <div class="fire">🔥</div>
+                </div>
+
+                <div class="music-notes">
+                    <span class="mnote">🎵</span>
+                    <span class="mnote">🎶</span>
+                    <span class="mnote">🎵</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- PACKING REMINDER -->
+        <div class="packing-bar">
+            <div class="packing-icon">🧳</div>
+            <div class="packing-content">
+                <h4>Promemoria: Domani si vola! Preparate le valigie stasera</h4>
+                <div class="packing-grid">
+                    <div class="packing-item"><span>✈️</span> Verificate orario volo IAO → MNL</div>
+                    <div class="packing-item"><span>🧳</span> Valigie pronte entro stasera</div>
+                    <div class="packing-item"><span>📱</span> Scaricate boarding pass offline</div>
+                    <div class="packing-item"><span>💧</span> Buttate liquidi >100ml</div>
+                    <div class="packing-item"><span>💰</span> Cambiate i pesos rimasti</div>
+                    <div class="packing-item"><span>🏨</span> Check-out domani ore 07:00</div>
+                    <div class="packing-item"><span>🛵</span> Riconsegnate scooter stasera</div>
+                    <div class="packing-item"><span>⏰</span> Sveglia alle 05:30 domani!</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOD -->
+        <div class="food-section">
+            <div class="food-title">🦞 Cena d'Addio — Grand Seafood BBQ</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div class="food-emoji">🦞</div>
+                    <div class="food-name">Lobster Grigliato</div>
+                    <div class="food-desc">Aragosta intera grigliata con burro all'aglio. Il piatto regale per l'ultima sera!</div>
+                    <div class="food-price">~€8 a persona</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🦐</div>
+                    <div class="food-name">Mixed Seafood Platter</div>
+                    <div class="food-desc">Gamberi, calamari, cozze e pesce grigliato con riso e salse filippine. Per il tavolo!</div>
+                    <div class="food-price">~€5 a persona</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🍺</div>
+                    <div class="food-name">Beer Bucket & Cocktails</div>
+                    <div class="food-desc">Secchiello di San Miguel e Red Horse ghiacciate + rum & coke per brindare all'avventura</div>
+                    <div class="food-price">~€5 a persona</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COST SUMMARY -->
+        <div class="cost-bar">
+            <div class="cost-bar-title">💰 Riepilogo Costi Giorno 13 — per persona</div>
+            <div class="cost-grid">
+                <div class="cost-item">
+                    <div class="cost-icon">🥞</div>
+                    <div class="cost-label">Brunch</div>
+                    <div class="cost-value">€7</div>
+                    <div class="cost-note">Açaí + caffè</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🏄</div>
+                    <div class="cost-label">Surf & Beach</div>
+                    <div class="cost-value">€5</div>
+                    <div class="cost-note">Board + cocco</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🎁</div>
+                    <div class="cost-label">Souvenirs</div>
+                    <div class="cost-value">€8</div>
+                    <div class="cost-note">Regali & ricordi</div>
+                </div>
+                <div class="cost-item" style="background:rgba(255,107,107,.06);border-color:rgba(255,107,107,.12)">
+                    <div class="cost-icon">🦞</div>
+                    <div class="cost-label">Cena BBQ</div>
+                    <div class="cost-value">€13</div>
+                    <div class="cost-note">Lobster + seafood</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍺</div>
+                    <div class="cost-label">Birre & Drink</div>
+                    <div class="cost-value">€5</div>
+                    <div class="cost-note">Beach party</div>
+                </div>
+                <div class="cost-total">
+                    <div class="cost-icon">📊</div>
+                    <div class="cost-label">Totale Giorno</div>
+                    <div class="cost-value">~€38</div>
+                    <div class="cost-note">escluso alloggio</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-bar"></div>
+
+</body>
+</html>

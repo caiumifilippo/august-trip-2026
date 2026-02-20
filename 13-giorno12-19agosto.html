@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giorno 12 – 19 Agosto | Siargao: Maasin River & Pacifico Beach</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0a2e38 0%,#0d4f4f 35%,#1a5c3a 100%);color:#fff;min-height:100vh;overflow-x:hidden}
+
+        /* ===== BUBBLES ===== */
+        .bubble{position:fixed;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.10);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 0 30px rgba(0,0,0,.2);z-index:1;opacity:0;animation:bubbleIn 1s ease-out forwards}
+        .bubble img{width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3)}
+        .bubble::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.12) 0%,transparent 60%);pointer-events:none}
+
+        .bubble-a{width:185px;height:185px;top:2%;right:1.5%;animation:bubbleIn 1s ease-out .2s forwards,dA 13s ease-in-out 1.2s infinite}
+        .bubble-b{width:150px;height:150px;bottom:4%;right:2%;animation:bubbleIn 1s ease-out .5s forwards,dB 12s ease-in-out 1.5s infinite}
+        .bubble-c{width:140px;height:140px;top:50%;right:1%;animation:bubbleIn 1s ease-out .7s forwards,dC 14s ease-in-out 1.7s infinite}
+        .bubble-d{width:155px;height:155px;top:3%;left:1%;animation:bubbleIn 1s ease-out .35s forwards,dD 12s ease-in-out 1.35s infinite}
+        .bubble-e{width:110px;height:110px;bottom:6%;left:1.5%;animation:bubbleIn 1s ease-out .8s forwards,dE 11s ease-in-out 1.8s infinite}
+
+        @keyframes bubbleIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+        @keyframes dA{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-16px,-18px) rotate(2deg)}50%{transform:translate(12px,-26px) rotate(-1deg)}75%{transform:translate(-14px,-10px) rotate(3deg)}}
+        @keyframes dB{0%,100%{transform:translate(0,0)}25%{transform:translate(14px,12px)}50%{transform:translate(-12px,20px)}75%{transform:translate(10px,-14px)}}
+        @keyframes dC{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-12px,14px) rotate(-2deg)}50%{transform:translate(14px,18px) rotate(1deg)}75%{transform:translate(-10px,-12px) rotate(-1deg)}}
+        @keyframes dD{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(12px,-14px) rotate(1deg)}50%{transform:translate(-10px,-22px) rotate(-2deg)}75%{transform:translate(14px,-6px) rotate(2deg)}}
+        @keyframes dE{0%,100%{transform:translate(0,0)}33%{transform:translate(12px,-14px)}66%{transform:translate(-14px,12px)}}
+
+        /* ===== LAYOUT ===== */
+        .slide-container{max-width:1100px;margin:0 auto;padding:40px 50px 60px;position:relative;z-index:10}
+
+        /* ===== TOP BAR ===== */
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeIn .8s ease-out}
+        .day-badge{display:flex;align-items:center;gap:14px}
+        .day-number{background:linear-gradient(135deg,#4ecdc4,#2eb5a6);color:#0a2e38;font-size:2.4rem;font-weight:800;width:70px;height:70px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;box-shadow:0 4px 20px rgba(78,205,196,.35)}
+        .day-info h2{font-size:1.5rem;font-weight:700;line-height:1.2}
+        .day-info p{font-size:.85rem;color:rgba(255,255,255,.5)}
+        .slide-tag{background:rgba(78,205,196,.12);backdrop-filter:blur(10px);border:1px solid rgba(78,205,196,.2);padding:8px 20px;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#4ecdc4}
+
+        /* ===== THEME ===== */
+        .theme-banner{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 28px;margin-bottom:28px;display:flex;align-items:center;gap:16px;animation:slideUp .8s ease-out .15s both}
+        .theme-emoji{font-size:2.2rem}
+        .theme-text h3{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .theme-text p{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:2px}
+
+        /* ===== MAASIN RIVER SPECIAL CARD ===== */
+        .river-card{
+            background:linear-gradient(135deg,rgba(78,205,196,.08),rgba(46,181,166,.05));
+            border:1px solid rgba(78,205,196,.18);border-radius:22px;padding:28px 32px;
+            margin-bottom:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;
+            animation:slideUp .8s ease-out .2s both;
+        }
+        .river-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(78,205,196,.15);color:#4ecdc4;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+        .river-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;margin-bottom:8px}
+        .river-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:16px}
+        .river-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .river-detail{background:rgba(255,255,255,.05);border-radius:10px;padding:10px 14px;border:1px solid rgba(255,255,255,.06)}
+        .river-detail-label{font-size:.65rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px}
+        .river-detail-value{font-size:.9rem;font-weight:600;margin-top:2px}
+
+        .river-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;min-height:240px}
+
+        /* Animated palm trees */
+        .palm-left,.palm-right{position:absolute;font-size:3.5rem;top:8%}
+        .palm-left{left:10%;animation:palmSway 4s ease-in-out infinite}
+        .palm-right{right:10%;animation:palmSway 4.5s ease-in-out .5s infinite;transform:scaleX(-1)}
+        @keyframes palmSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+
+        /* Animated rope swing */
+        .swing-container{position:relative;z-index:2;margin-top:20px}
+        .rope{
+            width:3px;height:60px;background:linear-gradient(180deg,rgba(139,90,43,.8),rgba(139,90,43,.5));
+            margin:0 auto;transform-origin:top center;
+            animation:swingRope 3s ease-in-out infinite;
+        }
+        .swing-person{
+            font-size:2rem;text-align:center;margin-top:-4px;
+            animation:swingRope 3s ease-in-out infinite;transform-origin:top center;
+        }
+        @keyframes swingRope{0%,100%{transform:rotate(-15deg)}50%{transform:rotate(15deg)}}
+
+        .river-water{
+            position:absolute;bottom:8%;width:80%;text-align:center;
+            font-size:1.4rem;letter-spacing:6px;opacity:.3;
+            animation:riverFlow 5s linear infinite;
+        }
+        @keyframes riverFlow{0%{transform:translateX(-10px)}50%{transform:translateX(10px)}100%{transform:translateX(-10px)}}
+
+        .river-price-tag{
+            margin-top:auto;background:linear-gradient(135deg,#4ecdc4,#ffe66d);
+            color:#0a2e38;padding:10px 24px;border-radius:30px;font-weight:700;font-size:1.05rem;
+            box-shadow:0 4px 20px rgba(78,205,196,.3);z-index:2;position:relative;
+        }
+
+        /* ===== PACIFICO BEACH CARD ===== */
+        .beach-card{
+            background:linear-gradient(135deg,rgba(255,230,109,.06),rgba(78,205,196,.04));
+            border:1px solid rgba(255,230,109,.15);border-radius:20px;padding:26px 30px;
+            margin-bottom:28px;display:grid;grid-template-columns:1fr 1fr;gap:24px;
+            animation:slideUp .8s ease-out .38s both;
+        }
+        .beach-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,230,109,.12);color:#ffe66d;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+        .beach-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;margin-bottom:6px}
+        .beach-desc{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:14px}
+        .beach-tags{display:flex;flex-wrap:wrap;gap:8px}
+        .beach-tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:20px;font-size:.68rem;color:rgba(255,255,255,.6)}
+
+        .beach-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;min-height:180px}
+        .beach-sun{font-size:3.5rem;position:absolute;top:5%;animation:sunPulse 4s ease-in-out infinite}
+        @keyframes sunPulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+        .beach-waves{position:absolute;bottom:15%;font-size:1.6rem;letter-spacing:4px;opacity:.4}
+        .wave-1{animation:waveMove 3s ease-in-out infinite}
+        .wave-2{animation:waveMove 3.5s ease-in-out .5s infinite;bottom:8%;font-size:1.3rem;opacity:.25}
+        @keyframes waveMove{0%,100%{transform:translateX(-6px)}50%{transform:translateX(6px)}}
+        .beach-surfer{font-size:2.8rem;z-index:2;position:relative;animation:surferBob 2.5s ease-in-out infinite}
+        @keyframes surferBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}
+        .beach-time{margin-top:14px;font-size:.75rem;color:rgba(255,255,255,.4);text-align:center;z-index:2;position:relative}
+
+        /* ===== ACTIVITY CARDS ===== */
+        .activities{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+        .activity-card{background:rgba(255,255,255,.05);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;transition:transform .3s,border-color .3s,background .3s;animation:slideUp .8s ease-out both}
+        .activity-card:nth-child(1){animation-delay:.45s}
+        .activity-card:nth-child(2){animation-delay:.52s}
+        .activity-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
+        .activity-card.full-width{grid-column:1/-1}
+
+        .card-time{display:inline-block;background:rgba(78,205,196,.12);color:#4ecdc4;font-size:.7rem;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:12px}
+        .card-title{font-size:1.1rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+        .card-title .emoji{font-size:1.3rem}
+        .card-desc{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:12px}
+        .card-highlights{display:flex;flex-wrap:wrap;gap:8px}
+        .highlight-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:20px;font-size:.68rem;color:rgba(255,255,255,.6)}
+        .card-cost{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 14px;background:rgba(78,205,196,.1);border:1px solid rgba(78,205,196,.15);border-radius:10px;font-size:.8rem;font-weight:600;color:#4ecdc4}
+
+        /* ===== FOOD ===== */
+        .food-section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px 28px;margin-bottom:28px;animation:slideUp .8s ease-out .6s both}
+        .food-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:#ffe66d;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+        .food-item{text-align:center;padding:16px 12px;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .food-item:hover{transform:translateY(-3px)}
+        .food-emoji{font-size:2rem;margin-bottom:8px}
+        .food-name{font-size:.85rem;font-weight:600;margin-bottom:2px}
+        .food-desc{font-size:.7rem;color:rgba(255,255,255,.4)}
+        .food-price{font-size:.75rem;color:#ffe66d;font-weight:600;margin-top:4px}
+
+        /* ===== COST BAR ===== */
+        .cost-bar{background:rgba(255,255,255,.05);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:26px 36px;animation:slideUp .8s ease-out .7s both}
+        .cost-bar-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);margin-bottom:18px;font-weight:600}
+        .cost-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+        .cost-item{text-align:center;padding:14px 6px;background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .cost-item:hover{transform:translateY(-3px)}
+        .cost-icon{font-size:1.3rem;margin-bottom:6px}
+        .cost-label{font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+        .cost-value{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .cost-note{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:2px}
+        .cost-total{text-align:center;padding:14px 6px;background:rgba(78,205,196,.08);border-radius:12px;border:1px solid rgba(78,205,196,.15)}
+        .cost-total .cost-value{font-size:1.3rem}
+
+        /* ===== BOTTOM ===== */
+        .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#4ecdc4,#ffe66d,#ff6b6b,#4ecdc4);background-size:300% 100%;animation:shimmer 4s linear infinite;z-index:50}
+        @keyframes shimmer{0%{background-position:0% 0}100%{background-position:300% 0}}
+        .nav-indicator{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+        .nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);transition:all .3s}
+        .nav-dot.active{background:#4ecdc4;border-color:#4ecdc4;box-shadow:0 0 10px rgba(78,205,196,.4);transform:scale(1.3)}
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .slide-container{padding:24px 20px 50px}
+            .top-bar{flex-direction:column;gap:12px;align-items:flex-start}
+            .river-card{grid-template-columns:1fr}
+            .beach-card{grid-template-columns:1fr}
+            .activities{grid-template-columns:1fr}
+            .food-grid{grid-template-columns:1fr}
+            .cost-grid{grid-template-columns:repeat(2,1fr)}
+            .bubble{display:none}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles -->
+    <div class="bubble bubble-a">
+        <img src="https://images.unsplash.com/photo-1506953823645-5e846512e04c?w=500&q=80" alt="River">
+    </div>
+    <div class="bubble bubble-b">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80" alt="Beach">
+    </div>
+    <div class="bubble bubble-c">
+        <img src="https://images.unsplash.com/photo-1476673160081-cf065607f449?w=400&q=80" alt="Palm Trees">
+    </div>
+    <div class="bubble bubble-d">
+        <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&q=80" alt="Tropical">
+    </div>
+    <div class="bubble bubble-e">
+        <img src="https://images.unsplash.com/photo-1509233725247-49e657c54213?w=300&q=80" alt="Sunset">
+    </div>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <div class="nav-dot" title="Copertina"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Trasferimento"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot active" title="Maasin River"></div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="day-badge">
+                <div class="day-number">12</div>
+                <div class="day-info">
+                    <h2>Mercoledì 19 Agosto 2026</h2>
+                    <p>Siargao — Maasin River, Rope Swing & Pacifico Beach</p>
+                </div>
+            </div>
+            <div class="slide-tag">🇵🇭 Siargao</div>
+        </div>
+
+        <!-- THEME -->
+        <div class="theme-banner">
+            <div class="theme-emoji">🌴</div>
+            <div class="theme-text">
+                <h3>Fiume nella giungla, altalene sugli alberi e surf sulla spiaggia più bella del nord</h3>
+                <p>Giornata di avventura e relax tra le palme di Maasin e le onde di Pacifico</p>
+            </div>
+        </div>
+
+        <!-- MAASIN RIVER SPECIAL -->
+        <div class="river-card">
+            <div>
+                <div class="river-badge">🌴 Spot Iconico</div>
+                <div class="river-title">Maasin River Enchanted</div>
+                <div class="river-desc">
+                    Il posto più <strong>instagrammabile di Siargao</strong>: un fiume color smeraldo
+                    circondato da altissime palme di cocco che creano una cattedrale naturale.
+                    Il famoso <strong>rope swing</strong> vi lancia dal ramo di un albero gigante
+                    direttamente nell'acqua fresca del fiume. Si può anche fare il giro
+                    in SUP o bamboo raft lungo il corso d'acqua tra le mangrovie.
+                    L'atmosfera è quella di un film di Tarzan!
+                </div>
+                <div class="river-grid">
+                    <div class="river-detail">
+                        <div class="river-detail-label">Dove</div>
+                        <div class="river-detail-value">📍 Maasin, ~20 min scooter</div>
+                    </div>
+                    <div class="river-detail">
+                        <div class="river-detail-label">Orario</div>
+                        <div class="river-detail-value">🕘 09:00 – 12:00</div>
+                    </div>
+                    <div class="river-detail">
+                        <div class="river-detail-label">Attività</div>
+                        <div class="river-detail-value">🪢 Rope swing + SUP + nuoto</div>
+                    </div>
+                    <div class="river-detail">
+                        <div class="river-detail-label">Ingresso</div>
+                        <div class="river-detail-value">🎟️ ~€2 (swing + ingresso)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="river-visual">
+                <span class="palm-left">🌴</span>
+                <span class="palm-right">🌴</span>
+
+                <div class="swing-container">
+                    <div class="rope"></div>
+                    <div class="swing-person">🏊</div>
+                </div>
+
+                <div class="river-water">🌊 🌊 🌊 🌊</div>
+
+                <div class="river-price-tag">€2 / persona (ingresso + swing)</div>
+            </div>
+        </div>
+
+        <!-- PACIFICO BEACH CARD -->
+        <div class="beach-card">
+            <div>
+                <div class="beach-badge">🏖️ Spiaggia del Nord</div>
+                <div class="beach-title">Pacifico Beach</div>
+                <div class="beach-desc">
+                    La <strong>spiaggia più bella del nord di Siargao</strong>, molto meno turistica
+                    di Cloud 9. Sabbia dorata, onde perfette per il surf (anche per principianti),
+                    e un'atmosfera rilassata con pochi turisti. Lungo la spiaggia troverete
+                    piccoli warung e capanne dove mangiare pesce fresco con i piedi nella sabbia.
+                    Raggiungibile in ~40 min di scooter da General Luna attraverso strade
+                    panoramiche tra risaie e villaggi.
+                </div>
+                <div class="beach-tags">
+                    <span class="beach-tag">🏄 Surf spot</span>
+                    <span class="beach-tag">🏖️ Spiaggia tranquilla</span>
+                    <span class="beach-tag">🍽️ Warung locali</span>
+                    <span class="beach-tag">🛵 40 min da GL</span>
+                    <span class="beach-tag">📸 Panorami risaie</span>
+                </div>
+            </div>
+            <div class="beach-visual">
+                <div class="beach-sun">☀️</div>
+                <div class="beach-surfer">🏄‍♂️</div>
+                <div class="beach-waves wave-1">🌊🌊🌊🌊</div>
+                <div class="beach-waves wave-2">🌊🌊🌊</div>
+                <div class="beach-time">13:30 – 17:00<br>Surf, relax & pranzo in spiaggia</div>
+            </div>
+        </div>
+
+        <!-- ACTIVITIES: Colazione + Scooter -->
+        <div class="activities">
+
+            <div class="activity-card">
+                <div class="card-time">☀️ 07:30 – 08:45 · Colazione</div>
+                <div class="card-title">
+                    <span class="emoji">🥥</span> Colazione Tropicale & Scooter
+                </div>
+                <div class="card-desc">
+                    Colazione con calma in uno dei cafè di General Luna: smoothie bowl tropicale,
+                    uova e pane tostato. Poi si prendono gli scooter e via verso nord!
+                    La strada per Maasin è bellissima: palme, risaie e villaggi colorati.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🥣 Smoothie bowl ~€4</span>
+                    <span class="highlight-chip">🛵 Scooter ~€7/giorno</span>
+                    <span class="highlight-chip">⛽ Benzina ~€2</span>
+                </div>
+                <div class="card-cost">🍽️ Colazione + scooter: ~€13</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-time">🌅 17:00 – 20:00 · Sera</div>
+                <div class="card-title">
+                    <span class="emoji">🌅</span> Sunset a Cloud 9 & Serata
+                </div>
+                <div class="card-desc">
+                    Rientro a General Luna in tempo per il tramonto dalla boardwalk di Cloud 9.
+                    Guardare i surfisti cavalcare le onde con il sole che scende è uno spettacolo
+                    unico. Poi serata libera: bar hopping o relax in villa.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🌅 Boardwalk Cloud 9 ~€1</span>
+                    <span class="highlight-chip">🍹 Cocktail sunset ~€3</span>
+                    <span class="highlight-chip">🎶 Musica live</span>
+                </div>
+                <div class="card-cost">🌅 Sunset + drink: ~€4</div>
+            </div>
+
+        </div>
+
+        <!-- FOOD: Pranzo + Cena -->
+        <div class="food-section">
+            <div class="food-title">🍽️ Pranzo a Pacifico & Cena a General Luna</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div class="food-emoji">🐟</div>
+                    <div class="food-name">Fish & Chips Filippino</div>
+                    <div class="food-desc">Pesce fresco fritto con patate dolci e salsa al mango verde. Servito al warung sulla spiaggia</div>
+                    <div class="food-price">~€4 (pranzo)</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🍕</div>
+                    <div class="food-name">Pizza al Bravo</div>
+                    <div class="food-desc">Nostalgia di casa? Il Bravo a General Luna fa ottime pizze italiane. Serata comfort food!</div>
+                    <div class="food-price">~€6 (cena)</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🍦</div>
+                    <div class="food-name">Ube Ice Cream</div>
+                    <div class="food-desc">Gelato viola al taro filippino (ube). Cremoso, dolcissimo e fotogenicissimo!</div>
+                    <div class="food-price">~€1 a persona</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COST SUMMARY -->
+        <div class="cost-bar">
+            <div class="cost-bar-title">💰 Riepilogo Costi Giorno 12 — per persona</div>
+            <div class="cost-grid">
+                <div class="cost-item" style="background:rgba(78,205,196,.06);border-color:rgba(78,205,196,.12)">
+                    <div class="cost-icon">🌴</div>
+                    <div class="cost-label">Maasin River</div>
+                    <div class="cost-value">€2</div>
+                    <div class="cost-note">Ingresso + rope swing</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🛵</div>
+                    <div class="cost-label">Scooter</div>
+                    <div class="cost-value">€9</div>
+                    <div class="cost-note">Noleggio + benzina</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🥥</div>
+                    <div class="cost-label">Colazione</div>
+                    <div class="cost-value">€4</div>
+                    <div class="cost-note">Smoothie bowl</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🐟</div>
+                    <div class="cost-label">Pranzo</div>
+                    <div class="cost-value">€4</div>
+                    <div class="cost-note">Fish & chips Pacifico</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍕</div>
+                    <div class="cost-label">Cena + Extra</div>
+                    <div class="cost-value">€11</div>
+                    <div class="cost-note">Pizza + drink + gelato</div>
+                </div>
+                <div class="cost-total">
+                    <div class="cost-icon">📊</div>
+                    <div class="cost-label">Totale Giorno</div>
+                    <div class="cost-value">~€30</div>
+                    <div class="cost-note">escluso alloggio</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-bar"></div>
+
+</body>
+</html>

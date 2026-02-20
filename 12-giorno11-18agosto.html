@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giorno 11 – 18 Agosto | Siargao: Sohoton Cove & Jellyfish Sanctuary</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0a2e38 0%,#0d4f4f 35%,#1a5c3a 100%);color:#fff;min-height:100vh;overflow-x:hidden}
+
+        /* ===== BUBBLES ===== */
+        .bubble{position:fixed;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.10);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 0 30px rgba(0,0,0,.2);z-index:1;opacity:0;animation:bubbleIn 1s ease-out forwards}
+        .bubble img{width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3)}
+        .bubble::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.12) 0%,transparent 60%);pointer-events:none}
+
+        .bubble-a{width:190px;height:190px;top:2%;right:1%;animation:bubbleIn 1s ease-out .2s forwards,dA 14s ease-in-out 1.2s infinite}
+        .bubble-b{width:155px;height:155px;bottom:3%;right:2.5%;animation:bubbleIn 1s ease-out .5s forwards,dB 12s ease-in-out 1.5s infinite}
+        .bubble-c{width:130px;height:130px;top:48%;right:1.5%;animation:bubbleIn 1s ease-out .7s forwards,dC 15s ease-in-out 1.7s infinite}
+        .bubble-d{width:150px;height:150px;top:3%;left:1%;animation:bubbleIn 1s ease-out .35s forwards,dD 13s ease-in-out 1.35s infinite}
+        .bubble-e{width:115px;height:115px;bottom:5%;left:1.5%;animation:bubbleIn 1s ease-out .85s forwards,dE 11s ease-in-out 1.85s infinite}
+
+        @keyframes bubbleIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+        @keyframes dA{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-12px,-22px) rotate(2deg)}50%{transform:translate(14px,-28px) rotate(-1deg)}75%{transform:translate(-18px,-6px) rotate(3deg)}}
+        @keyframes dB{0%,100%{transform:translate(0,0)}25%{transform:translate(16px,10px)}50%{transform:translate(-8px,24px)}75%{transform:translate(10px,-12px)}}
+        @keyframes dC{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-14px,16px) rotate(-2deg)}50%{transform:translate(8px,22px) rotate(1deg)}75%{transform:translate(-14px,-8px) rotate(-1deg)}}
+        @keyframes dD{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(10px,-18px) rotate(1deg)}50%{transform:translate(-14px,-20px) rotate(-2deg)}75%{transform:translate(12px,-4px) rotate(2deg)}}
+        @keyframes dE{0%,100%{transform:translate(0,0)}33%{transform:translate(16px,-10px)}66%{transform:translate(-10px,16px)}}
+
+        /* ===== LAYOUT ===== */
+        .slide-container{max-width:1100px;margin:0 auto;padding:40px 50px 60px;position:relative;z-index:10}
+
+        /* ===== TOP BAR ===== */
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeIn .8s ease-out}
+        .day-badge{display:flex;align-items:center;gap:14px}
+        .day-number{background:linear-gradient(135deg,#4ecdc4,#2eb5a6);color:#0a2e38;font-size:2.4rem;font-weight:800;width:70px;height:70px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;box-shadow:0 4px 20px rgba(78,205,196,.35)}
+        .day-info h2{font-size:1.5rem;font-weight:700;line-height:1.2}
+        .day-info p{font-size:.85rem;color:rgba(255,255,255,.5)}
+        .slide-tag{background:rgba(78,205,196,.12);backdrop-filter:blur(10px);border:1px solid rgba(78,205,196,.2);padding:8px 20px;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#4ecdc4}
+
+        /* ===== THEME ===== */
+        .theme-banner{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 28px;margin-bottom:28px;display:flex;align-items:center;gap:16px;animation:slideUp .8s ease-out .15s both}
+        .theme-emoji{font-size:2.2rem}
+        .theme-text h3{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .theme-text p{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:2px}
+
+        /* ===== SOHOTON COVE SPECIAL CARD ===== */
+        .sohoton-card{
+            background:linear-gradient(135deg,rgba(78,205,196,.08),rgba(46,181,166,.06));
+            border:1px solid rgba(78,205,196,.18);border-radius:22px;padding:28px 32px;
+            margin-bottom:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;
+            animation:slideUp .8s ease-out .2s both;
+        }
+        .sohoton-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(78,205,196,.15);color:#4ecdc4;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+        .sohoton-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;margin-bottom:8px}
+        .sohoton-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:16px}
+        .sohoton-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .sohoton-detail{background:rgba(255,255,255,.05);border-radius:10px;padding:10px 14px;border:1px solid rgba(255,255,255,.06)}
+        .sohoton-detail-label{font-size:.65rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px}
+        .sohoton-detail-value{font-size:.9rem;font-weight:600;margin-top:2px}
+
+        .sohoton-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;position:relative;overflow:hidden;border-radius:18px;padding:20px}
+        .sohoton-cave{font-size:4rem;position:relative;z-index:2}
+        .sohoton-visual .glow{
+            position:absolute;width:160px;height:160px;border-radius:50%;
+            background:radial-gradient(circle,rgba(78,205,196,.15) 0%,transparent 70%);
+            animation:caveGlow 4s ease-in-out infinite;
+        }
+        @keyframes caveGlow{0%,100%{opacity:.4;transform:scale(.9)}50%{opacity:.8;transform:scale(1.1)}}
+
+        .sohoton-activities{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;justify-content:center;z-index:2;position:relative}
+        .sohoton-chip{
+            background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+            padding:8px 16px;border-radius:14px;font-size:.75rem;color:rgba(255,255,255,.65);
+            display:flex;align-items:center;gap:6px;transition:transform .3s;
+        }
+        .sohoton-chip:hover{transform:translateY(-2px)}
+        .sohoton-chip .chip-icon{font-size:1.2rem}
+        .sohoton-price-tag{
+            margin-top:18px;background:linear-gradient(135deg,#4ecdc4,#ffe66d);
+            color:#0a2e38;padding:10px 24px;border-radius:30px;font-weight:700;font-size:1.05rem;
+            box-shadow:0 4px 20px rgba(78,205,196,.3);z-index:2;position:relative;
+        }
+
+        /* ===== JELLYFISH SPECIAL CARD ===== */
+        .jellyfish-card{
+            background:linear-gradient(135deg,rgba(168,130,255,.06),rgba(78,205,196,.05));
+            border:1px solid rgba(168,130,255,.18);border-radius:22px;padding:26px 30px;
+            margin-bottom:28px;display:grid;grid-template-columns:1fr 1fr;gap:24px;
+            animation:slideUp .8s ease-out .35s both;position:relative;overflow:hidden;
+        }
+        .jellyfish-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,130,255,.12);color:#c4a8ff;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+        .jellyfish-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;margin-bottom:6px}
+        .jellyfish-desc{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:14px}
+        .jellyfish-tags{display:flex;flex-wrap:wrap;gap:8px}
+        .jellyfish-tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:20px;font-size:.68rem;color:rgba(255,255,255,.6)}
+        .jellyfish-note{
+            margin-top:14px;padding:10px 16px;border-radius:12px;
+            background:rgba(168,130,255,.08);border:1px solid rgba(168,130,255,.12);
+            font-size:.72rem;color:rgba(255,255,255,.5);line-height:1.5;
+        }
+        .jellyfish-note strong{color:#c4a8ff}
+
+        .jellyfish-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;min-height:200px}
+        .jelly{position:absolute;font-size:2.4rem;opacity:.6}
+        .jelly-1{top:10%;left:20%;animation:jellyFloat1 6s ease-in-out infinite}
+        .jelly-2{top:45%;right:15%;animation:jellyFloat2 7s ease-in-out .8s infinite;font-size:3rem;opacity:.8}
+        .jelly-3{bottom:15%;left:30%;animation:jellyFloat3 5s ease-in-out 1.5s infinite;font-size:1.8rem;opacity:.5}
+        .jelly-4{top:20%;right:35%;animation:jellyFloat4 8s ease-in-out .4s infinite;font-size:2rem;opacity:.4}
+        .jelly-5{bottom:30%;right:25%;animation:jellyFloat1 6.5s ease-in-out 2s infinite;font-size:1.6rem;opacity:.35}
+        .jelly-center{font-size:4.5rem;z-index:2;position:relative;animation:jellyPulse 3s ease-in-out infinite}
+
+        @keyframes jellyFloat1{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(10px,-15px) rotate(5deg)}50%{transform:translate(-8px,-25px) rotate(-3deg)}75%{transform:translate(12px,-10px) rotate(4deg)}}
+        @keyframes jellyFloat2{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-12px,-18px) rotate(-4deg)}50%{transform:translate(10px,-30px) rotate(3deg)}75%{transform:translate(-14px,-8px) rotate(-5deg)}}
+        @keyframes jellyFloat3{0%,100%{transform:translate(0,0)}33%{transform:translate(14px,-12px)}66%{transform:translate(-10px,-20px)}}
+        @keyframes jellyFloat4{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-16px,-22px) rotate(-6deg)}}
+        @keyframes jellyPulse{0%,100%{transform:scale(1) translateY(0)}50%{transform:scale(1.08) translateY(-8px)}}
+
+        .jellyfish-glow{
+            position:absolute;width:180px;height:180px;border-radius:50%;
+            background:radial-gradient(circle,rgba(168,130,255,.12) 0%,transparent 70%);
+            animation:jellyGlow 4s ease-in-out infinite;
+        }
+        @keyframes jellyGlow{0%,100%{opacity:.3;transform:scale(.85)}50%{opacity:.6;transform:scale(1.15)}}
+
+        /* ===== ACTIVITY CARDS ===== */
+        .activities{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+        .activity-card{background:rgba(255,255,255,.05);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;transition:transform .3s,border-color .3s,background .3s;animation:slideUp .8s ease-out both}
+        .activity-card:nth-child(1){animation-delay:.45s}
+        .activity-card:nth-child(2){animation-delay:.52s}
+        .activity-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
+        .activity-card.full-width{grid-column:1/-1}
+
+        .card-time{display:inline-block;background:rgba(78,205,196,.12);color:#4ecdc4;font-size:.7rem;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:12px}
+        .card-title{font-size:1.1rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+        .card-title .emoji{font-size:1.3rem}
+        .card-desc{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:12px}
+        .card-highlights{display:flex;flex-wrap:wrap;gap:8px}
+        .highlight-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:20px;font-size:.68rem;color:rgba(255,255,255,.6)}
+        .card-cost{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 14px;background:rgba(78,205,196,.1);border:1px solid rgba(78,205,196,.15);border-radius:10px;font-size:.8rem;font-weight:600;color:#4ecdc4}
+
+        /* ===== FOOD ===== */
+        .food-section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px 28px;margin-bottom:28px;animation:slideUp .8s ease-out .6s both}
+        .food-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:#ffe66d;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+        .food-item{text-align:center;padding:16px 12px;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .food-item:hover{transform:translateY(-3px)}
+        .food-emoji{font-size:2rem;margin-bottom:8px}
+        .food-name{font-size:.85rem;font-weight:600;margin-bottom:2px}
+        .food-desc{font-size:.7rem;color:rgba(255,255,255,.4)}
+        .food-price{font-size:.75rem;color:#ffe66d;font-weight:600;margin-top:4px}
+
+        /* ===== COST BAR ===== */
+        .cost-bar{background:rgba(255,255,255,.05);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:26px 36px;animation:slideUp .8s ease-out .7s both}
+        .cost-bar-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);margin-bottom:18px;font-weight:600}
+        .cost-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+        .cost-item{text-align:center;padding:14px 6px;background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .cost-item:hover{transform:translateY(-3px)}
+        .cost-icon{font-size:1.3rem;margin-bottom:6px}
+        .cost-label{font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+        .cost-value{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .cost-note{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:2px}
+        .cost-total{text-align:center;padding:14px 6px;background:rgba(78,205,196,.08);border-radius:12px;border:1px solid rgba(78,205,196,.15)}
+        .cost-total .cost-value{font-size:1.3rem}
+
+        /* ===== BOTTOM ===== */
+        .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#4ecdc4,#ffe66d,#ff6b6b,#4ecdc4);background-size:300% 100%;animation:shimmer 4s linear infinite;z-index:50}
+        @keyframes shimmer{0%{background-position:0% 0}100%{background-position:300% 0}}
+        .nav-indicator{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+        .nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);transition:all .3s}
+        .nav-dot.active{background:#4ecdc4;border-color:#4ecdc4;box-shadow:0 0 10px rgba(78,205,196,.4);transform:scale(1.3)}
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .slide-container{padding:24px 20px 50px}
+            .top-bar{flex-direction:column;gap:12px;align-items:flex-start}
+            .sohoton-card{grid-template-columns:1fr}
+            .jellyfish-card{grid-template-columns:1fr}
+            .activities{grid-template-columns:1fr}
+            .food-grid{grid-template-columns:1fr}
+            .cost-grid{grid-template-columns:repeat(2,1fr)}
+            .bubble{display:none}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles -->
+    <div class="bubble bubble-a">
+        <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=500&q=80" alt="Lagoon">
+    </div>
+    <div class="bubble bubble-b">
+        <img src="https://images.unsplash.com/photo-1582967788606-a171c7FA6e1b?w=400&q=80" alt="Jellyfish">
+    </div>
+    <div class="bubble bubble-c">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80" alt="Ocean">
+    </div>
+    <div class="bubble bubble-d">
+        <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&q=80" alt="Tropical Island">
+    </div>
+    <div class="bubble bubble-e">
+        <img src="https://images.unsplash.com/photo-1509233725247-49e657c54213?w=300&q=80" alt="Palms Sunset">
+    </div>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <div class="nav-dot" title="Copertina"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Trasferimento"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot active" title="Sohoton Cove"></div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="day-badge">
+                <div class="day-number">11</div>
+                <div class="day-info">
+                    <h2>Martedì 18 Agosto 2026</h2>
+                    <p>Siargao — Sohoton Cove, Grotte & Jellyfish Sanctuary</p>
+                </div>
+            </div>
+            <div class="slide-tag">🇵🇭 Siargao</div>
+        </div>
+
+        <!-- THEME -->
+        <div class="theme-banner">
+            <div class="theme-emoji">🪼</div>
+            <div class="theme-text">
+                <h3>Grotte incantate, lagune segrete e meduse che non pungono</h3>
+                <p>Escursione full-day alle isole Bucas Grande — il tesoro nascosto di Siargao</p>
+            </div>
+        </div>
+
+        <!-- SOHOTON COVE SPECIAL -->
+        <div class="sohoton-card">
+            <div>
+                <div class="sohoton-badge">🏔️ Escursione del Giorno</div>
+                <div class="sohoton-title">Sohoton Cove & Bucas Grande</div>
+                <div class="sohoton-desc">
+                    Un sistema di <strong>grotte marine, lagune nascoste e scogliere di calcare</strong>
+                    sull'arcipelago di Bucas Grande, raggiungibile in barca da Del Carmen (~1.5h).
+                    Si attraversano grotte buie in kayak, si nuota in lagune color smeraldo
+                    accessibili solo attraverso passaggi nella roccia e si esplora uno dei paesaggi
+                    più spettacolari del Pacifico. Tour full-day con pranzo incluso.
+                </div>
+                <div class="sohoton-grid">
+                    <div class="sohoton-detail">
+                        <div class="sohoton-detail-label">Partenza</div>
+                        <div class="sohoton-detail-value">🚤 06:00 van a Del Carmen</div>
+                    </div>
+                    <div class="sohoton-detail">
+                        <div class="sohoton-detail-label">Barca</div>
+                        <div class="sohoton-detail-value">⛵ ~1.5h per Bucas Grande</div>
+                    </div>
+                    <div class="sohoton-detail">
+                        <div class="sohoton-detail-label">Durata tour</div>
+                        <div class="sohoton-detail-value">⏱️ Full day (06:00–17:00)</div>
+                    </div>
+                    <div class="sohoton-detail">
+                        <div class="sohoton-detail-label">Rientro</div>
+                        <div class="sohoton-detail-value">🏠 ~17:00 a General Luna</div>
+                    </div>
+                </div>
+            </div>
+            <div class="sohoton-visual">
+                <div class="glow"></div>
+                <div class="sohoton-cave">🏔️</div>
+                <div class="sohoton-activities">
+                    <div class="sohoton-chip"><span class="chip-icon">🛶</span> Kayak in grotta</div>
+                    <div class="sohoton-chip"><span class="chip-icon">🏊</span> Lagune segrete</div>
+                    <div class="sohoton-chip"><span class="chip-icon">🧗</span> Cliff jumping</div>
+                    <div class="sohoton-chip"><span class="chip-icon">📸</span> Foto incredibili</div>
+                </div>
+                <div class="sohoton-price-tag">€25 / persona (tour completo + pranzo)</div>
+            </div>
+        </div>
+
+        <!-- JELLYFISH SANCTUARY -->
+        <div class="jellyfish-card">
+            <div>
+                <div class="jellyfish-badge">🪼 Esperienza Unica</div>
+                <div class="jellyfish-title">Jellyfish Sanctuary</div>
+                <div class="jellyfish-desc">
+                    La tappa più incredibile della giornata: una <strong>laguna protetta piena di
+                    meduse stingless</strong> (non urticanti!). Si nuota circondati da centinaia
+                    di meduse dorate che fluttuano dolcemente nell'acqua turchese.
+                    Un'esperienza surreale, simile a quella famosa di Palau ma molto
+                    meno turistica e più intima.
+                </div>
+                <div class="jellyfish-tags">
+                    <span class="jellyfish-tag">🪼 Meduse non urticanti</span>
+                    <span class="jellyfish-tag">🏊 Nuoto libero tra le meduse</span>
+                    <span class="jellyfish-tag">📸 Foto subacquee</span>
+                    <span class="jellyfish-tag">🌿 Area protetta</span>
+                </div>
+                <div class="jellyfish-note">
+                    <strong>Nota:</strong> La presenza delle meduse è stagionale e dipende dalle
+                    condizioni del mare. In alta stagione (agosto) le probabilità sono ottime!
+                    Vietata la crema solare chimica — usate reef-safe.
+                </div>
+            </div>
+            <div class="jellyfish-visual">
+                <div class="jellyfish-glow"></div>
+                <span class="jelly jelly-1">🪼</span>
+                <span class="jelly jelly-2">🪼</span>
+                <span class="jelly jelly-3">🪼</span>
+                <span class="jelly jelly-4">🪼</span>
+                <span class="jelly jelly-5">🪼</span>
+                <span class="jelly-center">🪼</span>
+            </div>
+        </div>
+
+        <!-- ACTIVITIES: Colazione + Sera -->
+        <div class="activities">
+
+            <div class="activity-card">
+                <div class="card-time">☀️ 05:30 – 06:00 · Partenza</div>
+                <div class="card-title">
+                    <span class="emoji">🌅</span> Sveglia all'Alba & Partenza
+                </div>
+                <div class="card-desc">
+                    Sveglia prestissimo! Il van passa alle 06:00 da General Luna per Del Carmen (~45 min).
+                    Colazione al sacco o veloce al cafè prima di partire. Portate tutto
+                    l'essenziale: crema reef-safe, GoPro, acqua e snack.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🥐 Colazione veloce ~€3</span>
+                    <span class="highlight-chip">🚐 Van A/R incluso nel tour</span>
+                    <span class="highlight-chip">📱 GoPro waterproof</span>
+                </div>
+                <div class="card-cost">🍽️ Colazione: ~€3</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-time">🌅 17:30 – 20:00 · Sera</div>
+                <div class="card-title">
+                    <span class="emoji">🍻</span> Relax & Cena di Gruppo
+                </div>
+                <div class="card-desc">
+                    Dopo una giornata intensa, ritorno a General Luna stanchi ma felici.
+                    Doccia veloce e poi tutti insieme per una cena di gruppo in uno dei
+                    ristoranti sul mare. Serata tranquilla con birra, racconti della giornata
+                    e stelle sopra l'oceano.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🍺 San Miguel ~€1</span>
+                    <span class="highlight-chip">🌊 Vista oceano</span>
+                    <span class="highlight-chip">⭐ Cielo stellato</span>
+                </div>
+                <div class="card-cost">🍻 Birre & snack: ~€4</div>
+            </div>
+
+        </div>
+
+        <!-- FOOD: Cena -->
+        <div class="food-section">
+            <div class="food-title">🍽️ Cena — Seafood di Gruppo sul Mare</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div class="food-emoji">🦐</div>
+                    <div class="food-name">Gamberi al Burro d'Aglio</div>
+                    <div class="food-desc">Gamberi freschi saltati con burro, aglio e peperoncino. Piatto signature delle Filippine</div>
+                    <div class="food-price">~€4 a persona</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🐟</div>
+                    <div class="food-name">Kinilaw (Ceviche Filippino)</div>
+                    <div class="food-desc">Pesce crudo marinato in aceto di cocco, zenzero e peperoncino. Freschissimo e piccante!</div>
+                    <div class="food-price">~€3 a persona</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🍹</div>
+                    <div class="food-name">Calamansi Juice & Dessert</div>
+                    <div class="food-desc">Succo di calamansi ghiacciato e leche flan (crème caramel filippino al cocco)</div>
+                    <div class="food-price">~€2 a persona</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COST SUMMARY -->
+        <div class="cost-bar">
+            <div class="cost-bar-title">💰 Riepilogo Costi Giorno 11 — per persona</div>
+            <div class="cost-grid">
+                <div class="cost-item" style="background:rgba(78,205,196,.06);border-color:rgba(78,205,196,.12)">
+                    <div class="cost-icon">🏔️</div>
+                    <div class="cost-label">Sohoton Tour</div>
+                    <div class="cost-value">€25</div>
+                    <div class="cost-note">Barca + grotte + pranzo</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🥐</div>
+                    <div class="cost-label">Colazione</div>
+                    <div class="cost-value">€3</div>
+                    <div class="cost-note">Pre-partenza</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🦐</div>
+                    <div class="cost-label">Cena</div>
+                    <div class="cost-value">€7</div>
+                    <div class="cost-note">Seafood sul mare</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍻</div>
+                    <div class="cost-label">Birre</div>
+                    <div class="cost-value">€4</div>
+                    <div class="cost-note">Serata relax</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🧴</div>
+                    <div class="cost-label">Extra</div>
+                    <div class="cost-value">€3</div>
+                    <div class="cost-note">Snack & acqua</div>
+                </div>
+                <div class="cost-total">
+                    <div class="cost-icon">📊</div>
+                    <div class="cost-label">Totale Giorno</div>
+                    <div class="cost-value">~€42</div>
+                    <div class="cost-note">escluso alloggio</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-bar"></div>
+
+</body>
+</html>
