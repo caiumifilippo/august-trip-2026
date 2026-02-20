@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giorno 10 – 17 Agosto | Siargao: Sugba Lagoon & Cave Pool</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0a2e38 0%,#0d4f4f 35%,#1a5c3a 100%);color:#fff;min-height:100vh;overflow-x:hidden}
+
+        /* ===== BUBBLES ===== */
+        .bubble{position:fixed;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.10);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 0 30px rgba(0,0,0,.2);z-index:1;opacity:0;animation:bubbleIn 1s ease-out forwards}
+        .bubble img{width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3)}
+        .bubble::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.12) 0%,transparent 60%);pointer-events:none}
+
+        .bubble-a{width:200px;height:200px;top:2%;right:1%;animation:bubbleIn 1s ease-out .2s forwards,dA 14s ease-in-out 1.2s infinite}
+        .bubble-b{width:150px;height:150px;bottom:4%;right:3%;animation:bubbleIn 1s ease-out .5s forwards,dB 13s ease-in-out 1.5s infinite}
+        .bubble-c{width:135px;height:135px;top:50%;right:1%;animation:bubbleIn 1s ease-out .7s forwards,dC 15s ease-in-out 1.7s infinite}
+        .bubble-d{width:145px;height:145px;top:3%;left:1%;animation:bubbleIn 1s ease-out .35s forwards,dD 12s ease-in-out 1.35s infinite}
+        .bubble-e{width:120px;height:120px;bottom:6%;left:1.5%;animation:bubbleIn 1s ease-out .85s forwards,dE 11s ease-in-out 1.85s infinite}
+
+        @keyframes bubbleIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+        @keyframes dA{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-14px,-20px) rotate(2deg)}50%{transform:translate(10px,-30px) rotate(-1deg)}75%{transform:translate(-16px,-8px) rotate(3deg)}}
+        @keyframes dB{0%,100%{transform:translate(0,0)}25%{transform:translate(14px,12px)}50%{transform:translate(-10px,22px)}75%{transform:translate(12px,-10px)}}
+        @keyframes dC{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-18px,14px) rotate(-2deg)}50%{transform:translate(10px,20px) rotate(1deg)}75%{transform:translate(-12px,-10px) rotate(-1deg)}}
+        @keyframes dD{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(12px,-16px) rotate(1deg)}50%{transform:translate(-10px,-24px) rotate(-2deg)}75%{transform:translate(14px,-6px) rotate(2deg)}}
+        @keyframes dE{0%,100%{transform:translate(0,0)}33%{transform:translate(14px,-12px)}66%{transform:translate(-12px,14px)}}
+
+        /* ===== LAYOUT ===== */
+        .slide-container{max-width:1100px;margin:0 auto;padding:40px 50px 60px;position:relative;z-index:10}
+
+        /* ===== TOP BAR ===== */
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeIn .8s ease-out}
+        .day-badge{display:flex;align-items:center;gap:14px}
+        .day-number{background:linear-gradient(135deg,#4ecdc4,#2eb5a6);color:#0a2e38;font-size:2.4rem;font-weight:800;width:70px;height:70px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;box-shadow:0 4px 20px rgba(78,205,196,.35)}
+        .day-info h2{font-size:1.5rem;font-weight:700;line-height:1.2}
+        .day-info p{font-size:.85rem;color:rgba(255,255,255,.5)}
+        .slide-tag{background:rgba(78,205,196,.12);backdrop-filter:blur(10px);border:1px solid rgba(78,205,196,.2);padding:8px 20px;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#4ecdc4}
+
+        /* ===== THEME ===== */
+        .theme-banner{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 28px;margin-bottom:28px;display:flex;align-items:center;gap:16px;animation:slideUp .8s ease-out .15s both}
+        .theme-emoji{font-size:2.2rem}
+        .theme-text h3{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .theme-text p{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:2px}
+
+        /* ===== LAGOON SPECIAL CARD ===== */
+        .lagoon-card{
+            background:linear-gradient(135deg,rgba(78,205,196,.08),rgba(30,144,255,.06));
+            border:1px solid rgba(78,205,196,.18);border-radius:22px;padding:28px 32px;
+            margin-bottom:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;
+            animation:slideUp .8s ease-out .2s both;
+        }
+        .lagoon-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(78,205,196,.15);color:#4ecdc4;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+        .lagoon-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;margin-bottom:8px}
+        .lagoon-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:16px}
+        .lagoon-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .lagoon-detail{background:rgba(255,255,255,.05);border-radius:10px;padding:10px 14px;border:1px solid rgba(255,255,255,.06)}
+        .lagoon-detail-label{font-size:.65rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px}
+        .lagoon-detail-value{font-size:.9rem;font-weight:600;margin-top:2px}
+
+        .lagoon-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+        .lagoon-icon{font-size:4rem;position:relative}
+        .lagoon-icon .water{
+            position:absolute;bottom:-8px;left:50%;transform:translateX(-50%);
+            font-size:2.2rem;letter-spacing:2px;opacity:.3;
+            animation:lagoonWave 3s ease-in-out infinite;
+        }
+        @keyframes lagoonWave{0%,100%{transform:translateX(-50%) scaleX(1)}50%{transform:translateX(-45%) scaleX(1.08)}}
+        .lagoon-activities{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;justify-content:center}
+        .lagoon-chip{
+            background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+            padding:8px 16px;border-radius:14px;font-size:.75rem;color:rgba(255,255,255,.65);
+            display:flex;align-items:center;gap:6px;transition:transform .3s;
+        }
+        .lagoon-chip:hover{transform:translateY(-2px)}
+        .lagoon-chip .chip-icon{font-size:1.2rem}
+        .lagoon-price-tag{
+            margin-top:18px;background:linear-gradient(135deg,#4ecdc4,#ffe66d);
+            color:#0a2e38;padding:10px 24px;border-radius:30px;font-weight:700;font-size:1.05rem;
+            box-shadow:0 4px 20px rgba(78,205,196,.3);
+        }
+
+        /* ===== ACTIVITY CARDS ===== */
+        .activities{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+        .activity-card{background:rgba(255,255,255,.05);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;transition:transform .3s,border-color .3s,background .3s;animation:slideUp .8s ease-out both}
+        .activity-card:nth-child(1){animation-delay:.35s}
+        .activity-card:nth-child(2){animation-delay:.42s}
+        .activity-card:nth-child(3){animation-delay:.49s}
+        .activity-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
+        .activity-card.full-width{grid-column:1/-1}
+
+        .card-time{display:inline-block;background:rgba(78,205,196,.12);color:#4ecdc4;font-size:.7rem;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:12px}
+        .card-title{font-size:1.1rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+        .card-title .emoji{font-size:1.3rem}
+        .card-desc{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:12px}
+        .card-highlights{display:flex;flex-wrap:wrap;gap:8px}
+        .highlight-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:20px;font-size:.68rem;color:rgba(255,255,255,.6)}
+        .card-cost{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 14px;background:rgba(78,205,196,.1);border:1px solid rgba(78,205,196,.15);border-radius:10px;font-size:.8rem;font-weight:600;color:#4ecdc4}
+
+        /* ===== CAVE SPECIAL CARD ===== */
+        .cave-card{
+            background:linear-gradient(135deg,rgba(255,230,109,.06),rgba(78,205,196,.04));
+            border:1px solid rgba(255,230,109,.15);border-radius:20px;padding:26px 30px;
+            margin-bottom:28px;display:grid;grid-template-columns:1fr 1fr;gap:24px;
+            animation:slideUp .8s ease-out .5s both;
+        }
+        .cave-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,230,109,.12);color:#ffe66d;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+        .cave-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:800;margin-bottom:6px}
+        .cave-desc{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:14px}
+        .cave-tags{display:flex;flex-wrap:wrap;gap:8px}
+        .cave-tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:20px;font-size:.68rem;color:rgba(255,255,255,.6)}
+        .cave-cost{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 14px;background:rgba(255,230,109,.08);border:1px solid rgba(255,230,109,.12);border-radius:10px;font-size:.8rem;font-weight:600;color:#ffe66d}
+
+        .cave-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+        .cave-icon{font-size:4rem}
+        .cave-drips{display:flex;gap:12px;font-size:1.2rem}
+        .cave-drips span{animation:drip 2s ease-in-out infinite}
+        .cave-drips span:nth-child(1){animation-delay:0s}
+        .cave-drips span:nth-child(2){animation-delay:.5s}
+        .cave-drips span:nth-child(3){animation-delay:1s}
+        @keyframes drip{0%,100%{opacity:.2;transform:translateY(0)}50%{opacity:.7;transform:translateY(10px)}}
+
+        /* ===== FOOD ===== */
+        .food-section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px 28px;margin-bottom:28px;animation:slideUp .8s ease-out .6s both}
+        .food-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:#ffe66d;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+        .food-item{text-align:center;padding:16px 12px;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .food-item:hover{transform:translateY(-3px)}
+        .food-emoji{font-size:2rem;margin-bottom:8px}
+        .food-name{font-size:.85rem;font-weight:600;margin-bottom:2px}
+        .food-desc{font-size:.7rem;color:rgba(255,255,255,.4)}
+        .food-price{font-size:.75rem;color:#ffe66d;font-weight:600;margin-top:4px}
+
+        /* ===== COST BAR ===== */
+        .cost-bar{background:rgba(255,255,255,.05);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:26px 36px;animation:slideUp .8s ease-out .7s both}
+        .cost-bar-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);margin-bottom:18px;font-weight:600}
+        .cost-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+        .cost-item{text-align:center;padding:14px 6px;background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .cost-item:hover{transform:translateY(-3px)}
+        .cost-icon{font-size:1.3rem;margin-bottom:6px}
+        .cost-label{font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+        .cost-value{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .cost-note{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:2px}
+        .cost-total{text-align:center;padding:14px 6px;background:rgba(78,205,196,.08);border-radius:12px;border:1px solid rgba(78,205,196,.15)}
+        .cost-total .cost-value{font-size:1.3rem}
+
+        /* ===== BOTTOM ===== */
+        .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#4ecdc4,#ffe66d,#ff6b6b,#4ecdc4);background-size:300% 100%;animation:shimmer 4s linear infinite;z-index:50}
+        @keyframes shimmer{0%{background-position:0% 0}100%{background-position:300% 0}}
+        .nav-indicator{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+        .nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);transition:all .3s}
+        .nav-dot.active{background:#4ecdc4;border-color:#4ecdc4;box-shadow:0 0 10px rgba(78,205,196,.4);transform:scale(1.3)}
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .slide-container{padding:24px 20px 50px}
+            .top-bar{flex-direction:column;gap:12px;align-items:flex-start}
+            .lagoon-card{grid-template-columns:1fr}
+            .cave-card{grid-template-columns:1fr}
+            .activities{grid-template-columns:1fr}
+            .food-grid{grid-template-columns:1fr}
+            .cost-grid{grid-template-columns:repeat(2,1fr)}
+            .bubble{display:none}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles -->
+    <div class="bubble bubble-a">
+        <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?w=500&q=80" alt="Lagoon">
+    </div>
+    <div class="bubble bubble-b">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80" alt="Beach">
+    </div>
+    <div class="bubble bubble-c">
+        <img src="https://images.unsplash.com/photo-1504700610630-ac6edd918aa0?w=400&q=80" alt="Kayak">
+    </div>
+    <div class="bubble bubble-d">
+        <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&q=80" alt="Island View">
+    </div>
+    <div class="bubble bubble-e">
+        <img src="https://images.unsplash.com/photo-1509233725247-49e657c54213?w=300&q=80" alt="Palms Sunset">
+    </div>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <div class="nav-dot" title="Copertina"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Trasferimento"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot active" title="Sugba Lagoon"></div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="day-badge">
+                <div class="day-number">10</div>
+                <div class="day-info">
+                    <h2>Lunedì 17 Agosto 2026</h2>
+                    <p>Siargao — Sugba Lagoon, Paddleboard & Cave Pool</p>
+                </div>
+            </div>
+            <div class="slide-tag">🇵🇭 Siargao</div>
+        </div>
+
+        <!-- THEME -->
+        <div class="theme-banner">
+            <div class="theme-emoji">💎</div>
+            <div class="theme-text">
+                <h3>La laguna turchese nascosta tra le mangrovie e una grotta segreta con piscina naturale</h3>
+                <p>Paddleboard sulle acque cristalline di Sugba Lagoon e tuffo nella Tayangban Cave Pool</p>
+            </div>
+        </div>
+
+        <!-- SUGBA LAGOON SPECIAL -->
+        <div class="lagoon-card">
+            <div>
+                <div class="lagoon-badge">💎 Gemma di Siargao</div>
+                <div class="lagoon-title">Sugba Lagoon</div>
+                <div class="lagoon-desc">
+                    Una <strong>laguna turchese spettacolare</strong> incastonata tra scogliere di calcare e foreste di mangrovie
+                    nel cuore dell'isola di Del Carmen. Raggiungibile solo in barca (~1h da General Luna),
+                    è uno dei posti più belli di tutte le Filippine.
+                    L'acqua è così trasparente che vedrete il fondale a 10 metri di profondità.
+                    Incluse nel tour: piattaforme per tuffi, paddle board e kayak.
+                </div>
+                <div class="lagoon-grid">
+                    <div class="lagoon-detail">
+                        <div class="lagoon-detail-label">Partenza</div>
+                        <div class="lagoon-detail-value">🚤 07:30 da General Luna</div>
+                    </div>
+                    <div class="lagoon-detail">
+                        <div class="lagoon-detail-label">Tragitto barca</div>
+                        <div class="lagoon-detail-value">⏱️ ~1h tra mangrovie</div>
+                    </div>
+                    <div class="lagoon-detail">
+                        <div class="lagoon-detail-label">Tempo in laguna</div>
+                        <div class="lagoon-detail-value">🏊 ~3 ore (08:30–11:30)</div>
+                    </div>
+                    <div class="lagoon-detail">
+                        <div class="lagoon-detail-label">Rientro</div>
+                        <div class="lagoon-detail-value">🏠 ~13:00 a General Luna</div>
+                    </div>
+                </div>
+            </div>
+            <div class="lagoon-visual">
+                <div class="lagoon-icon">
+                    🏞️
+                    <span class="water">🌊🌊🌊</span>
+                </div>
+                <div class="lagoon-activities">
+                    <div class="lagoon-chip"><span class="chip-icon">🏄‍♂️</span> Stand-Up Paddleboard</div>
+                    <div class="lagoon-chip"><span class="chip-icon">🛶</span> Kayak</div>
+                    <div class="lagoon-chip"><span class="chip-icon">🏊</span> Nuoto libero</div>
+                    <div class="lagoon-chip"><span class="chip-icon">🤸</span> Tuffi da piattaforma</div>
+                    <div class="lagoon-chip"><span class="chip-icon">📸</span> Droni & foto</div>
+                    <div class="lagoon-chip"><span class="chip-icon">🐠</span> Snorkeling</div>
+                </div>
+                <div class="lagoon-price-tag">€18 / persona (barca + ingresso + SUP)</div>
+            </div>
+        </div>
+
+        <!-- ACTIVITIES: Colazione + Post-lagoon -->
+        <div class="activities">
+
+            <div class="activity-card">
+                <div class="card-time">☀️ 06:30 – 07:15 · Colazione</div>
+                <div class="card-title">
+                    <span class="emoji">🍌</span> Colazione Veloce & Partenza
+                </div>
+                <div class="card-desc">
+                    Sveglia presto! Colazione rapida al cafè: banana pancake, caffè e frutta fresca.
+                    Preparate zaino waterproof, crema solare e acqua. Si parte alle 07:30 dal molo.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🥞 Banana pancake ~€3</span>
+                    <span class="highlight-chip">☕ Caffè ~€1</span>
+                    <span class="highlight-chip">💧 Acqua & snack</span>
+                </div>
+                <div class="card-cost">🍽️ Colazione: ~€5</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-time">🍜 13:00 – 14:30 · Pranzo</div>
+                <div class="card-title">
+                    <span class="emoji">🍜</span> Pranzo — Sinigang & Lechon Kawali
+                </div>
+                <div class="card-desc">
+                    Di ritorno dalla laguna, pranzo in un ristorantino locale a General Luna.
+                    Provate il <strong>lechon kawali</strong> (pancia di maiale croccante fritta, piatto nazionale!)
+                    e il <strong>sinigang na hipon</strong> (zuppa acida di gamberi al tamarindo).
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🐷 Lechon kawali ~€3</span>
+                    <span class="highlight-chip">🦐 Sinigang hipon ~€3</span>
+                    <span class="highlight-chip">🍚 Riso ~€0.30</span>
+                </div>
+                <div class="card-cost">🍽️ Pranzo: ~€5 a persona</div>
+            </div>
+
+        </div>
+
+        <!-- TAYANGBAN CAVE POOL -->
+        <div class="cave-card">
+            <div>
+                <div class="cave-badge">🕳️ Spot Segreto</div>
+                <div class="cave-title">Tayangban Cave Pool</div>
+                <div class="cave-desc">
+                    Una <strong>grotta naturale con piscina d'acqua cristallina</strong> nascosta nella giungla.
+                    Si entra attraverso un'apertura nella roccia e si scopre una caverna
+                    con acqua turchese dove nuotare e tuffarsi. I raggi di luce che
+                    filtrano dall'alto creano un'atmosfera magica.
+                    Guida locale obbligatoria (inclusa nel prezzo).
+                    Portate scarpe da acqua!
+                </div>
+                <div class="cave-tags">
+                    <span class="cave-tag">🕳️ Grotta naturale</span>
+                    <span class="cave-tag">💧 Piscina cristallina</span>
+                    <span class="cave-tag">🔦 Guida locale inclusa</span>
+                    <span class="cave-tag">👟 Scarpe da acqua</span>
+                    <span class="cave-tag">📸 Raggi di luce</span>
+                </div>
+                <div class="cave-cost">🎟️ Ingresso + guida: ~€3 a persona</div>
+            </div>
+            <div class="cave-visual">
+                <div class="cave-icon">🕳️</div>
+                <div class="cave-drips">
+                    <span>💧</span>
+                    <span>💧</span>
+                    <span>💧</span>
+                </div>
+                <div style="margin-top:12px;font-size:.75rem;color:rgba(255,255,255,.4);text-align:center">
+                    15:00 – 16:30<br>~20 min da General Luna in scooter
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOD: Cena -->
+        <div class="food-section">
+            <div class="food-title">🌅 Cena — Barbecue sulla Spiaggia</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div class="food-emoji">🍢</div>
+                    <div class="food-name">Pork BBQ Skewers</div>
+                    <div class="food-desc">Spiedini di maiale marinato alla filippina, dolci e affumicati. Li trovate ovunque per strada!</div>
+                    <div class="food-price">~€1 (3 spiedini)</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🦑</div>
+                    <div class="food-name">Grilled Squid</div>
+                    <div class="food-desc">Calamaro intero grigliato con salsa al calamansi (lime filippino). Freschissimo dal mare</div>
+                    <div class="food-price">~€3 a persona</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🥭</div>
+                    <div class="food-name">Mango Shake & Halo-Halo</div>
+                    <div class="food-desc">Frullato di mango fresco o halo-halo: dessert filippino con ghiaccio tritato, fagioli dolci, ube e latte</div>
+                    <div class="food-price">~€2 a persona</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COST SUMMARY -->
+        <div class="cost-bar">
+            <div class="cost-bar-title">💰 Riepilogo Costi Giorno 10 — per persona</div>
+            <div class="cost-grid">
+                <div class="cost-item" style="background:rgba(78,205,196,.06);border-color:rgba(78,205,196,.12)">
+                    <div class="cost-icon">💎</div>
+                    <div class="cost-label">Sugba Lagoon</div>
+                    <div class="cost-value">€18</div>
+                    <div class="cost-note">Barca + SUP + ingresso</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🕳️</div>
+                    <div class="cost-label">Cave Pool</div>
+                    <div class="cost-value">€3</div>
+                    <div class="cost-note">Ingresso + guida</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍌</div>
+                    <div class="cost-label">Colazione</div>
+                    <div class="cost-value">€5</div>
+                    <div class="cost-note">Banana pancake</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍜</div>
+                    <div class="cost-label">Pranzo</div>
+                    <div class="cost-value">€5</div>
+                    <div class="cost-note">Lechon + sinigang</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍢</div>
+                    <div class="cost-label">Cena</div>
+                    <div class="cost-value">€5</div>
+                    <div class="cost-note">BBQ spiaggia</div>
+                </div>
+                <div class="cost-total">
+                    <div class="cost-icon">📊</div>
+                    <div class="cost-label">Totale Giorno</div>
+                    <div class="cost-value">~€36</div>
+                    <div class="cost-note">escluso alloggio</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-bar"></div>
+
+</body>
+</html>

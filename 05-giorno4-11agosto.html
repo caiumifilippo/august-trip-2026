@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giorno 4 – 11 Agosto | Seoul: UNESCO, Design & Jjimjilbang</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        *{margin:0;padding:0;box-sizing:border-box}
+
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0f0c29 0%,#302b63 40%,#24243e 100%);color:#fff;min-height:100vh;overflow-x:hidden}
+
+        /* ===== BUBBLES ===== */
+        .bubble{position:fixed;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.10);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 0 30px rgba(0,0,0,.2);z-index:1;opacity:0;animation:bubbleIn 1s ease-out forwards}
+        .bubble img{width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.2)}
+        .bubble::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.12) 0%,transparent 60%);pointer-events:none}
+
+        .bubble-a{width:200px;height:200px;top:2%;right:1%;animation:bubbleIn 1s ease-out .2s forwards,dA 13s ease-in-out 1.2s infinite}
+        .bubble-b{width:145px;height:145px;bottom:5%;right:4%;animation:bubbleIn 1s ease-out .5s forwards,dB 15s ease-in-out 1.5s infinite}
+        .bubble-c{width:165px;height:165px;top:44%;right:.5%;animation:bubbleIn 1s ease-out .7s forwards,dC 11s ease-in-out 1.7s infinite}
+        .bubble-d{width:125px;height:125px;top:4%;left:1%;animation:bubbleIn 1s ease-out .4s forwards,dD 14s ease-in-out 1.4s infinite}
+        .bubble-e{width:110px;height:110px;bottom:3%;left:1.5%;animation:bubbleIn 1s ease-out .9s forwards,dE 12s ease-in-out 1.9s infinite}
+
+        @keyframes bubbleIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+        @keyframes dA{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-16px,-20px) rotate(2deg)}50%{transform:translate(8px,-34px) rotate(-1deg)}75%{transform:translate(-12px,-10px) rotate(3deg)}}
+        @keyframes dB{0%,100%{transform:translate(0,0)}25%{transform:translate(14px,12px)}50%{transform:translate(-10px,24px)}75%{transform:translate(16px,-8px)}}
+        @keyframes dC{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-18px,14px) rotate(-2deg)}50%{transform:translate(10px,20px) rotate(1deg)}75%{transform:translate(-14px,-10px) rotate(-1deg)}}
+        @keyframes dD{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(10px,-18px) rotate(1deg)}50%{transform:translate(-12px,-26px) rotate(-2deg)}75%{transform:translate(14px,-8px) rotate(2deg)}}
+        @keyframes dE{0%,100%{transform:translate(0,0)}33%{transform:translate(12px,-14px)}66%{transform:translate(-14px,12px)}}
+
+        /* ===== LAYOUT ===== */
+        .slide-container{max-width:1100px;margin:0 auto;padding:40px 50px 60px;position:relative;z-index:10}
+
+        /* ===== TOP BAR ===== */
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeIn .8s ease-out}
+        .day-badge{display:flex;align-items:center;gap:14px}
+        .day-number{background:linear-gradient(135deg,#ffe66d,#ff6b6b);color:#1a1a2e;font-size:2.4rem;font-weight:800;width:70px;height:70px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;box-shadow:0 4px 20px rgba(255,107,107,.3)}
+        .day-info h2{font-size:1.5rem;font-weight:700;line-height:1.2}
+        .day-info p{font-size:.85rem;color:rgba(255,255,255,.5)}
+        .slide-tag{background:rgba(255,255,255,.08);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.12);padding:8px 20px;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#4ecdc4}
+
+        /* ===== THEME ===== */
+        .theme-banner{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 28px;margin-bottom:28px;display:flex;align-items:center;gap:16px;animation:slideUp .8s ease-out .15s both}
+        .theme-emoji{font-size:2.2rem}
+        .theme-text h3{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#ffe66d,#ff6b6b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .theme-text p{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:2px}
+
+        /* ===== ACTIVITY CARDS ===== */
+        .activities{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+        .activity-card{background:rgba(255,255,255,.05);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;transition:transform .3s,border-color .3s,background .3s;animation:slideUp .8s ease-out both}
+        .activity-card:nth-child(1){animation-delay:.2s}
+        .activity-card:nth-child(2){animation-delay:.3s}
+        .activity-card:nth-child(3){animation-delay:.4s}
+        .activity-card:nth-child(4){animation-delay:.5s}
+        .activity-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
+        .activity-card.full-width{grid-column:1/-1}
+
+        .card-time{display:inline-block;background:rgba(255,230,109,.12);color:#ffe66d;font-size:.7rem;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:12px}
+        .card-title{font-size:1.15rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+        .card-title .emoji{font-size:1.3rem}
+        .card-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:12px}
+        .card-highlights{display:flex;flex-wrap:wrap;gap:8px}
+        .highlight-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:20px;font-size:.7rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:5px}
+        .card-cost{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 14px;background:rgba(78,205,196,.1);border:1px solid rgba(78,205,196,.15);border-radius:10px;font-size:.8rem;font-weight:600;color:#4ecdc4}
+
+        /* ===== JJIMJILBANG SPECIAL CARD ===== */
+        .spa-card{
+            background:linear-gradient(135deg,rgba(255,107,107,.07),rgba(255,230,109,.05));
+            border:1px solid rgba(255,107,107,.15);border-radius:20px;padding:28px 32px;
+            margin-bottom:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px;
+            animation:slideUp .8s ease-out .55s both;
+        }
+        .spa-info{}
+        .spa-badge{
+            display:inline-flex;align-items:center;gap:6px;
+            background:rgba(255,107,107,.15);color:#ff6b6b;
+            padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;
+            letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;
+        }
+        .spa-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;margin-bottom:8px}
+        .spa-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:16px}
+        .spa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .spa-detail{background:rgba(255,255,255,.05);border-radius:10px;padding:10px 14px;border:1px solid rgba(255,255,255,.06)}
+        .spa-detail-label{font-size:.65rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px}
+        .spa-detail-value{font-size:.9rem;font-weight:600;margin-top:2px}
+
+        .spa-visual{display:flex;flex-direction:column;align-items:center;justify-content:center}
+        .spa-icon-big{font-size:4.5rem;animation:steamFloat 3s ease-in-out infinite}
+        @keyframes steamFloat{
+            0%,100%{transform:translateY(0)}
+            50%{transform:translateY(-8px)}
+        }
+        .steam-particles{display:flex;gap:14px;margin-top:8px}
+        .steam{
+            font-size:1.6rem;opacity:.25;
+            animation:steamRise 2.5s ease-in-out infinite;
+        }
+        .steam:nth-child(1){animation-delay:0s}
+        .steam:nth-child(2){animation-delay:.5s;font-size:1.2rem}
+        .steam:nth-child(3){animation-delay:1s}
+        .steam:nth-child(4){animation-delay:.3s;font-size:1.3rem}
+        @keyframes steamRise{
+            0%{opacity:.25;transform:translateY(0) scale(1)}
+            50%{opacity:.5;transform:translateY(-14px) scale(1.15)}
+            100%{opacity:.1;transform:translateY(-28px) scale(.8)}
+        }
+        .spa-includes{
+            display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;justify-content:center;
+        }
+        .spa-chip{
+            background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+            padding:6px 14px;border-radius:20px;font-size:.72rem;color:rgba(255,255,255,.6);
+        }
+        .spa-price-tag{
+            margin-top:18px;background:linear-gradient(135deg,#ff6b6b,#ffe66d);
+            color:#1a1a2e;padding:8px 22px;border-radius:30px;font-weight:700;font-size:1.1rem;
+            box-shadow:0 4px 20px rgba(255,107,107,.25);
+        }
+
+        /* ===== FOOD SECTION ===== */
+        .food-section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px 28px;margin-bottom:28px;animation:slideUp .8s ease-out .65s both}
+        .food-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:#ff6b6b;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+        .food-item{text-align:center;padding:16px 12px;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .food-item:hover{transform:translateY(-3px)}
+        .food-emoji{font-size:2rem;margin-bottom:8px}
+        .food-name{font-size:.85rem;font-weight:600;margin-bottom:2px}
+        .food-desc{font-size:.7rem;color:rgba(255,255,255,.4)}
+        .food-price{font-size:.75rem;color:#ffe66d;font-weight:600;margin-top:4px}
+
+        /* ===== COST BAR ===== */
+        .cost-bar{background:rgba(255,255,255,.05);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:26px 36px;animation:slideUp .8s ease-out .75s both}
+        .cost-bar-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);margin-bottom:18px;font-weight:600}
+        .cost-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+        .cost-item{text-align:center;padding:14px 6px;background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .cost-item:hover{transform:translateY(-3px)}
+        .cost-icon{font-size:1.3rem;margin-bottom:6px}
+        .cost-label{font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+        .cost-value{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#ffe66d,#ff6b6b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .cost-note{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:2px}
+        .cost-total{text-align:center;padding:14px 6px;background:rgba(255,230,109,.08);border-radius:12px;border:1px solid rgba(255,230,109,.15)}
+        .cost-total .cost-value{font-size:1.3rem;background:linear-gradient(135deg,#ffe66d,#4ecdc4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+        /* ===== BOTTOM ===== */
+        .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#ffe66d,#ff6b6b,#4ecdc4,#ffe66d);background-size:300% 100%;animation:shimmer 4s linear infinite;z-index:50}
+        @keyframes shimmer{0%{background-position:0% 0}100%{background-position:300% 0}}
+        .nav-indicator{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+        .nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);transition:all .3s}
+        .nav-dot.active{background:#ffe66d;border-color:#ffe66d;box-shadow:0 0 10px rgba(255,230,109,.4);transform:scale(1.3)}
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .slide-container{padding:24px 20px 50px}
+            .top-bar{flex-direction:column;gap:12px;align-items:flex-start}
+            .activities{grid-template-columns:1fr}
+            .spa-card{grid-template-columns:1fr}
+            .food-grid{grid-template-columns:1fr}
+            .cost-grid{grid-template-columns:repeat(2,1fr)}
+            .bubble{display:none}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles -->
+    <div class="bubble bubble-a">
+        <img src="https://images.unsplash.com/photo-1600959907703-125ba1374a12?w=500&q=80" alt="Changdeokgung Secret Garden">
+    </div>
+    <div class="bubble bubble-b">
+        <img src="https://images.unsplash.com/photo-1506816561089-5cc37b3aa9b0?w=400&q=80" alt="Korean Spa">
+    </div>
+    <div class="bubble bubble-c">
+        <img src="https://images.unsplash.com/photo-1541692641319-981cc79ee10a?w=400&q=80" alt="DDP Dongdaemun">
+    </div>
+    <div class="bubble bubble-d">
+        <img src="https://images.unsplash.com/photo-1601621915196-2621bfb0cd6e?w=400&q=80" alt="Ikseon-dong">
+    </div>
+    <div class="bubble bubble-e">
+        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=300&q=80" alt="Hanok Café">
+    </div>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <div class="nav-dot" title="Copertina"></div>
+        <div class="nav-dot" title="Giorno 1"></div>
+        <div class="nav-dot" title="Giorno 2"></div>
+        <div class="nav-dot" title="Giorno 3"></div>
+        <div class="nav-dot active" title="Giorno 4"></div>
+        <div class="nav-dot" title="Giorno 5"></div>
+        <div class="nav-dot" title="Giorno 6"></div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="day-badge">
+                <div class="day-number">4</div>
+                <div class="day-info">
+                    <h2>Martedì 11 Agosto 2026</h2>
+                    <p>Seoul — UNESCO, Design Futuristico & Spa Coreana</p>
+                </div>
+            </div>
+            <div class="slide-tag">🇰🇷 Seoul</div>
+        </div>
+
+        <!-- THEME -->
+        <div class="theme-banner">
+            <div class="theme-emoji">🌿</div>
+            <div class="theme-text">
+                <h3>Dal giardino segreto UNESCO alla spa coreana: cultura e relax totale</h3>
+                <p>Esplorate un palazzo patrimonio dell'umanità, il quartiere più instagrammabile di Seoul e chiudete con un'esperienza unica: il jjimjilbang</p>
+            </div>
+        </div>
+
+        <!-- ACTIVITIES -->
+        <div class="activities">
+
+            <!-- MATTINA: Changdeokgung -->
+            <div class="activity-card">
+                <div class="card-time">🌅 09:00 – 11:30 · Mattina</div>
+                <div class="card-title">
+                    <span class="emoji">🏯</span> Changdeokgung & Giardino Segreto
+                </div>
+                <div class="card-desc">
+                    Palazzo reale <strong>UNESCO World Heritage</strong>, il meglio conservato della dinastia Joseon.
+                    Il <strong>Huwon (Giardino Segreto)</strong> è un'oasi naturale di 78 acri con padiglioni, laghetti e sentieri tra alberi secolari.
+                    Tour guidato obbligatorio per il giardino (posti limitati, da prenotare!).
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🏛️ UNESCO Heritage</span>
+                    <span class="highlight-chip">🌳 78 acri di giardino</span>
+                    <span class="highlight-chip">📖 Tour guidato ~90min</span>
+                </div>
+                <div class="card-cost">🎟️ Palazzo + Giardino: ₩8.000 (~€5,50) a persona</div>
+            </div>
+
+            <!-- TARDA MATTINA: Ikseon-dong -->
+            <div class="activity-card">
+                <div class="card-time">☕ 11:45 – 13:30 · Tarda Mattina</div>
+                <div class="card-title">
+                    <span class="emoji">🏘️</span> Ikseon-dong Hanok Alley
+                </div>
+                <div class="card-desc">
+                    Il quartiere più <strong>trendy e instagrammabile</strong> di Seoul: un labirinto di hanok (case tradizionali)
+                    trasformate in cafè hipster, cocktail bar, boutique e gallerie d'arte.
+                    Più intimo e meno turistico di Bukchon: il segreto meglio custodito di Seoul.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">📸 Spot Instagram</span>
+                    <span class="highlight-chip">☕ Cafè in hanok</span>
+                    <span class="highlight-chip">🍰 Dessert artigianali</span>
+                    <span class="highlight-chip">🎎 Boutique indie</span>
+                </div>
+                <div class="card-cost">☕ Cafè + dolce: ~€6 a persona</div>
+            </div>
+
+            <!-- PRANZO -->
+            <div class="activity-card">
+                <div class="card-time">🍜 13:30 – 14:30 · Pranzo</div>
+                <div class="card-title">
+                    <span class="emoji">🍲</span> Pranzo a Ikseon-dong
+                </div>
+                <div class="card-desc">
+                    Restate nella zona per pranzo! Ikseon-dong offre ristoranti fusion unici.
+                    Provate il <strong>budae jjigae</strong> (stufato "army base" con ramyeon, spam, formaggio fuso e kimchi)
+                    o un <strong>dolsot bibimbap</strong> servito in ciotola di pietra bollente.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🍲 Budae Jjigae ~€8</span>
+                    <span class="highlight-chip">🍚 Dolsot Bibimbap ~€7</span>
+                </div>
+                <div class="card-cost">🍽️ Pranzo stimato: ~€8 a persona</div>
+            </div>
+
+            <!-- POMERIGGIO: DDP -->
+            <div class="activity-card">
+                <div class="card-time">🏙️ 15:30 – 18:00 · Pomeriggio</div>
+                <div class="card-title">
+                    <span class="emoji">🛸</span> Dongdaemun Design Plaza (DDP)
+                </div>
+                <div class="card-desc">
+                    Capolavoro architettonico di <strong>Zaha Hadid</strong>: un edificio futuristico dalle forme fluide
+                    che ospita mostre di design, installazioni artistiche e mercatini notturni.
+                    Esplorate le <strong>LED Rose Garden</strong> (25.000 rose luminose!) e lo shopping
+                    nel vicino <strong>Dongdaemun Market</strong>, aperto fino a tarda notte.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🌹 LED Rose Garden</span>
+                    <span class="highlight-chip">🎨 Mostre gratuite</span>
+                    <span class="highlight-chip">🛍️ Night market</span>
+                    <span class="highlight-chip">📐 Zaha Hadid design</span>
+                </div>
+                <div class="card-cost">🎟️ Gratuito (mostre temporanee: ~€5–8)</div>
+            </div>
+
+        </div>
+
+        <!-- JJIMJILBANG SPECIAL CARD -->
+        <div class="spa-card">
+            <div class="spa-info">
+                <div class="spa-badge">🔥 Esperienza Imperdibile</div>
+                <div class="spa-title">Jjimjilbang — Spa Coreana</div>
+                <div class="spa-desc">
+                    Il <strong>jjimjilbang</strong> è un'esperienza culturale unica: mega-spa pubblica coreana
+                    aperta 24h con saune a diverse temperature, vasche calde/fredde, sale relax,
+                    stanze a tema (sale di sale, argilla, ghiaccio) e zone notte.
+                    Il posto perfetto per rilassarsi dopo 3 giorni intensi!
+                    Consigliato: <strong>Dragon Hill Spa</strong> (Yongsan), il più famoso di Seoul.
+                </div>
+                <div class="spa-grid">
+                    <div class="spa-detail">
+                        <div class="spa-detail-label">Location</div>
+                        <div class="spa-detail-value">🐉 Dragon Hill Spa, Yongsan</div>
+                    </div>
+                    <div class="spa-detail">
+                        <div class="spa-detail-label">Orario</div>
+                        <div class="spa-detail-value">🕖 19:00 – 23:00</div>
+                    </div>
+                    <div class="spa-detail">
+                        <div class="spa-detail-label">Durata</div>
+                        <div class="spa-detail-value">⏱️ ~4 ore di relax</div>
+                    </div>
+                    <div class="spa-detail">
+                        <div class="spa-detail-label">Dress Code</div>
+                        <div class="spa-detail-value">👕 Uniforme fornita</div>
+                    </div>
+                </div>
+            </div>
+            <div class="spa-visual">
+                <div class="spa-icon-big">♨️</div>
+                <div class="steam-particles">
+                    <span class="steam">💨</span>
+                    <span class="steam">💨</span>
+                    <span class="steam">💨</span>
+                    <span class="steam">💨</span>
+                </div>
+                <div class="spa-includes">
+                    <span class="spa-chip">🧖 Saune multiple</span>
+                    <span class="spa-chip">🧊 Stanza ghiaccio</span>
+                    <span class="spa-chip">🧂 Sala di sale</span>
+                    <span class="spa-chip">♨️ Vasche termali</span>
+                    <span class="spa-chip">🥚 Uova al vapore</span>
+                    <span class="spa-chip">📺 Sala cinema</span>
+                </div>
+                <div class="spa-price-tag">€12 / persona</div>
+            </div>
+        </div>
+
+        <!-- FOOD: Cena al jjimjilbang -->
+        <div class="food-section">
+            <div class="food-title">🥚 Cena — Snack al Jjimjilbang + Pojangmacha</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div class="food-emoji">🥚</div>
+                    <div class="food-name">Maekbanseok Gyeran</div>
+                    <div class="food-desc">Le famose uova cotte nella sauna — marrone fuori, cremose dentro. Un must del jjimjilbang!</div>
+                    <div class="food-price">~€1</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🍡</div>
+                    <div class="food-name">Sikhye + Snack</div>
+                    <div class="food-desc">Bevanda dolce di riso tradizionale, perfetta dopo la sauna. Con tteok (rice cake) e frutta</div>
+                    <div class="food-price">~€3</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🍢</div>
+                    <div class="food-name">Pojangmacha (usciti)</div>
+                    <div class="food-desc">Tende-ristorante di strada: odeng (fishcake), tteokbokki e soju. L'after perfetto!</div>
+                    <div class="food-price">~€6</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COST SUMMARY -->
+        <div class="cost-bar">
+            <div class="cost-bar-title">💰 Riepilogo Costi Giorno 4 — per persona</div>
+            <div class="cost-grid">
+                <div class="cost-item">
+                    <div class="cost-icon">🏯</div>
+                    <div class="cost-label">Palazzo</div>
+                    <div class="cost-value">€6</div>
+                    <div class="cost-note">Changdeokgung</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">☕</div>
+                    <div class="cost-label">Cafè</div>
+                    <div class="cost-value">€6</div>
+                    <div class="cost-note">Ikseon-dong</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">♨️</div>
+                    <div class="cost-label">Jjimjilbang</div>
+                    <div class="cost-value">€12</div>
+                    <div class="cost-note">Dragon Hill Spa</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍲</div>
+                    <div class="cost-label">Pasti</div>
+                    <div class="cost-value">€18</div>
+                    <div class="cost-note">Pranzo + cena/snack</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🚇</div>
+                    <div class="cost-label">Trasporti</div>
+                    <div class="cost-value">€4</div>
+                    <div class="cost-note">Metro</div>
+                </div>
+                <div class="cost-total">
+                    <div class="cost-icon">📊</div>
+                    <div class="cost-label">Totale Giorno</div>
+                    <div class="cost-value">~€46</div>
+                    <div class="cost-note">escluso alloggio</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-bar"></div>
+
+</body>
+</html>

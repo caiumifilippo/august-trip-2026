@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giorno 9 – 16 Agosto | Siargao: Island Hopping</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0a2e38 0%,#0d4f4f 35%,#1a5c3a 100%);color:#fff;min-height:100vh;overflow-x:hidden}
+
+        /* ===== BUBBLES ===== */
+        .bubble{position:fixed;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.10);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 0 30px rgba(0,0,0,.2);z-index:1;opacity:0;animation:bubbleIn 1s ease-out forwards}
+        .bubble img{width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3)}
+        .bubble::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.12) 0%,transparent 60%);pointer-events:none}
+
+        .bubble-a{width:195px;height:195px;top:2%;right:1.5%;animation:bubbleIn 1s ease-out .2s forwards,dA 14s ease-in-out 1.2s infinite}
+        .bubble-b{width:160px;height:160px;bottom:4%;right:2%;animation:bubbleIn 1s ease-out .5s forwards,dB 12s ease-in-out 1.5s infinite}
+        .bubble-c{width:135px;height:135px;top:46%;right:1%;animation:bubbleIn 1s ease-out .7s forwards,dC 15s ease-in-out 1.7s infinite}
+        .bubble-d{width:145px;height:145px;top:4%;left:1%;animation:bubbleIn 1s ease-out .35s forwards,dD 13s ease-in-out 1.35s infinite}
+        .bubble-e{width:120px;height:120px;bottom:5%;left:1.5%;animation:bubbleIn 1s ease-out .8s forwards,dE 11s ease-in-out 1.8s infinite}
+
+        @keyframes bubbleIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+        @keyframes dA{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-14px,-20px) rotate(2deg)}50%{transform:translate(10px,-30px) rotate(-1deg)}75%{transform:translate(-16px,-8px) rotate(3deg)}}
+        @keyframes dB{0%,100%{transform:translate(0,0)}25%{transform:translate(12px,14px)}50%{transform:translate(-10px,22px)}75%{transform:translate(14px,-10px)}}
+        @keyframes dC{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-16px,12px) rotate(-2deg)}50%{transform:translate(12px,18px) rotate(1deg)}75%{transform:translate(-10px,-12px) rotate(-1deg)}}
+        @keyframes dD{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(14px,-16px) rotate(1deg)}50%{transform:translate(-12px,-24px) rotate(-2deg)}75%{transform:translate(10px,-8px) rotate(2deg)}}
+        @keyframes dE{0%,100%{transform:translate(0,0)}33%{transform:translate(14px,-10px)}66%{transform:translate(-12px,14px)}}
+
+        /* ===== LAYOUT ===== */
+        .slide-container{max-width:1100px;margin:0 auto;padding:40px 50px 60px;position:relative;z-index:10}
+
+        /* ===== TOP BAR ===== */
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeIn .8s ease-out}
+        .day-badge{display:flex;align-items:center;gap:14px}
+        .day-number{background:linear-gradient(135deg,#4ecdc4,#2eb5a6);color:#0a2e38;font-size:2.4rem;font-weight:800;width:70px;height:70px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;box-shadow:0 4px 20px rgba(78,205,196,.35)}
+        .day-info h2{font-size:1.5rem;font-weight:700;line-height:1.2}
+        .day-info p{font-size:.85rem;color:rgba(255,255,255,.5)}
+        .slide-tag{background:rgba(78,205,196,.12);backdrop-filter:blur(10px);border:1px solid rgba(78,205,196,.2);padding:8px 20px;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#4ecdc4}
+
+        /* ===== THEME ===== */
+        .theme-banner{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 28px;margin-bottom:28px;display:flex;align-items:center;gap:16px;animation:slideUp .8s ease-out .15s both}
+        .theme-emoji{font-size:2.2rem}
+        .theme-text h3{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .theme-text p{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:2px}
+
+        /* ===== ISLAND HOPPING MAP CARD ===== */
+        .hopping-card{
+            background:linear-gradient(135deg,rgba(78,205,196,.08),rgba(255,230,109,.04));
+            border:1px solid rgba(78,205,196,.18);border-radius:22px;padding:30px 34px;
+            margin-bottom:28px;animation:slideUp .8s ease-out .2s both;
+        }
+        .hopping-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+        .hopping-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(78,205,196,.15);color:#4ecdc4;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase}
+        .hopping-price{background:linear-gradient(135deg,#4ecdc4,#ffe66d);color:#0a2e38;padding:8px 20px;border-radius:30px;font-weight:700;font-size:1rem;box-shadow:0 4px 20px rgba(78,205,196,.25)}
+
+        .hopping-route{
+            display:flex;align-items:center;justify-content:center;gap:0;
+            padding:28px 0;position:relative;
+        }
+        .island-stop{
+            display:flex;flex-direction:column;align-items:center;gap:8px;
+            flex:0 0 auto;z-index:2;
+        }
+        .island-icon{
+            width:80px;height:80px;border-radius:50%;
+            background:rgba(255,255,255,.06);border:2px solid rgba(78,205,196,.25);
+            display:flex;align-items:center;justify-content:center;
+            font-size:2.2rem;transition:transform .3s,border-color .3s;
+        }
+        .island-stop:hover .island-icon{transform:scale(1.12);border-color:rgba(78,205,196,.5)}
+        .island-name{font-size:.8rem;font-weight:700;text-align:center}
+        .island-time{font-size:.65rem;color:rgba(255,255,255,.4)}
+
+        .route-line{
+            flex:1;height:3px;
+            background:repeating-linear-gradient(90deg,rgba(78,205,196,.3) 0,rgba(78,205,196,.3) 8px,transparent 8px,transparent 16px);
+            position:relative;
+        }
+        .route-line .boat{
+            position:absolute;top:-10px;font-size:1.2rem;
+            animation:sailRight 3s ease-in-out infinite;
+        }
+        @keyframes sailRight{0%{left:0%}50%{left:85%}100%{left:0%}}
+
+        /* ===== ISLAND DETAIL CARDS ===== */
+        .islands{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:28px}
+        .island-card{
+            background:rgba(255,255,255,.05);backdrop-filter:blur(14px);
+            border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:22px;
+            transition:transform .3s,border-color .3s,background .3s;
+            animation:slideUp .8s ease-out both;
+            text-align:center;
+        }
+        .island-card:nth-child(1){animation-delay:.3s}
+        .island-card:nth-child(2){animation-delay:.4s}
+        .island-card:nth-child(3){animation-delay:.5s}
+        .island-card:hover{transform:translateY(-4px);border-color:rgba(78,205,196,.25);background:rgba(255,255,255,.08)}
+
+        .island-card-emoji{font-size:2.8rem;margin-bottom:10px}
+        .island-card-name{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:800;margin-bottom:6px}
+        .island-card-desc{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:12px}
+        .island-card-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+        .island-tag{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:4px 10px;border-radius:20px;font-size:.65rem;color:rgba(255,255,255,.55)}
+
+        /* ===== ACTIVITY CARDS ===== */
+        .activities{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+        .activity-card{background:rgba(255,255,255,.05);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;transition:transform .3s,border-color .3s,background .3s;animation:slideUp .8s ease-out both}
+        .activity-card:nth-child(1){animation-delay:.55s}
+        .activity-card:nth-child(2){animation-delay:.6s}
+        .activity-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
+
+        .card-time{display:inline-block;background:rgba(78,205,196,.12);color:#4ecdc4;font-size:.7rem;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:12px}
+        .card-title{font-size:1.1rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+        .card-title .emoji{font-size:1.3rem}
+        .card-desc{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:12px}
+        .card-highlights{display:flex;flex-wrap:wrap;gap:8px}
+        .highlight-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:20px;font-size:.68rem;color:rgba(255,255,255,.6)}
+        .card-cost{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 14px;background:rgba(78,205,196,.1);border:1px solid rgba(78,205,196,.15);border-radius:10px;font-size:.8rem;font-weight:600;color:#4ecdc4}
+
+        /* ===== FOOD ===== */
+        .food-section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px 28px;margin-bottom:28px;animation:slideUp .8s ease-out .65s both}
+        .food-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:#ffe66d;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+        .food-item{text-align:center;padding:16px 12px;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .food-item:hover{transform:translateY(-3px)}
+        .food-emoji{font-size:2rem;margin-bottom:8px}
+        .food-name{font-size:.85rem;font-weight:600;margin-bottom:2px}
+        .food-desc{font-size:.7rem;color:rgba(255,255,255,.4)}
+        .food-price{font-size:.75rem;color:#ffe66d;font-weight:600;margin-top:4px}
+
+        /* ===== COST BAR ===== */
+        .cost-bar{background:rgba(255,255,255,.05);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:26px 36px;animation:slideUp .8s ease-out .75s both}
+        .cost-bar-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);margin-bottom:18px;font-weight:600}
+        .cost-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+        .cost-item{text-align:center;padding:14px 6px;background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .cost-item:hover{transform:translateY(-3px)}
+        .cost-icon{font-size:1.3rem;margin-bottom:6px}
+        .cost-label{font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+        .cost-value{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .cost-note{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:2px}
+        .cost-total{text-align:center;padding:14px 6px;background:rgba(78,205,196,.08);border-radius:12px;border:1px solid rgba(78,205,196,.15)}
+        .cost-total .cost-value{font-size:1.3rem}
+
+        /* ===== BOTTOM ===== */
+        .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#4ecdc4,#ffe66d,#ff6b6b,#4ecdc4);background-size:300% 100%;animation:shimmer 4s linear infinite;z-index:50}
+        @keyframes shimmer{0%{background-position:0% 0}100%{background-position:300% 0}}
+        .nav-indicator{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+        .nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);transition:all .3s}
+        .nav-dot.active{background:#4ecdc4;border-color:#4ecdc4;box-shadow:0 0 10px rgba(78,205,196,.4);transform:scale(1.3)}
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .slide-container{padding:24px 20px 50px}
+            .top-bar{flex-direction:column;gap:12px;align-items:flex-start}
+            .hopping-route{flex-wrap:wrap;gap:10px}
+            .route-line{display:none}
+            .islands{grid-template-columns:1fr}
+            .activities{grid-template-columns:1fr}
+            .food-grid{grid-template-columns:1fr}
+            .cost-grid{grid-template-columns:repeat(2,1fr)}
+            .bubble{display:none}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles -->
+    <div class="bubble bubble-a">
+        <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=500&q=80" alt="Tropical Island">
+    </div>
+    <div class="bubble bubble-b">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80" alt="White Sand">
+    </div>
+    <div class="bubble bubble-c">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80" alt="Ocean">
+    </div>
+    <div class="bubble bubble-d">
+        <img src="https://images.unsplash.com/photo-1506953823645-5e846512e04c?w=400&q=80" alt="Boat">
+    </div>
+    <div class="bubble bubble-e">
+        <img src="https://images.unsplash.com/photo-1509233725247-49e657c54213?w=300&q=80" alt="Palms">
+    </div>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <div class="nav-dot" title="Copertina"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Trasferimento"></div>
+        <div class="nav-dot" title="Siargao"></div>
+        <div class="nav-dot active" title="Island Hopping"></div>
+        <div class="nav-dot" title="Siargao"></div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="day-badge">
+                <div class="day-number">9</div>
+                <div class="day-info">
+                    <h2>Domenica 16 Agosto 2026</h2>
+                    <p>Siargao — Island Hopping: 3 Isole Paradisiache</p>
+                </div>
+            </div>
+            <div class="slide-tag">🇵🇭 Siargao</div>
+        </div>
+
+        <!-- THEME -->
+        <div class="theme-banner">
+            <div class="theme-emoji">🏝️</div>
+            <div class="theme-text">
+                <h3>L'escursione più iconica di Siargao: 3 isole, 1 barca, 13 amici</h3>
+                <p>Naked Island, Daku Island e Guyam Island — sabbia bianca, acque cristalline e vibes da cartolina</p>
+            </div>
+        </div>
+
+        <!-- ISLAND HOPPING ROUTE MAP -->
+        <div class="hopping-card">
+            <div class="hopping-header">
+                <div class="hopping-badge">⛵ Island Hopping Tour</div>
+                <div class="hopping-price">€15 / persona (barca privata gruppo)</div>
+            </div>
+
+            <div class="hopping-route">
+                <div class="island-stop">
+                    <div class="island-icon">🚤</div>
+                    <div class="island-name">General Luna</div>
+                    <div class="island-time">Partenza 08:00</div>
+                </div>
+
+                <div class="route-line"><span class="boat">⛵</span></div>
+
+                <div class="island-stop">
+                    <div class="island-icon">🏜️</div>
+                    <div class="island-name">Naked Island</div>
+                    <div class="island-time">~30 min · Sosta 1h</div>
+                </div>
+
+                <div class="route-line"><span class="boat">⛵</span></div>
+
+                <div class="island-stop">
+                    <div class="island-icon">🌴</div>
+                    <div class="island-name">Daku Island</div>
+                    <div class="island-time">~15 min · Sosta 2h</div>
+                </div>
+
+                <div class="route-line"><span class="boat">⛵</span></div>
+
+                <div class="island-stop">
+                    <div class="island-icon">🏝️</div>
+                    <div class="island-name">Guyam Island</div>
+                    <div class="island-time">~10 min · Sosta 1h</div>
+                </div>
+
+                <div class="route-line"><span class="boat">⛵</span></div>
+
+                <div class="island-stop">
+                    <div class="island-icon">🏠</div>
+                    <div class="island-name">General Luna</div>
+                    <div class="island-time">Ritorno ~15:00</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 ISLAND CARDS -->
+        <div class="islands">
+
+            <div class="island-card">
+                <div class="island-card-emoji">🏜️</div>
+                <div class="island-card-name">Naked Island</div>
+                <div class="island-card-desc">
+                    Una lingua di <strong>sabbia bianca pura</strong> in mezzo all'oceano.
+                    Nessun albero, nessun riparo — solo sabbia e acqua turchese a 360°.
+                    Il posto più surreale che vedrete. Portate crema solare!
+                </div>
+                <div class="island-card-tags">
+                    <span class="island-tag">📸 Foto pazzesche</span>
+                    <span class="island-tag">🏊 Snorkeling</span>
+                    <span class="island-tag">☀️ Crema solare!</span>
+                </div>
+            </div>
+
+            <div class="island-card">
+                <div class="island-card-emoji">🌴</div>
+                <div class="island-card-name">Daku Island</div>
+                <div class="island-card-desc">
+                    L'isola più grande delle tre, con <strong>palme, amache e cucina locale</strong>.
+                    Qui si pranza! Ordinate pesce grigliato fresco ai locali sull'isola.
+                    Perfetta per rilassarsi, giocare a beach volley e fare snorkeling.
+                </div>
+                <div class="island-card-tags">
+                    <span class="island-tag">🍽️ Pranzo sull'isola</span>
+                    <span class="island-tag">🏐 Beach volley</span>
+                    <span class="island-tag">🐠 Snorkeling</span>
+                </div>
+            </div>
+
+            <div class="island-card">
+                <div class="island-card-emoji">🏝️</div>
+                <div class="island-card-name">Guyam Island</div>
+                <div class="island-card-desc">
+                    Minuscola isoletta rotonda coperta di <strong>palme di cocco</strong> —
+                    sembra uscita da un film. La si percorre a piedi in 5 minuti.
+                    Acque basse e cristalline, perfetta per relax e foto al tramonto.
+                </div>
+                <div class="island-card-tags">
+                    <span class="island-tag">🥥 Isola da cartolina</span>
+                    <span class="island-tag">🚶 5 min a piedi</span>
+                    <span class="island-tag">📷 Super fotogenica</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- POST-TOUR ACTIVITIES -->
+        <div class="activities">
+
+            <div class="activity-card">
+                <div class="card-time">☀️ 06:30 – 07:45 · Colazione</div>
+                <div class="card-title">
+                    <span class="emoji">🥞</span> Colazione & Preparazione
+                </div>
+                <div class="card-desc">
+                    Colazione presto per prepararsi all'island hopping.
+                    Portate: crema solare, snorkel (o noleggiate in barca ~€2), asciugamano,
+                    custodia waterproof per il telefono e tanta acqua.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🥞 Colazione ~€5</span>
+                    <span class="highlight-chip">📱 Waterproof case ~€2</span>
+                    <span class="highlight-chip">🤿 Snorkel ~€2</span>
+                </div>
+                <div class="card-cost">🍽️ Colazione + extra: ~€7</div>
+            </div>
+
+            <div class="activity-card">
+                <div class="card-time">🌅 16:00 – 19:00 · Pomeriggio / Sera</div>
+                <div class="card-title">
+                    <span class="emoji">🍹</span> Sunset Cocktail & Chill
+                </div>
+                <div class="card-desc">
+                    Al ritorno dall'island hopping, relax totale.
+                    Andate al <strong>Harana Surf Bar</strong> o al <strong>Rum Bar</strong> per un cocktail al tramonto.
+                    Amaca, musica reggae, piedi nella sabbia e i colori pazzi del sunset filippino.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🍹 Cocktail ~€3</span>
+                    <span class="highlight-chip">🌅 Sunset view</span>
+                    <span class="highlight-chip">🎶 Live reggae</span>
+                </div>
+                <div class="card-cost">🍹 Cocktail + snack: ~€5</div>
+            </div>
+
+        </div>
+
+        <!-- FOOD: Cena & Pranzo sull'isola -->
+        <div class="food-section">
+            <div class="food-title">🐟 Pasti del Giorno</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div class="food-emoji">🐟</div>
+                    <div class="food-name">Pranzo su Daku Island</div>
+                    <div class="food-desc">Pesce intero grigliato sulla brace, riso, insalata di mango verde. Cucinato dai locali davanti a voi</div>
+                    <div class="food-price">~€5 a persona</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🥥</div>
+                    <div class="food-name">Buko Juice & Frutta</div>
+                    <div class="food-desc">Acqua di cocco fresca e frutta tropicale tagliata. Disponibile su ogni isola</div>
+                    <div class="food-price">~€1 a persona</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🍛</div>
+                    <div class="food-name">Cena — Chicken Inasal</div>
+                    <div class="food-desc">Pollo marinato e grigliato alla filippina con riso, soia e calamansi. Comfort food perfetto!</div>
+                    <div class="food-price">~€4 a persona</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COST SUMMARY -->
+        <div class="cost-bar">
+            <div class="cost-bar-title">💰 Riepilogo Costi Giorno 9 — per persona</div>
+            <div class="cost-grid">
+                <div class="cost-item" style="background:rgba(78,205,196,.06);border-color:rgba(78,205,196,.12)">
+                    <div class="cost-icon">⛵</div>
+                    <div class="cost-label">Island Hop</div>
+                    <div class="cost-value">€15</div>
+                    <div class="cost-note">Barca privata 3 isole</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🥞</div>
+                    <div class="cost-label">Colazione</div>
+                    <div class="cost-value">€5</div>
+                    <div class="cost-note">Pre-tour</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🐟</div>
+                    <div class="cost-label">Pranzo</div>
+                    <div class="cost-value">€6</div>
+                    <div class="cost-note">Daku Island</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍛</div>
+                    <div class="cost-label">Cena</div>
+                    <div class="cost-value">€4</div>
+                    <div class="cost-note">Chicken Inasal</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍹</div>
+                    <div class="cost-label">Cocktail</div>
+                    <div class="cost-value">€5</div>
+                    <div class="cost-note">Sunset bar</div>
+                </div>
+                <div class="cost-total">
+                    <div class="cost-icon">📊</div>
+                    <div class="cost-label">Totale Giorno</div>
+                    <div class="cost-value">~€35</div>
+                    <div class="cost-note">escluso alloggio</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-bar"></div>
+
+</body>
+</html>

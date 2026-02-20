@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seoul & Siargao 2026 - Viaggio di Gruppo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 40%, #24243e 100%);
+            overflow: hidden;
+        }
+
+        /* ===== IMAGE BUBBLES ===== */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid rgba(255,255,255,0.12);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 0 30px rgba(0,0,0,0.2);
+            z-index: 2;
+            opacity: 0;
+            animation: bubbleIn 1s ease-out forwards;
+        }
+
+        .bubble img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7) saturate(1.2);
+            transition: filter 0.5s, transform 0.5s;
+        }
+
+        .bubble:hover img {
+            filter: brightness(0.9) saturate(1.4);
+            transform: scale(1.1);
+        }
+
+        .bubble::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        /* Bubble 1 - Seoul Skyline - top left */
+        .bubble-1 {
+            width: 220px; height: 220px;
+            top: 4%; left: 3%;
+            animation-delay: 0.2s;
+            animation-name: bubbleIn, drift1;
+            animation-duration: 1s, 12s;
+            animation-timing-function: ease-out, ease-in-out;
+            animation-delay: 0.2s, 1.2s;
+            animation-iteration-count: 1, infinite;
+            animation-fill-mode: forwards, none;
+        }
+
+        /* Bubble 2 - Gyeongbokgung - top right */
+        .bubble-2 {
+            width: 180px; height: 180px;
+            top: 2%; right: 8%;
+            animation-delay: 0.4s;
+            animation-name: bubbleIn, drift2;
+            animation-duration: 1s, 14s;
+            animation-timing-function: ease-out, ease-in-out;
+            animation-delay: 0.4s, 1.4s;
+            animation-iteration-count: 1, infinite;
+            animation-fill-mode: forwards, none;
+        }
+
+        /* Bubble 3 - Seoul Night - mid left */
+        .bubble-3 {
+            width: 150px; height: 150px;
+            top: 55%; left: 2%;
+            animation-delay: 0.6s;
+            animation-name: bubbleIn, drift3;
+            animation-duration: 1s, 10s;
+            animation-timing-function: ease-out, ease-in-out;
+            animation-delay: 0.6s, 1.6s;
+            animation-iteration-count: 1, infinite;
+            animation-fill-mode: forwards, none;
+        }
+
+        /* Bubble 4 - Siargao Beach - bottom left */
+        .bubble-4 {
+            width: 190px; height: 190px;
+            bottom: 5%; left: 6%;
+            animation-delay: 0.8s;
+            animation-name: bubbleIn, drift4;
+            animation-duration: 1s, 16s;
+            animation-timing-function: ease-out, ease-in-out;
+            animation-delay: 0.8s, 1.8s;
+            animation-iteration-count: 1, infinite;
+            animation-fill-mode: forwards, none;
+        }
+
+        /* Bubble 5 - Surf Cloud 9 - bottom right */
+        .bubble-5 {
+            width: 200px; height: 200px;
+            bottom: 8%; right: 3%;
+            animation-delay: 1s;
+            animation-name: bubbleIn, drift5;
+            animation-duration: 1s, 13s;
+            animation-timing-function: ease-out, ease-in-out;
+            animation-delay: 1s, 2s;
+            animation-iteration-count: 1, infinite;
+            animation-fill-mode: forwards, none;
+        }
+
+        /* Bubble 6 - Island Hopping - mid right */
+        .bubble-6 {
+            width: 160px; height: 160px;
+            top: 45%; right: 2%;
+            animation-delay: 1.2s;
+            animation-name: bubbleIn, drift6;
+            animation-duration: 1s, 11s;
+            animation-timing-function: ease-out, ease-in-out;
+            animation-delay: 1.2s, 2.2s;
+            animation-iteration-count: 1, infinite;
+            animation-fill-mode: forwards, none;
+        }
+
+        /* Bubble 7 - Korean Food - small accent top center-left */
+        .bubble-7 {
+            width: 110px; height: 110px;
+            top: 12%; left: 22%;
+            animation-delay: 0.5s;
+            animation-name: bubbleIn, drift7;
+            animation-duration: 1s, 15s;
+            animation-timing-function: ease-out, ease-in-out;
+            animation-delay: 0.5s, 1.5s;
+            animation-iteration-count: 1, infinite;
+            animation-fill-mode: forwards, none;
+        }
+
+        /* Bubble 8 - Palm trees - small accent bottom center-right */
+        .bubble-8 {
+            width: 120px; height: 120px;
+            bottom: 12%; right: 20%;
+            animation-delay: 0.9s;
+            animation-name: bubbleIn, drift8;
+            animation-duration: 1s, 13s;
+            animation-timing-function: ease-out, ease-in-out;
+            animation-delay: 0.9s, 1.9s;
+            animation-iteration-count: 1, infinite;
+            animation-fill-mode: forwards, none;
+        }
+
+        /* Drift animations - each bubble gets a unique path */
+        @keyframes drift1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(15px, -20px) rotate(2deg); }
+            50% { transform: translate(-10px, -35px) rotate(-1deg); }
+            75% { transform: translate(20px, -10px) rotate(3deg); }
+        }
+
+        @keyframes drift2 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-20px, 15px) rotate(-2deg); }
+            50% { transform: translate(10px, 30px) rotate(1deg); }
+            75% { transform: translate(-15px, 10px) rotate(-3deg); }
+        }
+
+        @keyframes drift3 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(25px, 10px) rotate(3deg); }
+            50% { transform: translate(15px, -20px) rotate(-2deg); }
+            75% { transform: translate(-10px, 15px) rotate(1deg); }
+        }
+
+        @keyframes drift4 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10px, -25px) rotate(-1deg); }
+            50% { transform: translate(-20px, -15px) rotate(2deg); }
+            75% { transform: translate(15px, -30px) rotate(-2deg); }
+        }
+
+        @keyframes drift5 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-15px, -20px) rotate(2deg); }
+            50% { transform: translate(10px, -30px) rotate(-3deg); }
+            75% { transform: translate(-20px, -10px) rotate(1deg); }
+        }
+
+        @keyframes drift6 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-20px, 20px) rotate(-2deg); }
+            50% { transform: translate(15px, 10px) rotate(3deg); }
+            75% { transform: translate(-10px, -15px) rotate(-1deg); }
+        }
+
+        @keyframes drift7 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(12px, -18px) rotate(2deg); }
+            50% { transform: translate(-8px, 14px) rotate(-3deg); }
+            75% { transform: translate(18px, 8px) rotate(1deg); }
+        }
+
+        @keyframes drift8 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(-14px, 12px) rotate(-1deg); }
+            50% { transform: translate(10px, -16px) rotate(2deg); }
+            75% { transform: translate(-18px, -8px) rotate(-2deg); }
+        }
+
+        @keyframes bubbleIn {
+            from { opacity: 0; transform: scale(0.3); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Decorative grid lines */
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        /* Main content */
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            padding: 40px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffe66d;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            padding: 10px 28px;
+            border-radius: 50px;
+            margin-bottom: 35px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+            text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        }
+
+        .title span {
+            background: linear-gradient(135deg, #ffe66d, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .ampersand {
+            font-size: 3.5rem;
+            display: block;
+            margin: 5px 0;
+            opacity: 0.5;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            margin-top: 20px;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #ffe66d, #ff6b6b);
+            margin: 30px auto;
+            border-radius: 2px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .details {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 10px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .detail-item { text-align: center; }
+
+        .detail-icon { font-size: 1.8rem; margin-bottom: 8px; }
+
+        .detail-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            font-size: 1rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Route visualization */
+        .route {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .route-city {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 14px 26px;
+            border-radius: 14px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: transform 0.3s;
+        }
+
+        .route-city:hover { transform: translateY(-4px); }
+
+        .route-city .flag {
+            font-size: 1.3rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .route-arrow svg {
+            width: 28px;
+            height: 28px;
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.35);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Bottom bar */
+        .bottom-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ffe66d, #ff6b6b, #4ecdc4, #ffe66d);
+            background-size: 300% 100%;
+            animation: shimmer 4s linear infinite;
+            z-index: 20;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 0; }
+            100% { background-position: 300% 0; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .title { font-size: 3rem; }
+            .title .ampersand { font-size: 2.2rem; }
+            .details { gap: 25px; flex-wrap: wrap; }
+            .route { flex-wrap: wrap; gap: 10px; }
+            .bubble { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+
+        <!-- Image Bubbles - Seoul -->
+        <div class="bubble bubble-1">
+            <img src="https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?w=500&q=80" alt="Seoul Skyline">
+        </div>
+        <div class="bubble bubble-2">
+            <img src="https://images.unsplash.com/photo-1517154421773-0529f29ea451?w=500&q=80" alt="Gyeongbokgung">
+        </div>
+        <div class="bubble bubble-3">
+            <img src="https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=500&q=80" alt="Seoul Night">
+        </div>
+        <div class="bubble bubble-7">
+            <img src="https://images.unsplash.com/photo-1498654896293-37aacf113fd9?w=400&q=80" alt="Korean Food">
+        </div>
+
+        <!-- Image Bubbles - Siargao -->
+        <div class="bubble bubble-4">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&q=80" alt="Siargao Beach">
+        </div>
+        <div class="bubble bubble-5">
+            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&q=80" alt="Cloud 9 Surf">
+        </div>
+        <div class="bubble bubble-6">
+            <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=500&q=80" alt="Island Hopping">
+        </div>
+        <div class="bubble bubble-8">
+            <img src="https://images.unsplash.com/photo-1509233725247-49e657c54213?w=400&q=80" alt="Palm Trees">
+        </div>
+
+        <div class="grid-overlay"></div>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="tag">Viaggio di Gruppo 2026</div>
+
+            <h1 class="title">
+                Seoul
+                <span class="ampersand">&</span>
+                <span>Siargao</span>
+            </h1>
+
+            <p class="subtitle">Un'avventura tra cultura coreana e paradiso tropicale</p>
+
+            <div class="divider"></div>
+
+            <div class="details">
+                <div class="detail-item">
+                    <div class="detail-icon">📅</div>
+                    <div class="detail-label">Periodo</div>
+                    <div class="detail-value">8 – 22 Agosto</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">👥</div>
+                    <div class="detail-label">Gruppo</div>
+                    <div class="detail-value">13 Persone</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">💰</div>
+                    <div class="detail-label">Budget</div>
+                    <div class="detail-value">~€3.000 / persona</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">🌏</div>
+                    <div class="detail-label">Durata</div>
+                    <div class="detail-value">14 Notti</div>
+                </div>
+            </div>
+
+            <!-- Route -->
+            <div class="route">
+                <div class="route-city">
+                    <span class="flag">🇮🇹</span>
+                    Bologna
+                </div>
+                <div class="route-arrow">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </div>
+                <div class="route-city">
+                    <span class="flag">🇰🇷</span>
+                    Seoul
+                </div>
+                <div class="route-arrow">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </div>
+                <div class="route-city">
+                    <span class="flag">🇵🇭</span>
+                    Siargao
+                </div>
+                <div class="route-arrow">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </div>
+                <div class="route-city">
+                    <span class="flag">🇮🇹</span>
+                    Bologna
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-bar"></div>
+    </div>
+</body>
+</html>

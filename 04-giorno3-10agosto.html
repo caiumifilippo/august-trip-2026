@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giorno 3 – 10 Agosto | Seoul: Hongdae & Han River</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 40%, #24243e 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== BUBBLES ===== */
+        .bubble {
+            position: fixed; border-radius: 50%; overflow: hidden;
+            border: 3px solid rgba(255,255,255,0.10);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 0 30px rgba(0,0,0,0.2);
+            z-index: 1; opacity: 0;
+            animation: bubbleIn 1s ease-out forwards;
+        }
+        .bubble img { width:100%; height:100%; object-fit:cover; filter:brightness(0.55) saturate(1.2); }
+        .bubble::after {
+            content:''; position:absolute; inset:0; border-radius:50%;
+            background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.12) 0%,transparent 60%);
+            pointer-events:none;
+        }
+
+        .bubble-a { width:190px;height:190px;top:2%;right:1%; animation:bubbleIn 1s ease-out .2s forwards,dA 14s ease-in-out 1.2s infinite; }
+        .bubble-b { width:155px;height:155px;bottom:4%;right:3%; animation:bubbleIn 1s ease-out .5s forwards,dB 12s ease-in-out 1.5s infinite; }
+        .bubble-c { width:130px;height:130px;top:50%;right:0.5%; animation:bubbleIn 1s ease-out .7s forwards,dC 16s ease-in-out 1.7s infinite; }
+        .bubble-d { width:170px;height:170px;top:5%;left:1%; animation:bubbleIn 1s ease-out .4s forwards,dD 13s ease-in-out 1.4s infinite; }
+        .bubble-e { width:115px;height:115px;bottom:8%;left:2%; animation:bubbleIn 1s ease-out .8s forwards,dE 11s ease-in-out 1.8s infinite; }
+
+        @keyframes bubbleIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+        @keyframes dA{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-14px,-22px) rotate(2deg)}50%{transform:translate(10px,-30px) rotate(-1deg)}75%{transform:translate(-18px,-8px) rotate(3deg)}}
+        @keyframes dB{0%,100%{transform:translate(0,0)}25%{transform:translate(16px,14px)}50%{transform:translate(-12px,22px)}75%{transform:translate(14px,-10px)}}
+        @keyframes dC{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-20px,16px) rotate(-2deg)}50%{transform:translate(12px,10px) rotate(1deg)}75%{transform:translate(-8px,-14px) rotate(-1deg)}}
+        @keyframes dD{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(12px,-16px) rotate(1deg)}50%{transform:translate(-10px,-28px) rotate(-2deg)}75%{transform:translate(16px,-10px) rotate(2deg)}}
+        @keyframes dE{0%,100%{transform:translate(0,0)}33%{transform:translate(14px,-12px)}66%{transform:translate(-10px,16px)}}
+
+        /* ===== LAYOUT ===== */
+        .slide-container { max-width:1100px; margin:0 auto; padding:40px 50px 60px; position:relative; z-index:10; }
+
+        /* ===== TOP BAR ===== */
+        .top-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; animation:fadeIn .8s ease-out; }
+        .day-badge { display:flex; align-items:center; gap:14px; }
+        .day-number {
+            background:linear-gradient(135deg,#ffe66d,#ff6b6b); color:#1a1a2e;
+            font-size:2.4rem; font-weight:800; width:70px; height:70px; border-radius:18px;
+            display:flex; align-items:center; justify-content:center;
+            font-family:'Playfair Display',serif; box-shadow:0 4px 20px rgba(255,107,107,0.3);
+        }
+        .day-info h2 { font-size:1.5rem; font-weight:700; line-height:1.2; }
+        .day-info p { font-size:0.85rem; color:rgba(255,255,255,0.5); }
+        .slide-tag {
+            background:rgba(255,255,255,0.08); backdrop-filter:blur(10px);
+            border:1px solid rgba(255,255,255,0.12); padding:8px 20px; border-radius:50px;
+            font-size:0.75rem; font-weight:600; letter-spacing:3px; text-transform:uppercase; color:#4ecdc4;
+        }
+
+        /* ===== THEME ===== */
+        .theme-banner {
+            background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+            border-radius:16px; padding:18px 28px; margin-bottom:28px;
+            display:flex; align-items:center; gap:16px; animation:slideUp .8s ease-out .15s both;
+        }
+        .theme-emoji { font-size:2.2rem; }
+        .theme-text h3 {
+            font-size:1.1rem; font-weight:700;
+            background:linear-gradient(135deg,#ffe66d,#ff6b6b);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+        }
+        .theme-text p { font-size:0.8rem; color:rgba(255,255,255,0.5); margin-top:2px; }
+
+        /* ===== ACTIVITY CARDS ===== */
+        .activities { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:28px; }
+        .activity-card {
+            background:rgba(255,255,255,0.05); backdrop-filter:blur(14px);
+            border:1px solid rgba(255,255,255,0.08); border-radius:18px; padding:24px;
+            transition:transform .3s,border-color .3s,background .3s;
+            animation:slideUp .8s ease-out both;
+        }
+        .activity-card:nth-child(1){animation-delay:.2s}
+        .activity-card:nth-child(2){animation-delay:.3s}
+        .activity-card:nth-child(3){animation-delay:.4s}
+        .activity-card:nth-child(4){animation-delay:.5s}
+        .activity-card:nth-child(5){animation-delay:.6s}
+        .activity-card:hover { transform:translateY(-4px); border-color:rgba(255,255,255,0.18); background:rgba(255,255,255,0.08); }
+        .activity-card.full-width { grid-column:1/-1; }
+
+        .card-time {
+            display:inline-block; background:rgba(255,230,109,0.12); color:#ffe66d;
+            font-size:0.7rem; font-weight:600; padding:4px 12px; border-radius:20px;
+            letter-spacing:1px; margin-bottom:12px;
+        }
+        .card-title { font-size:1.15rem; font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:8px; }
+        .card-title .emoji { font-size:1.3rem; }
+        .card-desc { font-size:0.82rem; color:rgba(255,255,255,0.55); line-height:1.6; margin-bottom:12px; }
+        .card-highlights { display:flex; flex-wrap:wrap; gap:8px; }
+        .highlight-chip {
+            background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08);
+            padding:5px 12px; border-radius:20px; font-size:0.7rem; color:rgba(255,255,255,0.6);
+            display:flex; align-items:center; gap:5px;
+        }
+        .card-cost {
+            display:inline-flex; align-items:center; gap:6px; margin-top:12px;
+            padding:6px 14px; background:rgba(78,205,196,0.1); border:1px solid rgba(78,205,196,0.15);
+            border-radius:10px; font-size:0.8rem; font-weight:600; color:#4ecdc4;
+        }
+
+        /* ===== HIGHLIGHT CARD (Han River Cruise) ===== */
+        .cruise-card {
+            background: linear-gradient(135deg, rgba(78,205,196,0.08), rgba(255,230,109,0.06));
+            border: 1px solid rgba(78,205,196,0.18);
+            border-radius: 20px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            animation: slideUp .8s ease-out .5s both;
+        }
+        .cruise-info { }
+        .cruise-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(78,205,196,0.15); color: #4ecdc4;
+            padding: 5px 14px; border-radius: 20px;
+            font-size: 0.7rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+        .cruise-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem; font-weight: 800; margin-bottom: 8px;
+        }
+        .cruise-desc {
+            font-size: 0.82rem; color: rgba(255,255,255,0.55); line-height: 1.6; margin-bottom: 16px;
+        }
+        .cruise-details-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+        .cruise-detail {
+            background: rgba(255,255,255,0.05); border-radius: 10px; padding: 10px 14px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .cruise-detail-label { font-size: 0.65rem; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 1px; }
+        .cruise-detail-value { font-size: 0.9rem; font-weight: 600; margin-top: 2px; }
+
+        .cruise-visual {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .cruise-icon-big {
+            font-size: 5rem;
+            animation: boatRock 4s ease-in-out infinite;
+        }
+        @keyframes boatRock {
+            0%,100% { transform: rotate(0deg) translateY(0); }
+            25% { transform: rotate(3deg) translateY(-5px); }
+            75% { transform: rotate(-3deg) translateY(5px); }
+        }
+        .cruise-wave {
+            font-size: 2rem; letter-spacing: 8px; opacity: 0.3;
+            animation: waveMove 3s ease-in-out infinite;
+        }
+        @keyframes waveMove {
+            0%,100% { transform: translateX(0); }
+            50% { transform: translateX(12px); }
+        }
+        .cruise-price-tag {
+            margin-top: 16px;
+            background: linear-gradient(135deg, #ffe66d, #ff6b6b);
+            color: #1a1a2e;
+            padding: 8px 22px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 20px rgba(255,107,107,0.25);
+        }
+
+        /* ===== FOOD SECTION ===== */
+        .food-section {
+            background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+            border-radius:18px; padding:24px 28px; margin-bottom:28px;
+            animation:slideUp .8s ease-out .6s both;
+        }
+        .food-title {
+            font-size:0.8rem; text-transform:uppercase; letter-spacing:3px;
+            color:#ff6b6b; font-weight:600; margin-bottom:16px; display:flex; align-items:center; gap:8px;
+        }
+        .food-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+        .food-item {
+            text-align:center; padding:16px 12px; background:rgba(255,255,255,0.04);
+            border-radius:14px; border:1px solid rgba(255,255,255,0.06); transition:transform .3s;
+        }
+        .food-item:hover { transform:translateY(-3px); }
+        .food-emoji { font-size:2rem; margin-bottom:8px; }
+        .food-name { font-size:0.85rem; font-weight:600; margin-bottom:2px; }
+        .food-desc { font-size:0.7rem; color:rgba(255,255,255,0.4); }
+        .food-price { font-size:0.75rem; color:#ffe66d; font-weight:600; margin-top:4px; }
+
+        /* ===== COST BAR ===== */
+        .cost-bar {
+            background:rgba(255,255,255,0.05); backdrop-filter:blur(16px);
+            border:1px solid rgba(255,255,255,0.10); border-radius:20px; padding:26px 36px;
+            animation:slideUp .8s ease-out .7s both;
+        }
+        .cost-bar-title { font-size:0.8rem; text-transform:uppercase; letter-spacing:3px; color:rgba(255,255,255,0.4); margin-bottom:18px; font-weight:600; }
+        .cost-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:12px; }
+        .cost-item {
+            text-align:center; padding:14px 6px; background:rgba(255,255,255,0.04);
+            border-radius:12px; border:1px solid rgba(255,255,255,0.06); transition:transform .3s;
+        }
+        .cost-item:hover { transform:translateY(-3px); }
+        .cost-icon { font-size:1.3rem; margin-bottom:6px; }
+        .cost-label { font-size:0.6rem; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+        .cost-value {
+            font-size:1.1rem; font-weight:700;
+            background:linear-gradient(135deg,#ffe66d,#ff6b6b);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+        }
+        .cost-note { font-size:0.6rem; color:rgba(255,255,255,0.3); margin-top:2px; }
+        .cost-total {
+            text-align:center; padding:14px 6px;
+            background:rgba(255,230,109,0.08); border-radius:12px; border:1px solid rgba(255,230,109,0.15);
+        }
+        .cost-total .cost-value {
+            font-size:1.3rem;
+            background:linear-gradient(135deg,#ffe66d,#4ecdc4);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+        }
+
+        /* ===== BOTTOM ===== */
+        .bottom-bar {
+            position:fixed; bottom:0; left:0; right:0; height:4px;
+            background:linear-gradient(90deg,#ffe66d,#ff6b6b,#4ecdc4,#ffe66d);
+            background-size:300% 100%; animation:shimmer 4s linear infinite; z-index:50;
+        }
+        @keyframes shimmer{0%{background-position:0% 0}100%{background-position:300% 0}}
+        .nav-indicator { position:fixed; right:24px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; gap:10px; z-index:50; }
+        .nav-dot { width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.2); transition:all .3s; }
+        .nav-dot.active { background:#ffe66d; border-color:#ffe66d; box-shadow:0 0 10px rgba(255,230,109,0.4); transform:scale(1.3); }
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .slide-container{padding:24px 20px 50px}
+            .top-bar{flex-direction:column;gap:12px;align-items:flex-start}
+            .activities{grid-template-columns:1fr}
+            .cruise-card{grid-template-columns:1fr}
+            .food-grid{grid-template-columns:1fr}
+            .cost-grid{grid-template-columns:repeat(2,1fr)}
+            .bubble{display:none}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles -->
+    <div class="bubble bubble-a">
+        <img src="https://images.unsplash.com/photo-1548115184-bc6544d06a58?w=500&q=80" alt="Hongdae Street">
+    </div>
+    <div class="bubble bubble-b">
+        <img src="https://images.unsplash.com/photo-1578037571214-25e07ed4a943?w=400&q=80" alt="Han River">
+    </div>
+    <div class="bubble bubble-c">
+        <img src="https://images.unsplash.com/photo-1546874177-9e664107314e?w=400&q=80" alt="Neon Seoul">
+    </div>
+    <div class="bubble bubble-d">
+        <img src="https://images.unsplash.com/photo-1517154421773-0529f29ea451?w=400&q=80" alt="Seoul Skyline">
+    </div>
+    <div class="bubble bubble-e">
+        <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=300&q=80" alt="Korean Fried Chicken">
+    </div>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <div class="nav-dot" title="Copertina"></div>
+        <div class="nav-dot" title="Giorno 1"></div>
+        <div class="nav-dot" title="Giorno 2"></div>
+        <div class="nav-dot active" title="Giorno 3"></div>
+        <div class="nav-dot" title="Giorno 4"></div>
+        <div class="nav-dot" title="Giorno 5"></div>
+        <div class="nav-dot" title="Giorno 6"></div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="day-badge">
+                <div class="day-number">3</div>
+                <div class="day-info">
+                    <h2>Lunedì 10 Agosto 2026</h2>
+                    <p>Seoul — Hongdae, Han River & Crociera</p>
+                </div>
+            </div>
+            <div class="slide-tag">🇰🇷 Seoul</div>
+        </div>
+
+        <!-- THEME -->
+        <div class="theme-banner">
+            <div class="theme-emoji">🎶</div>
+            <div class="theme-text">
+                <h3>Street culture, relax sul fiume e crociera al tramonto</h3>
+                <p>Dalla vibe indie di Hongdae alle acque calme dell'Han River: il mix perfetto tra energia e relax</p>
+            </div>
+        </div>
+
+        <!-- ACTIVITIES -->
+        <div class="activities">
+
+            <!-- MATTINA: Hongdae -->
+            <div class="activity-card full-width">
+                <div class="card-time">🌅 09:30 – 13:00 · Mattina</div>
+                <div class="card-title">
+                    <span class="emoji">🎨</span> Quartiere di Hongdae
+                </div>
+                <div class="card-desc">
+                    Il cuore pulsante della cultura giovanile di Seoul. Quartiere universitario (Hongik University)
+                    famoso per <strong>street art, murales, artisti di strada, busking live</strong> e negozi indie.
+                    Perfetto per passeggiare, scoprire cafè unici, negozi vintage e vivere la vibe più creativa della città.
+                    Ogni settimana c'è il famoso <strong>Free Market</strong> (sabato) dove artisti locali vendono le loro creazioni.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🎤 Busking live</span>
+                    <span class="highlight-chip">🎨 Street art & murales</span>
+                    <span class="highlight-chip">🛍️ Negozi vintage</span>
+                    <span class="highlight-chip">☕ Themed cafè</span>
+                    <span class="highlight-chip">🎮 Arcade & karaoke</span>
+                    <span class="highlight-chip">🛒 Free Market domenicale</span>
+                </div>
+                <div class="card-cost">🎟️ Gratuito — solo shopping personale</div>
+            </div>
+
+            <!-- PRANZO: Hongdae Food -->
+            <div class="activity-card">
+                <div class="card-time">🍜 13:00 – 14:15 · Pranzo</div>
+                <div class="card-title">
+                    <span class="emoji">🍗</span> Pranzo a Hongdae
+                </div>
+                <div class="card-desc">
+                    Hongdae è piena di ristoranti economici e street food.
+                    Provate il <strong>Korean Fried Chicken</strong> (il famoso "chimaek": chicken + maekju/birra)
+                    o i <strong>corn dogs</strong> coreani ricoperti di patate fritte.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🍗 Fried Chicken ~€8</span>
+                    <span class="highlight-chip">🌭 Corn Dog ~€3</span>
+                    <span class="highlight-chip">🧋 Bubble tea ~€4</span>
+                </div>
+                <div class="card-cost">🍽️ Pranzo stimato: ~€10–12 a persona</div>
+            </div>
+
+            <!-- POMERIGGIO: Han River Park -->
+            <div class="activity-card">
+                <div class="card-time">🚲 15:00 – 17:30 · Pomeriggio</div>
+                <div class="card-title">
+                    <span class="emoji">🌳</span> Yeouido Hangang Park
+                </div>
+                <div class="card-desc">
+                    Il parco più popolare lungo l'Han River. Noleggiate una <strong>bici</strong> e pedalate
+                    lungo le piste ciclabili del fiume, oppure rilassatevi sul prato con un
+                    <strong>picnic dal convenience store</strong> (tradizione coreana: ramyeon + kimbap da CU/GS25).
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🚲 Bici noleggio ~€5/h</span>
+                    <span class="highlight-chip">🍜 Ramyeon al parco ~€2</span>
+                    <span class="highlight-chip">🏞️ Piste ciclabili</span>
+                </div>
+                <div class="card-cost">🚲 Noleggio bici 2h: ~€8 a persona</div>
+            </div>
+
+        </div>
+
+        <!-- HAN RIVER CRUISE - HIGHLIGHT -->
+        <div class="cruise-card">
+            <div class="cruise-info">
+                <div class="cruise-badge">⭐ Esperienza Top</div>
+                <div class="cruise-title">Han River Cruise</div>
+                <div class="cruise-desc">
+                    Crociera serale sull'<strong>Han River</strong>, il fiume che attraversa Seoul.
+                    Godetevi lo skyline illuminato di Seoul dal ponte di osservazione
+                    mentre navigate sotto i ponti iconici della città.
+                    La crociera include <strong>musica live</strong> e bar a bordo.
+                    Vista spettacolare su Banpo Bridge e le sue fontane arcobaleno.
+                </div>
+                <div class="cruise-details-grid">
+                    <div class="cruise-detail">
+                        <div class="cruise-detail-label">Partenza</div>
+                        <div class="cruise-detail-value">🕕 18:30 — Yeouido Dock</div>
+                    </div>
+                    <div class="cruise-detail">
+                        <div class="cruise-detail-label">Durata</div>
+                        <div class="cruise-detail-value">⏱️ ~70 minuti</div>
+                    </div>
+                    <div class="cruise-detail">
+                        <div class="cruise-detail-label">Highlight</div>
+                        <div class="cruise-detail-value">🌈 Banpo Rainbow Fountain</div>
+                    </div>
+                    <div class="cruise-detail">
+                        <div class="cruise-detail-label">A bordo</div>
+                        <div class="cruise-detail-value">🎵 Musica live + Bar</div>
+                    </div>
+                </div>
+            </div>
+            <div class="cruise-visual">
+                <div class="cruise-icon-big">🚢</div>
+                <div class="cruise-wave">〰️〰️〰️〰️</div>
+                <div class="cruise-price-tag">€16 / persona</div>
+            </div>
+        </div>
+
+        <!-- FOOD: Cena -->
+        <div class="food-section">
+            <div class="food-title">🌙 Cena — Myeongdong Night Food</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div class="food-emoji">🐙</div>
+                    <div class="food-name">Nakji Bokkeum</div>
+                    <div class="food-desc">Polpo saltato in padella piccantissimo con verdure e noodles — un classico!</div>
+                    <div class="food-price">~€10 a persona</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🥟</div>
+                    <div class="food-name">Mandu</div>
+                    <div class="food-desc">Ravioli coreani al vapore o fritti, ripieni di carne e verdure. Perfetti come contorno</div>
+                    <div class="food-price">~€4 a persona</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🍦</div>
+                    <div class="food-name">Dessert Street</div>
+                    <div class="food-desc">Myeongdong è famosa per i dessert: gelato 32cm, egg bread, hotteok e crêpe</div>
+                    <div class="food-price">~€3 a persona</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COST SUMMARY -->
+        <div class="cost-bar">
+            <div class="cost-bar-title">💰 Riepilogo Costi Giorno 3 — per persona</div>
+            <div class="cost-grid">
+                <div class="cost-item">
+                    <div class="cost-icon">🎨</div>
+                    <div class="cost-label">Hongdae</div>
+                    <div class="cost-value">€0</div>
+                    <div class="cost-note">Gratuito</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🚲</div>
+                    <div class="cost-label">Bici + Metro</div>
+                    <div class="cost-value">€12</div>
+                    <div class="cost-note">Noleggio + trasporti</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🚢</div>
+                    <div class="cost-label">Crociera</div>
+                    <div class="cost-value">€16</div>
+                    <div class="cost-note">Han River Cruise</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍗</div>
+                    <div class="cost-label">Pranzo</div>
+                    <div class="cost-value">€11</div>
+                    <div class="cost-note">Hongdae food</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🐙</div>
+                    <div class="cost-label">Cena</div>
+                    <div class="cost-value">€14</div>
+                    <div class="cost-note">Myeongdong</div>
+                </div>
+                <div class="cost-total">
+                    <div class="cost-icon">📊</div>
+                    <div class="cost-label">Totale Giorno</div>
+                    <div class="cost-value">~€53</div>
+                    <div class="cost-note">escluso alloggio</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-bar"></div>
+
+</body>
+</html>

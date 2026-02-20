@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giorno 8 – 15 Agosto | Siargao: Cloud 9 & Surf</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0a2e38 0%,#0d4f4f 35%,#1a5c3a 100%);color:#fff;min-height:100vh;overflow-x:hidden}
+
+        /* ===== BUBBLES ===== */
+        .bubble{position:fixed;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.10);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 0 30px rgba(0,0,0,.2);z-index:1;opacity:0;animation:bubbleIn 1s ease-out forwards}
+        .bubble img{width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3)}
+        .bubble::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.12) 0%,transparent 60%);pointer-events:none}
+
+        .bubble-a{width:200px;height:200px;top:2%;right:1%;animation:bubbleIn 1s ease-out .2s forwards,dA 14s ease-in-out 1.2s infinite}
+        .bubble-b{width:160px;height:160px;bottom:3%;right:3%;animation:bubbleIn 1s ease-out .5s forwards,dB 12s ease-in-out 1.5s infinite}
+        .bubble-c{width:140px;height:140px;top:48%;right:1%;animation:bubbleIn 1s ease-out .7s forwards,dC 16s ease-in-out 1.7s infinite}
+        .bubble-d{width:130px;height:130px;top:5%;left:1%;animation:bubbleIn 1s ease-out .4s forwards,dD 13s ease-in-out 1.4s infinite}
+        .bubble-e{width:155px;height:155px;bottom:5%;left:1%;animation:bubbleIn 1s ease-out .85s forwards,dE 11s ease-in-out 1.85s infinite}
+
+        @keyframes bubbleIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+        @keyframes dA{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-14px,-20px) rotate(2deg)}50%{transform:translate(8px,-32px) rotate(-1deg)}75%{transform:translate(-16px,-10px) rotate(3deg)}}
+        @keyframes dB{0%,100%{transform:translate(0,0)}25%{transform:translate(14px,14px)}50%{transform:translate(-12px,20px)}75%{transform:translate(10px,-10px)}}
+        @keyframes dC{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-18px,12px) rotate(-2deg)}50%{transform:translate(10px,20px) rotate(1deg)}75%{transform:translate(-14px,-8px) rotate(-1deg)}}
+        @keyframes dD{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(12px,-14px) rotate(1deg)}50%{transform:translate(-10px,-24px) rotate(-2deg)}75%{transform:translate(14px,-6px) rotate(2deg)}}
+        @keyframes dE{0%,100%{transform:translate(0,0)}33%{transform:translate(16px,-12px)}66%{transform:translate(-14px,14px)}}
+
+        /* ===== LAYOUT ===== */
+        .slide-container{max-width:1100px;margin:0 auto;padding:40px 50px 60px;position:relative;z-index:10}
+
+        /* ===== TOP BAR ===== */
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeIn .8s ease-out}
+        .day-badge{display:flex;align-items:center;gap:14px}
+        .day-number{background:linear-gradient(135deg,#4ecdc4,#2eb5a6);color:#0a2e38;font-size:2.4rem;font-weight:800;width:70px;height:70px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;box-shadow:0 4px 20px rgba(78,205,196,.35)}
+        .day-info h2{font-size:1.5rem;font-weight:700;line-height:1.2}
+        .day-info p{font-size:.85rem;color:rgba(255,255,255,.5)}
+        .slide-tag{background:rgba(78,205,196,.12);backdrop-filter:blur(10px);border:1px solid rgba(78,205,196,.2);padding:8px 20px;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#4ecdc4}
+
+        /* ===== THEME ===== */
+        .theme-banner{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 28px;margin-bottom:28px;display:flex;align-items:center;gap:16px;animation:slideUp .8s ease-out .15s both}
+        .theme-emoji{font-size:2.2rem}
+        .theme-text h3{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .theme-text p{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:2px}
+
+        /* ===== ACTIVITY CARDS ===== */
+        .activities{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:28px}
+        .activity-card{background:rgba(255,255,255,.05);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px;transition:transform .3s,border-color .3s,background .3s;animation:slideUp .8s ease-out both}
+        .activity-card:nth-child(1){animation-delay:.2s}
+        .activity-card:nth-child(2){animation-delay:.3s}
+        .activity-card:nth-child(3){animation-delay:.4s}
+        .activity-card:nth-child(4){animation-delay:.5s}
+        .activity-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
+        .activity-card.full-width{grid-column:1/-1}
+
+        .card-time{display:inline-block;background:rgba(78,205,196,.12);color:#4ecdc4;font-size:.7rem;font-weight:600;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:12px}
+        .card-title{font-size:1.15rem;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+        .card-title .emoji{font-size:1.3rem}
+        .card-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:12px}
+        .card-highlights{display:flex;flex-wrap:wrap;gap:8px}
+        .highlight-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:20px;font-size:.7rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:5px}
+        .card-cost{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 14px;background:rgba(78,205,196,.1);border:1px solid rgba(78,205,196,.15);border-radius:10px;font-size:.8rem;font-weight:600;color:#4ecdc4}
+
+        /* ===== SURF SPECIAL CARD ===== */
+        .surf-card{
+            background:linear-gradient(135deg,rgba(78,205,196,.08),rgba(255,230,109,.05));
+            border:1px solid rgba(78,205,196,.18);border-radius:20px;padding:28px 32px;
+            margin-bottom:28px;display:grid;grid-template-columns:1.2fr .8fr;gap:28px;
+            animation:slideUp .8s ease-out .25s both;
+        }
+        .surf-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(78,205,196,.15);color:#4ecdc4;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+        .surf-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;margin-bottom:8px}
+        .surf-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:16px}
+        .surf-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+        .surf-detail{background:rgba(255,255,255,.05);border-radius:10px;padding:10px 14px;border:1px solid rgba(255,255,255,.06)}
+        .surf-detail-label{font-size:.65rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px}
+        .surf-detail-value{font-size:.9rem;font-weight:600;margin-top:2px}
+
+        .surf-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+        .surf-icon{font-size:5rem;animation:surfRide 3s ease-in-out infinite}
+        @keyframes surfRide{0%,100%{transform:translateY(0) rotate(-3deg)}25%{transform:translateY(-10px) rotate(2deg)}50%{transform:translateY(4px) rotate(-2deg)}75%{transform:translateY(-6px) rotate(3deg)}}
+        .surf-waves{font-size:2rem;letter-spacing:4px;opacity:.35;animation:waveCrash 2.5s ease-in-out infinite}
+        @keyframes waveCrash{0%,100%{transform:translateX(0) scaleX(1)}50%{transform:translateX(8px) scaleX(1.05)}}
+        .surf-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;justify-content:center}
+        .surf-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:6px 14px;border-radius:20px;font-size:.72rem;color:rgba(255,255,255,.6)}
+        .surf-price-tag{
+            margin-top:16px;background:linear-gradient(135deg,#4ecdc4,#ffe66d);
+            color:#0a2e38;padding:10px 24px;border-radius:30px;font-weight:700;font-size:1.1rem;
+            box-shadow:0 4px 20px rgba(78,205,196,.3);
+        }
+
+        /* ===== FOOD SECTION ===== */
+        .food-section{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px 28px;margin-bottom:28px;animation:slideUp .8s ease-out .6s both}
+        .food-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:#ffe66d;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .food-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+        .food-item{text-align:center;padding:16px 12px;background:rgba(255,255,255,.04);border-radius:14px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .food-item:hover{transform:translateY(-3px)}
+        .food-emoji{font-size:2rem;margin-bottom:8px}
+        .food-name{font-size:.85rem;font-weight:600;margin-bottom:2px}
+        .food-desc{font-size:.7rem;color:rgba(255,255,255,.4)}
+        .food-price{font-size:.75rem;color:#ffe66d;font-weight:600;margin-top:4px}
+
+        /* ===== COST BAR ===== */
+        .cost-bar{background:rgba(255,255,255,.05);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:26px 36px;animation:slideUp .8s ease-out .7s both}
+        .cost-bar-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);margin-bottom:18px;font-weight:600}
+        .cost-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+        .cost-item{text-align:center;padding:14px 6px;background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .cost-item:hover{transform:translateY(-3px)}
+        .cost-icon{font-size:1.3rem;margin-bottom:6px}
+        .cost-label{font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+        .cost-value{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .cost-note{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:2px}
+        .cost-total{text-align:center;padding:14px 6px;background:rgba(78,205,196,.08);border-radius:12px;border:1px solid rgba(78,205,196,.15)}
+        .cost-total .cost-value{font-size:1.3rem}
+
+        /* ===== BOTTOM ===== */
+        .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#4ecdc4,#ffe66d,#ff6b6b,#4ecdc4);background-size:300% 100%;animation:shimmer 4s linear infinite;z-index:50}
+        @keyframes shimmer{0%{background-position:0% 0}100%{background-position:300% 0}}
+        .nav-indicator{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+        .nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);transition:all .3s}
+        .nav-dot.active{background:#4ecdc4;border-color:#4ecdc4;box-shadow:0 0 10px rgba(78,205,196,.4);transform:scale(1.3)}
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .slide-container{padding:24px 20px 50px}
+            .top-bar{flex-direction:column;gap:12px;align-items:flex-start}
+            .activities{grid-template-columns:1fr}
+            .surf-card{grid-template-columns:1fr}
+            .food-grid{grid-template-columns:1fr}
+            .cost-grid{grid-template-columns:repeat(2,1fr)}
+            .bubble{display:none}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles -->
+    <div class="bubble bubble-a">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&q=80" alt="Surfing">
+    </div>
+    <div class="bubble bubble-b">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80" alt="Tropical Beach">
+    </div>
+    <div class="bubble bubble-c">
+        <img src="https://images.unsplash.com/photo-1509233725247-49e657c54213?w=400&q=80" alt="Palm Sunset">
+    </div>
+    <div class="bubble bubble-d">
+        <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&q=80" alt="Crystal Water">
+    </div>
+    <div class="bubble bubble-e">
+        <img src="https://images.unsplash.com/photo-1506953823645-5e846512e04c?w=400&q=80" alt="Surf Wave">
+    </div>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <div class="nav-dot" title="Copertina"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Trasferimento"></div>
+        <div class="nav-dot active" title="Siargao"></div>
+        <div class="nav-dot" title="Siargao"></div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="day-badge">
+                <div class="day-number">8</div>
+                <div class="day-info">
+                    <h2>Sabato 15 Agosto 2026</h2>
+                    <p>Siargao — Cloud 9, Surf & Primo Giorno in Paradiso</p>
+                </div>
+            </div>
+            <div class="slide-tag">🇵🇭 Siargao</div>
+        </div>
+
+        <!-- THEME -->
+        <div class="theme-banner">
+            <div class="theme-emoji">🏄</div>
+            <div class="theme-text">
+                <h3>Il primo giorno nella capitale del surf delle Filippine</h3>
+                <p>Sveglia con le palme, lezione di surf a Cloud 9, scooter sull'isola e tramonto sulla spiaggia</p>
+            </div>
+        </div>
+
+        <!-- CLOUD 9 SURF SPECIAL CARD -->
+        <div class="surf-card">
+            <div>
+                <div class="surf-badge">🏄 Esperienza Iconica</div>
+                <div class="surf-title">Cloud 9 — Lezione di Surf</div>
+                <div class="surf-desc">
+                    <strong>Cloud 9</strong> è il surf break più famoso di tutte le Filippine e uno dei migliori al mondo.
+                    La famosa <strong>boardwalk in legno</strong> si affaccia sulle onde perfette della barriera corallina.
+                    Prenotate una <strong>lezione di surf di gruppo</strong> con istruttore locale (1.5h):
+                    perfetto sia per principianti assoluti che per chi ha già esperienza.
+                    Tavola, rash guard e istruttore inclusi. Un'esperienza da brividi!
+                </div>
+                <div class="surf-grid">
+                    <div class="surf-detail">
+                        <div class="surf-detail-label">Location</div>
+                        <div class="surf-detail-value">📍 Cloud 9 Boardwalk</div>
+                    </div>
+                    <div class="surf-detail">
+                        <div class="surf-detail-label">Orario</div>
+                        <div class="surf-detail-value">🕗 08:00 – 10:00</div>
+                    </div>
+                    <div class="surf-detail">
+                        <div class="surf-detail-label">Durata</div>
+                        <div class="surf-detail-value">⏱️ 1.5h lezione + pratica</div>
+                    </div>
+                    <div class="surf-detail">
+                        <div class="surf-detail-label">Include</div>
+                        <div class="surf-detail-value">🏄 Board + istruttore</div>
+                    </div>
+                </div>
+            </div>
+            <div class="surf-visual">
+                <div class="surf-icon">🏄</div>
+                <div class="surf-waves">🌊🌊🌊🌊🌊</div>
+                <div class="surf-tags">
+                    <span class="surf-chip">🏄 Principianti OK</span>
+                    <span class="surf-chip">🏖️ Boardwalk iconico</span>
+                    <span class="surf-chip">📸 Foto incluse</span>
+                    <span class="surf-chip">🤙 Istruttore locale</span>
+                </div>
+                <div class="surf-price-tag">€12 / persona (1.5h)</div>
+            </div>
+        </div>
+
+        <!-- ACTIVITIES -->
+        <div class="activities">
+
+            <!-- Colazione tropicale -->
+            <div class="activity-card">
+                <div class="card-time">☀️ 06:30 – 07:30 · Colazione</div>
+                <div class="card-title">
+                    <span class="emoji">🥥</span> Colazione Tropicale
+                </div>
+                <div class="card-desc">
+                    Prima colazione a Siargao! Smoothie bowl tropicale, pancakes al cocco, frutta fresca
+                    (mango, papaya, dragon fruit) e caffè filippino.
+                    I cafè di General Luna sono famosi per le colazioni instagrammabili.
+                    Consigliato: <strong>Bravo Beach Resort Café</strong> o <strong>Shaka Siargao</strong>.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🥣 Smoothie bowl ~€3</span>
+                    <span class="highlight-chip">🥞 Pancake cocco ~€3</span>
+                    <span class="highlight-chip">☕ Caffè ~€1.50</span>
+                </div>
+                <div class="card-cost">🍽️ Colazione: ~€5–7 a persona</div>
+            </div>
+
+            <!-- Post-surf relax -->
+            <div class="activity-card">
+                <div class="card-time">🏖️ 10:30 – 12:30 · Mattina</div>
+                <div class="card-title">
+                    <span class="emoji">🏖️</span> Relax a Cloud 9 Beach
+                </div>
+                <div class="card-desc">
+                    Dopo la lezione di surf, rilassatevi sulla spiaggia di Cloud 9.
+                    Sdraiatevi sulla sabbia bianca, guardate i surfisti esperti sulle onde,
+                    fate foto dal <strong>boardwalk</strong> e godetevi un <strong>buko juice</strong> (acqua di cocco fresca)
+                    direttamente dalla noce di cocco. Puro relax tropicale.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🥥 Buko juice ~€0.50</span>
+                    <span class="highlight-chip">📸 Boardwalk photos</span>
+                    <span class="highlight-chip">🏖️ Spiaggia bianca</span>
+                </div>
+                <div class="card-cost">🎟️ Boardwalk entrance: ~€0.50</div>
+            </div>
+
+            <!-- Pranzo -->
+            <div class="activity-card">
+                <div class="card-time">🍽️ 12:30 – 14:00 · Pranzo</div>
+                <div class="card-title">
+                    <span class="emoji">🐟</span> Pranzo — Seafood Locale
+                </div>
+                <div class="card-desc">
+                    Pranzo in un <strong>carinderia</strong> (ristorantino locale filippino) vicino a Cloud 9.
+                    Pesce freschissimo pescato la mattina, grigliato al momento.
+                    Provate il <strong>kinilaw</strong> (ceviche filippino di tonno con aceto di cocco)
+                    e il <strong>sinigang</strong> (zuppa acida di pesce con tamarindo). Super economico!
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🐟 Kinilaw ~€2</span>
+                    <span class="highlight-chip">🍲 Sinigang ~€2</span>
+                    <span class="highlight-chip">🍚 Riso ~€0.30</span>
+                    <span class="highlight-chip">🥤 Succo mango ~€1</span>
+                </div>
+                <div class="card-cost">🍽️ Pranzo: ~€4–6 a persona</div>
+            </div>
+
+            <!-- Pomeriggio: Scooter & Esplorazione -->
+            <div class="activity-card">
+                <div class="card-time">🛵 14:30 – 17:30 · Pomeriggio</div>
+                <div class="card-title">
+                    <span class="emoji">🛵</span> Scooter Tour dell'Isola
+                </div>
+                <div class="card-desc">
+                    Noleggiate uno <strong>scooter</strong> e esplorate l'isola in libertà!
+                    Strade panoramiche tra palme di cocco e risaie.
+                    Tappe consigliate: <strong>Magpupungko Rock Pools</strong> (piscine naturali nella roccia,
+                    visitabili con bassa marea), <strong>Coconut Road</strong> (la strada più instagrammata),
+                    e i piccoli villaggi di pescatori lungo la costa.
+                </div>
+                <div class="card-highlights">
+                    <span class="highlight-chip">🛵 Scooter ~€7/giorno</span>
+                    <span class="highlight-chip">🪨 Magpupungko ~€1.50</span>
+                    <span class="highlight-chip">🌴 Coconut Road</span>
+                    <span class="highlight-chip">📸 Villaggi pescatori</span>
+                </div>
+                <div class="card-cost">🛵 Noleggio: ~€7/giorno + benzina ~€2</div>
+            </div>
+
+        </div>
+
+        <!-- FOOD: Cena Sunset -->
+        <div class="food-section">
+            <div class="food-title">🌅 Cena Sunset — Piedi nella Sabbia</div>
+            <div class="food-grid">
+                <div class="food-item">
+                    <div class="food-emoji">🦐</div>
+                    <div class="food-name">Grilled Prawns</div>
+                    <div class="food-desc">Gamberi giganti grigliati con burro all'aglio, serviti su foglia di banana con riso</div>
+                    <div class="food-price">~€5 a persona</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🐙</div>
+                    <div class="food-name">Adobo di Calamari</div>
+                    <div class="food-desc">Il piatto nazionale filippino: calamari stufati in salsa di soia, aceto e aglio. Delizioso!</div>
+                    <div class="food-price">~€3 a persona</div>
+                </div>
+                <div class="food-item">
+                    <div class="food-emoji">🍺</div>
+                    <div class="food-name">San Miguel Sunset</div>
+                    <div class="food-desc">Birra San Miguel ghiacciata guardando il tramonto. Il rituale serale di Siargao!</div>
+                    <div class="food-price">~€1 a persona</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COST SUMMARY -->
+        <div class="cost-bar">
+            <div class="cost-bar-title">💰 Riepilogo Costi Giorno 8 — per persona</div>
+            <div class="cost-grid">
+                <div class="cost-item">
+                    <div class="cost-icon">🏄</div>
+                    <div class="cost-label">Surf Lesson</div>
+                    <div class="cost-value">€12</div>
+                    <div class="cost-note">Cloud 9 (1.5h)</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🛵</div>
+                    <div class="cost-label">Scooter</div>
+                    <div class="cost-value">€9</div>
+                    <div class="cost-note">Noleggio + benzina</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🥥</div>
+                    <div class="cost-label">Colazione</div>
+                    <div class="cost-value">€6</div>
+                    <div class="cost-note">Smoothie bowl</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🐟</div>
+                    <div class="cost-label">Pranzo</div>
+                    <div class="cost-value">€5</div>
+                    <div class="cost-note">Carinderia</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🦐</div>
+                    <div class="cost-label">Cena</div>
+                    <div class="cost-value">€8</div>
+                    <div class="cost-note">Seafood + birra</div>
+                </div>
+                <div class="cost-total">
+                    <div class="cost-icon">📊</div>
+                    <div class="cost-label">Totale Giorno</div>
+                    <div class="cost-value">~€40</div>
+                    <div class="cost-note">escluso alloggio</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-bar"></div>
+
+</body>
+</html>

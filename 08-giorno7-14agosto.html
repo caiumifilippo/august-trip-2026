@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giorno 7 – 14 Agosto | Seoul → Siargao</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0f0c29 0%,#1a3a4a 40%,#0d4f4f 100%);color:#fff;min-height:100vh;overflow-x:hidden}
+
+        /* ===== BUBBLES ===== */
+        .bubble{position:fixed;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.10);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 0 30px rgba(0,0,0,.2);z-index:1;opacity:0;animation:bubbleIn 1s ease-out forwards}
+        .bubble img{width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.2)}
+        .bubble::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.12) 0%,transparent 60%);pointer-events:none}
+
+        .bubble-a{width:190px;height:190px;top:2%;right:1.5%;animation:bubbleIn 1s ease-out .2s forwards,dA 14s ease-in-out 1.2s infinite}
+        .bubble-b{width:155px;height:155px;bottom:4%;right:2%;animation:bubbleIn 1s ease-out .5s forwards,dB 12s ease-in-out 1.5s infinite}
+        .bubble-c{width:130px;height:130px;top:50%;right:1%;animation:bubbleIn 1s ease-out .7s forwards,dC 15s ease-in-out 1.7s infinite}
+        .bubble-d{width:170px;height:170px;top:3%;left:1%;animation:bubbleIn 1s ease-out .35s forwards,dD 13s ease-in-out 1.35s infinite}
+        .bubble-e{width:120px;height:120px;bottom:6%;left:1.5%;animation:bubbleIn 1s ease-out .8s forwards,dE 11s ease-in-out 1.8s infinite}
+
+        @keyframes bubbleIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+        @keyframes dA{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-14px,-18px) rotate(2deg)}50%{transform:translate(10px,-30px) rotate(-1deg)}75%{transform:translate(-16px,-8px) rotate(3deg)}}
+        @keyframes dB{0%,100%{transform:translate(0,0)}25%{transform:translate(12px,12px)}50%{transform:translate(-10px,22px)}75%{transform:translate(14px,-8px)}}
+        @keyframes dC{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-16px,14px) rotate(-2deg)}50%{transform:translate(10px,18px) rotate(1deg)}75%{transform:translate(-12px,-10px) rotate(-1deg)}}
+        @keyframes dD{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(12px,-16px) rotate(1deg)}50%{transform:translate(-10px,-26px) rotate(-2deg)}75%{transform:translate(14px,-8px) rotate(2deg)}}
+        @keyframes dE{0%,100%{transform:translate(0,0)}33%{transform:translate(14px,-12px)}66%{transform:translate(-10px,14px)}}
+
+        /* ===== LAYOUT ===== */
+        .slide-container{max-width:1100px;margin:0 auto;padding:40px 50px 60px;position:relative;z-index:10}
+
+        /* ===== TOP BAR ===== */
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeIn .8s ease-out}
+        .day-badge{display:flex;align-items:center;gap:14px}
+        .day-number{background:linear-gradient(135deg,#4ecdc4,#2eb5a6);color:#1a1a2e;font-size:2.4rem;font-weight:800;width:70px;height:70px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;box-shadow:0 4px 20px rgba(78,205,196,.35)}
+        .day-info h2{font-size:1.5rem;font-weight:700;line-height:1.2}
+        .day-info p{font-size:.85rem;color:rgba(255,255,255,.5)}
+        .slide-tag{background:rgba(78,205,196,.12);backdrop-filter:blur(10px);border:1px solid rgba(78,205,196,.2);padding:8px 20px;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#4ecdc4}
+
+        /* ===== TRANSITION BANNER ===== */
+        .transition-banner{
+            background:linear-gradient(135deg,rgba(78,205,196,.08),rgba(255,230,109,.05));
+            border:1px solid rgba(78,205,196,.15);border-radius:18px;
+            padding:22px 30px;margin-bottom:28px;
+            display:flex;align-items:center;gap:20px;
+            animation:slideUp .8s ease-out .1s both;
+        }
+        .transition-flags{display:flex;align-items:center;gap:10px;font-size:2rem}
+        .transition-arrow{color:rgba(255,255,255,.3);font-size:1.4rem}
+        .transition-arrow svg{width:28px;height:28px;fill:none;stroke:rgba(78,205,196,.5);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+        .transition-text h3{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .transition-text p{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:2px}
+
+        /* ===== FLIGHT CARDS ===== */
+        .flight-card{
+            background:rgba(255,255,255,.05);backdrop-filter:blur(16px);
+            border:1px solid rgba(255,255,255,.10);border-radius:20px;
+            padding:26px 32px;margin-bottom:18px;
+            animation:slideUp .8s ease-out both;
+        }
+        .flight-card:nth-child(1){animation-delay:.2s}
+        .flight-card:nth-child(2){animation-delay:.35s}
+        .flight-card-header{display:flex;align-items:center;gap:10px;margin-bottom:18px;font-size:.75rem;text-transform:uppercase;letter-spacing:3px;font-weight:600}
+        .flight-card-header.leg1{color:#4ecdc4}
+        .flight-card-header.leg1 svg{fill:#4ecdc4}
+        .flight-card-header.leg2{color:#ffe66d}
+        .flight-card-header.leg2 svg{fill:#ffe66d}
+        .flight-card-header svg{width:18px;height:18px}
+        .flight-route{display:flex;align-items:center;justify-content:space-between;gap:16px}
+        .airport{text-align:center;flex:0 0 auto}
+        .airport-code{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:800;line-height:1}
+        .airport-city{font-size:.78rem;color:rgba(255,255,255,.5);margin-top:4px}
+        .airport-time{font-size:1rem;font-weight:600;margin-top:5px;color:#ffe66d}
+        .flight-path{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px}
+        .flight-path-line{width:100%;height:2px;background:linear-gradient(90deg,rgba(255,255,255,.1),rgba(255,255,255,.3),rgba(255,255,255,.1));position:relative}
+        .flight-path-line::before{content:'✈';position:absolute;top:-12px;font-size:1.1rem;animation:flyAcross 4s ease-in-out infinite}
+        @keyframes flyAcross{0%{left:0%}50%{left:88%}100%{left:0%}}
+        .flight-duration{font-size:.72rem;color:rgba(255,255,255,.4);letter-spacing:1px}
+        .flight-details{display:flex;gap:20px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06);flex-wrap:wrap}
+        .flight-detail{display:flex;align-items:center;gap:6px;font-size:.75rem;color:rgba(255,255,255,.5)}
+        .flight-detail strong{color:rgba(255,255,255,.85);font-weight:600}
+
+        .flight-price-badge{
+            display:inline-flex;align-items:center;gap:6px;
+            margin-top:12px;padding:8px 18px;
+            background:rgba(78,205,196,.1);border:1px solid rgba(78,205,196,.18);
+            border-radius:12px;font-size:.85rem;font-weight:700;color:#4ecdc4;
+        }
+
+        /* ===== LAYOVER CARD ===== */
+        .layover-card{
+            background:rgba(255,230,109,.04);border:1px solid rgba(255,230,109,.10);
+            border-radius:14px;padding:16px 24px;margin-bottom:18px;
+            display:flex;align-items:center;gap:16px;
+            animation:slideUp .8s ease-out .3s both;
+        }
+        .layover-icon{font-size:1.8rem}
+        .layover-text h4{font-size:.9rem;font-weight:600;color:#ffe66d}
+        .layover-text p{font-size:.78rem;color:rgba(255,255,255,.45);margin-top:2px}
+
+        /* ===== TIMELINE ===== */
+        .timeline{position:relative;padding-left:36px;margin-bottom:28px;animation:slideUp .8s ease-out .45s both}
+        .timeline::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#4ecdc4,#ffe66d,#ff6b6b);border-radius:2px}
+        .timeline-item{position:relative;margin-bottom:20px;padding:16px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:14px;transition:background .3s,border-color .3s}
+        .timeline-item:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14)}
+        .timeline-item::before{content:'';position:absolute;left:-30px;top:22px;width:12px;height:12px;border-radius:50%;background:#4ecdc4;border:3px solid #1a3a4a;box-shadow:0 0 10px rgba(78,205,196,.4)}
+        .timeline-time{font-size:.72rem;font-weight:600;color:#4ecdc4;text-transform:uppercase;letter-spacing:2px;margin-bottom:5px}
+        .timeline-title{font-size:1rem;font-weight:700;margin-bottom:3px}
+        .timeline-desc{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.5}
+        .timeline-item:last-child{margin-bottom:0}
+
+        /* ===== WELCOME SIARGAO CARD ===== */
+        .welcome-card{
+            background:linear-gradient(135deg,rgba(78,205,196,.08),rgba(255,230,109,.06));
+            border:1px solid rgba(78,205,196,.18);border-radius:20px;
+            padding:28px 32px;margin-bottom:28px;
+            display:grid;grid-template-columns:1fr 1fr;gap:28px;
+            animation:slideUp .8s ease-out .55s both;
+        }
+        .welcome-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(78,205,196,.15);color:#4ecdc4;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+        .welcome-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;margin-bottom:8px}
+        .welcome-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:14px}
+        .welcome-tips{display:flex;flex-wrap:wrap;gap:8px}
+        .tip-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:5px 12px;border-radius:20px;font-size:.7rem;color:rgba(255,255,255,.6)}
+
+        .welcome-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+        .welcome-icon{font-size:4.5rem;animation:palmSway 4s ease-in-out infinite}
+        @keyframes palmSway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+        .welcome-wave{font-size:1.8rem;letter-spacing:6px;opacity:.3;animation:waveMove 3s ease-in-out infinite}
+        @keyframes waveMove{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
+        .welcome-sun{font-size:2.5rem;animation:sunGlow 3s ease-in-out infinite}
+        @keyframes sunGlow{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.12)}}
+
+        /* ===== COST BAR ===== */
+        .cost-bar{background:rgba(255,255,255,.05);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:26px 36px;animation:slideUp .8s ease-out .65s both}
+        .cost-bar-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);margin-bottom:18px;font-weight:600}
+        .cost-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+        .cost-item{text-align:center;padding:14px 6px;background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .cost-item:hover{transform:translateY(-3px)}
+        .cost-icon{font-size:1.3rem;margin-bottom:6px}
+        .cost-label{font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+        .cost-value{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .cost-note{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:2px}
+        .cost-total{text-align:center;padding:14px 6px;background:rgba(78,205,196,.08);border-radius:12px;border:1px solid rgba(78,205,196,.15)}
+        .cost-total .cost-value{font-size:1.3rem;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+        /* ===== BOTTOM ===== */
+        .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#4ecdc4,#ffe66d,#ff6b6b,#4ecdc4);background-size:300% 100%;animation:shimmer 4s linear infinite;z-index:50}
+        @keyframes shimmer{0%{background-position:0% 0}100%{background-position:300% 0}}
+        .nav-indicator{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+        .nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);transition:all .3s}
+        .nav-dot.active{background:#4ecdc4;border-color:#4ecdc4;box-shadow:0 0 10px rgba(78,205,196,.4);transform:scale(1.3)}
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .slide-container{padding:24px 20px 50px}
+            .top-bar{flex-direction:column;gap:12px;align-items:flex-start}
+            .flight-route{flex-direction:column;gap:8px}
+            .welcome-card{grid-template-columns:1fr}
+            .cost-grid{grid-template-columns:repeat(2,1fr)}
+            .bubble{display:none}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles: transition Seoul → Siargao -->
+    <div class="bubble bubble-a">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500&q=80" alt="Tropical Beach">
+    </div>
+    <div class="bubble bubble-b">
+        <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&q=80" alt="Island">
+    </div>
+    <div class="bubble bubble-c">
+        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80" alt="Surfing">
+    </div>
+    <div class="bubble bubble-d">
+        <img src="https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?w=400&q=80" alt="Seoul Goodbye">
+    </div>
+    <div class="bubble bubble-e">
+        <img src="https://images.unsplash.com/photo-1509233725247-49e657c54213?w=300&q=80" alt="Palm Trees">
+    </div>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <div class="nav-dot" title="Copertina"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot" title="Seoul"></div>
+        <div class="nav-dot active" title="Trasferimento"></div>
+        <div class="nav-dot" title="Siargao"></div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="day-badge">
+                <div class="day-number">7</div>
+                <div class="day-info">
+                    <h2>Venerdì 14 Agosto 2026</h2>
+                    <p>Trasferimento Seoul → Siargao, Filippine</p>
+                </div>
+            </div>
+            <div class="slide-tag">✈️ Giorno di Viaggio</div>
+        </div>
+
+        <!-- TRANSITION BANNER -->
+        <div class="transition-banner">
+            <div class="transition-flags">
+                🇰🇷
+                <div class="transition-arrow">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </div>
+                🇵🇭
+            </div>
+            <div class="transition-text">
+                <h3>Dalla metropoli al paradiso tropicale</h3>
+                <p>Si lascia Seoul per raggiungere Siargao, l'isola del surf nelle Filippine, via Manila</p>
+            </div>
+        </div>
+
+        <!-- FLIGHT LEG 1: ICN → MNL -->
+        <div class="flight-card">
+            <div class="flight-card-header leg1">
+                <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                <span>Tratta 1 — Seoul → Manila</span>
+            </div>
+            <div class="flight-route">
+                <div class="airport">
+                    <div class="airport-code">ICN</div>
+                    <div class="airport-city">Seoul Incheon</div>
+                    <div class="airport-time">08:30</div>
+                </div>
+                <div class="flight-path">
+                    <div class="flight-duration">Volo diretto · ~4h 30min</div>
+                    <div class="flight-path-line"></div>
+                    <div class="flight-duration">Philippine Airlines / Cebu Pacific</div>
+                </div>
+                <div class="airport">
+                    <div class="airport-code">MNL</div>
+                    <div class="airport-city">Manila NAIA</div>
+                    <div class="airport-time">12:00</div>
+                </div>
+            </div>
+            <div class="flight-details">
+                <div class="flight-detail">✈️ <strong>Philippine Airlines</strong> o <strong>Cebu Pacific</strong></div>
+                <div class="flight-detail">💺 <strong>Economy</strong></div>
+                <div class="flight-detail">🧳 <strong>20kg</strong> bagaglio</div>
+                <div class="flight-detail">🍽️ <strong>1 pasto</strong> a bordo</div>
+            </div>
+        </div>
+
+        <!-- LAYOVER -->
+        <div class="layover-card">
+            <div class="layover-icon">⏳</div>
+            <div class="layover-text">
+                <h4>Scalo a Manila NAIA — ~3 ore</h4>
+                <p>Tempo per mangiare qualcosa (Jollibee, il fast food filippino!), cambiare valuta in PHP (Peso Filippino) e raggiungere il terminal domestico per il volo verso Siargao.</p>
+            </div>
+        </div>
+
+        <!-- FLIGHT LEG 2: MNL → IAO -->
+        <div class="flight-card">
+            <div class="flight-card-header leg2">
+                <svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                <span>Tratta 2 — Manila → Siargao</span>
+            </div>
+            <div class="flight-route">
+                <div class="airport">
+                    <div class="airport-code">MNL</div>
+                    <div class="airport-city">Manila NAIA</div>
+                    <div class="airport-time">15:00</div>
+                </div>
+                <div class="flight-path">
+                    <div class="flight-duration">Volo diretto · ~2h</div>
+                    <div class="flight-path-line"></div>
+                    <div class="flight-duration">Cebu Pacific / Philippine Airlines</div>
+                </div>
+                <div class="airport">
+                    <div class="airport-code">IAO</div>
+                    <div class="airport-city">Sayak, Siargao</div>
+                    <div class="airport-time">17:00</div>
+                </div>
+            </div>
+            <div class="flight-details">
+                <div class="flight-detail">✈️ <strong>Cebu Pacific</strong> o <strong>Philippine Airlines</strong></div>
+                <div class="flight-detail">💺 <strong>Economy</strong></div>
+                <div class="flight-detail">🏝️ <strong>Arrivo:</strong> Sayak Airport</div>
+            </div>
+            <div class="flight-price-badge">
+                💰 Totale 2 tratte ICN→MNL→IAO: ~€200 / persona
+            </div>
+            <div style="margin-top:12px;padding:10px 16px;background:rgba(255,230,109,0.06);border:1px solid rgba(255,230,109,0.10);border-radius:10px;font-size:.75rem;color:rgba(255,255,255,.5);line-height:1.5">
+                ⚠️ <strong style="color:#ffe66d">Nota:</strong> Prezzi da Expedia/Skyscanner (feb 2026). ICN→MNL ~€100–140, MNL→IAO ~€50–80. Prenotare come biglietto unico per miglior prezzo. Cebu Pacific spesso il più economico.
+            </div>
+        </div>
+
+        <!-- ARRIVAL TIMELINE -->
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-time">17:00 — Arrivo Siargao</div>
+                <div class="timeline-title">Atterraggio a Sayak Airport (IAO)</div>
+                <div class="timeline-desc">
+                    Benvenuti a Siargao! L'aeroporto è piccolo e caratteristico.
+                    Ritiro bagagli e incontro con il servizio transfer pre-organizzato.
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">17:30 — Transfer</div>
+                <div class="timeline-title">Van/Tuk-tuk → General Luna</div>
+                <div class="timeline-desc">
+                    Trasferimento in van (~45 min) verso <strong>General Luna</strong>, il centro turistico dell'isola.
+                    Paesaggi mozzafiato: palme, risaie e strade sterrate. Benvenuti nel paradiso!
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">18:15 — Check-in</div>
+                <div class="timeline-title">Check-in Resort / Villa</div>
+                <div class="timeline-desc">
+                    Arrivo all'alloggio: <strong>villa con piscina</strong> per 13 persone nella zona di General Luna / Cloud 9.
+                    Stima: ~€15–20/persona/notte in villa condivisa. Doccia, relax e prime vibes tropicali.
+                </div>
+            </div>
+        </div>
+
+        <!-- WELCOME SIARGAO -->
+        <div class="welcome-card">
+            <div>
+                <div class="welcome-badge">🏝️ Benvenuti a Siargao</div>
+                <div class="welcome-title">Prima Sera sull'Isola</div>
+                <div class="welcome-desc">
+                    La prima sera a Siargao è dedicata al relax e all'ambientamento.
+                    Cenate in un <strong>warung</strong> (ristorantino locale) con i piedi nella sabbia,
+                    vista tramonto, birra San Miguel fredda e <strong>pesce fresco alla griglia</strong>
+                    per meno di €5 a persona. Benvenuti in paradiso.
+                </div>
+                <div class="welcome-tips">
+                    <span class="tip-chip">🍺 San Miguel ~€1</span>
+                    <span class="tip-chip">🐟 Pesce grigliato ~€4</span>
+                    <span class="tip-chip">🍚 Riso illimitato ~€0.30</span>
+                    <span class="tip-chip">🌅 Tramonto gratis</span>
+                    <span class="tip-chip">🛵 Noleggio scooter domani ~€7/giorno</span>
+                </div>
+            </div>
+            <div class="welcome-visual">
+                <div class="welcome-sun">☀️</div>
+                <div class="welcome-icon">🌴</div>
+                <div class="welcome-wave">🌊🌊🌊🌊</div>
+            </div>
+        </div>
+
+        <!-- COST SUMMARY -->
+        <div class="cost-bar">
+            <div class="cost-bar-title">💰 Riepilogo Costi Giorno 7 — per persona</div>
+            <div class="cost-grid">
+                <div class="cost-item" style="background:rgba(78,205,196,.06);border-color:rgba(78,205,196,.12)">
+                    <div class="cost-icon">✈️</div>
+                    <div class="cost-label">Voli ICN→IAO</div>
+                    <div class="cost-value">€200</div>
+                    <div class="cost-note">Via Manila (2 tratte)</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🚐</div>
+                    <div class="cost-label">Transfer</div>
+                    <div class="cost-value">€5</div>
+                    <div class="cost-note">Airport → G. Luna</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍽️</div>
+                    <div class="cost-label">Cena</div>
+                    <div class="cost-value">€6</div>
+                    <div class="cost-note">Pesce + birra</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🚇</div>
+                    <div class="cost-label">AREX Seoul</div>
+                    <div class="cost-value">€7</div>
+                    <div class="cost-note">Hotel → ICN</div>
+                </div>
+                <div class="cost-total">
+                    <div class="cost-icon">📊</div>
+                    <div class="cost-label">Totale Giorno</div>
+                    <div class="cost-value">~€218</div>
+                    <div class="cost-note">escluso alloggio</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="bottom-bar"></div>
+
+</body>
+</html>
