@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riepilogo Budget | Seoul & Siargao 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#0f0c29 0%,#1a1a2e 35%,#16213e 100%);color:#fff;min-height:100vh;overflow-x:hidden}
+
+        /* ===== FIREWORKS ===== */
+        .fireworks{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+
+        .fw{position:absolute;width:4px;height:4px;border-radius:50%}
+        .fw::before,.fw::after{content:'';position:absolute;width:3px;height:3px;border-radius:50%}
+
+        /* Firework burst generator — each .fw-burst spawns 8 particles via box-shadow */
+        .fw-burst{position:absolute;width:0;height:0;opacity:0}
+        .fw-burst::before{
+            content:'';position:absolute;width:4px;height:4px;border-radius:50%;
+            box-shadow:
+                0 0 0 0 var(--c1),
+                0 0 0 0 var(--c1),
+                0 0 0 0 var(--c2),
+                0 0 0 0 var(--c2),
+                0 0 0 0 var(--c1),
+                0 0 0 0 var(--c2),
+                0 0 0 0 var(--c1),
+                0 0 0 0 var(--c2),
+                0 0 0 0 var(--c1),
+                0 0 0 0 var(--c2),
+                0 0 0 0 var(--c1),
+                0 0 0 0 var(--c2);
+        }
+
+        .fw-1{--c1:#4ecdc4;--c2:#ffe66d;top:12%;left:15%;animation:fwBurst1 6s ease-out 1s infinite}
+        .fw-2{--c1:#e94560;--c2:#ff9a56;top:8%;right:20%;animation:fwBurst2 7s ease-out 3s infinite}
+        .fw-3{--c1:#a78bfa;--c2:#4ecdc4;bottom:25%;left:10%;animation:fwBurst3 8s ease-out 5s infinite}
+        .fw-4{--c1:#ffe66d;--c2:#e94560;top:20%;right:8%;animation:fwBurst1 7.5s ease-out 2s infinite}
+        .fw-5{--c1:#4ecdc4;--c2:#a78bfa;bottom:15%;right:15%;animation:fwBurst2 6.5s ease-out 4.5s infinite}
+        .fw-6{--c1:#ff9a56;--c2:#ffe66d;top:35%;left:5%;animation:fwBurst3 9s ease-out 0.5s infinite}
+        .fw-7{--c1:#e94560;--c2:#4ecdc4;bottom:35%;right:5%;animation:fwBurst1 8s ease-out 6s infinite}
+
+        @keyframes fwBurst1{
+            0%,85%,100%{opacity:0}
+            86%{opacity:.6}
+            86.5%{opacity:.6}
+            86.5%,95%{opacity:0}
+        }
+        @keyframes fwBurst2{
+            0%,78%,100%{opacity:0}
+            79%{opacity:.6}
+            79.5%{opacity:.6}
+            79.5%,90%{opacity:0}
+        }
+        @keyframes fwBurst3{
+            0%,70%,100%{opacity:0}
+            71%{opacity:.6}
+            71.5%{opacity:.6}
+            71.5%,82%{opacity:0}
+        }
+
+        .fw-1::before{animation:fwExplode 6s ease-out 1s infinite}
+        .fw-2::before{animation:fwExplode 7s ease-out 3s infinite}
+        .fw-3::before{animation:fwExplode 8s ease-out 5s infinite}
+        .fw-4::before{animation:fwExplode 7.5s ease-out 2s infinite}
+        .fw-5::before{animation:fwExplode 6.5s ease-out 4.5s infinite}
+        .fw-6::before{animation:fwExplode 9s ease-out 0.5s infinite}
+        .fw-7::before{animation:fwExplode 8s ease-out 6s infinite}
+
+        @keyframes fwExplode{
+            0%,84%{
+                box-shadow:
+                    0 0 0 0 var(--c1),0 0 0 0 var(--c1),0 0 0 0 var(--c2),
+                    0 0 0 0 var(--c2),0 0 0 0 var(--c1),0 0 0 0 var(--c2),
+                    0 0 0 0 var(--c1),0 0 0 0 var(--c2),0 0 0 0 var(--c1),
+                    0 0 0 0 var(--c2),0 0 0 0 var(--c1),0 0 0 0 var(--c2);
+                opacity:0;
+            }
+            87%{
+                box-shadow:
+                    0px -40px 0 0 var(--c1),28px -28px 0 0 var(--c1),40px 0px 0 0 var(--c2),
+                    28px 28px 0 0 var(--c2),0px 40px 0 0 var(--c1),-28px 28px 0 0 var(--c2),
+                    -40px 0px 0 0 var(--c1),-28px -28px 0 0 var(--c2),20px -35px 0 0 var(--c1),
+                    35px 20px 0 0 var(--c2),-20px 35px 0 0 var(--c1),-35px -20px 0 0 var(--c2);
+                opacity:.7;
+            }
+            94%{
+                box-shadow:
+                    0px -70px 0 -2px var(--c1),48px -48px 0 -2px var(--c1),70px 0px 0 -2px var(--c2),
+                    48px 48px 0 -2px var(--c2),0px 70px 0 -2px var(--c1),-48px 48px 0 -2px var(--c2),
+                    -70px 0px 0 -2px var(--c1),-48px -48px 0 -2px var(--c2),35px -60px 0 -2px var(--c1),
+                    60px 35px 0 -2px var(--c2),-35px 60px 0 -2px var(--c1),-60px -35px 0 -2px var(--c2);
+                opacity:0;
+            }
+            100%{opacity:0}
+        }
+
+        /* Sparkle particles (extra subtle) */
+        .sparkle{position:absolute;font-size:.6rem;opacity:0;pointer-events:none}
+        .sparkle-1{top:18%;left:25%;animation:sparkleAnim 4s ease-in-out 2s infinite}
+        .sparkle-2{top:5%;right:30%;animation:sparkleAnim 5s ease-in-out 0s infinite}
+        .sparkle-3{bottom:20%;left:18%;animation:sparkleAnim 6s ease-in-out 3.5s infinite}
+        .sparkle-4{bottom:40%;right:10%;animation:sparkleAnim 4.5s ease-in-out 1.5s infinite}
+        .sparkle-5{top:45%;left:8%;animation:sparkleAnim 5.5s ease-in-out 4s infinite}
+        @keyframes sparkleAnim{0%,80%,100%{opacity:0;transform:scale(.5)}85%{opacity:.4;transform:scale(1.2)}92%{opacity:.2;transform:scale(.8)}}
+
+        /* ===== LAYOUT ===== */
+        .slide-container{max-width:1100px;margin:0 auto;padding:40px 50px 60px;position:relative;z-index:10}
+
+        /* ===== TOP BAR ===== */
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeIn .8s ease-out}
+        .day-badge{display:flex;align-items:center;gap:14px}
+        .day-number{background:linear-gradient(135deg,#ffe66d,#e94560);color:#1a1a2e;font-size:1.6rem;font-weight:800;width:70px;height:70px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;box-shadow:0 4px 20px rgba(255,230,109,.3)}
+        .day-info h2{font-size:1.5rem;font-weight:700;line-height:1.2}
+        .day-info p{font-size:.85rem;color:rgba(255,255,255,.5)}
+        .slide-tag{background:rgba(255,230,109,.12);backdrop-filter:blur(10px);border:1px solid rgba(255,230,109,.2);padding:8px 20px;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#ffe66d}
+
+        /* ===== GRAND TOTAL CARD ===== */
+        .grand-total{
+            background:linear-gradient(135deg,rgba(255,230,109,.08),rgba(233,69,96,.05));
+            border:1px solid rgba(255,230,109,.2);border-radius:22px;padding:32px 36px;
+            margin-bottom:28px;display:grid;grid-template-columns:1fr 1fr;gap:30px;
+            animation:slideUp .8s ease-out .15s both;
+        }
+        .gt-left h3{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800;margin-bottom:6px;background:linear-gradient(135deg,#ffe66d,#e94560);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .gt-left p{font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:18px}
+        .gt-amount{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:800;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+        .gt-amount-label{font-size:.75rem;color:rgba(255,255,255,.4);margin-top:4px;letter-spacing:2px;text-transform:uppercase}
+        .gt-vs{margin-top:14px;display:flex;align-items:center;gap:10px}
+        .gt-vs-budget{font-size:.85rem;color:rgba(255,255,255,.5)}
+        .gt-vs-badge{background:rgba(78,205,196,.12);color:#4ecdc4;padding:4px 14px;border-radius:20px;font-size:.75rem;font-weight:700}
+
+        .gt-right{display:flex;flex-direction:column;gap:10px;justify-content:center}
+        .gt-bar-item{display:flex;align-items:center;gap:12px}
+        .gt-bar-label{font-size:.72rem;color:rgba(255,255,255,.45);width:90px;text-align:right;flex-shrink:0}
+        .gt-bar-track{flex:1;height:22px;background:rgba(255,255,255,.05);border-radius:11px;overflow:hidden;position:relative}
+        .gt-bar-fill{height:100%;border-radius:11px;position:relative;animation:barGrow 1.5s ease-out forwards;transform-origin:left;transform:scaleX(0)}
+        @keyframes barGrow{to{transform:scaleX(1)}}
+        .gt-bar-fill.voli{background:linear-gradient(90deg,#e94560,#ff6b6b);animation-delay:.3s}
+        .gt-bar-fill.alloggio{background:linear-gradient(90deg,#a78bfa,#c4b5fd);animation-delay:.45s}
+        .gt-bar-fill.cibo{background:linear-gradient(90deg,#ffe66d,#ffd93d);animation-delay:.6s}
+        .gt-bar-fill.attivita{background:linear-gradient(90deg,#4ecdc4,#6ee7de);animation-delay:.75s}
+        .gt-bar-fill.trasporti{background:linear-gradient(90deg,#ff9a56,#ffb380);animation-delay:.9s}
+        .gt-bar-value{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:.65rem;font-weight:700;color:rgba(0,0,0,.6)}
+
+        /* ===== CATEGORY CARDS ===== */
+        .categories{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px}
+        .cat-card{
+            background:rgba(255,255,255,.04);backdrop-filter:blur(14px);
+            border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px 14px;
+            text-align:center;transition:transform .3s,border-color .3s;
+            animation:slideUp .8s ease-out both;
+        }
+        .cat-card:nth-child(1){animation-delay:.3s}
+        .cat-card:nth-child(2){animation-delay:.37s}
+        .cat-card:nth-child(3){animation-delay:.44s}
+        .cat-card:nth-child(4){animation-delay:.51s}
+        .cat-card:nth-child(5){animation-delay:.58s}
+        .cat-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18)}
+        .cat-icon{font-size:2rem;margin-bottom:8px}
+        .cat-name{font-size:.7rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+        .cat-value{font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .cat-pct{font-size:.65rem;color:rgba(255,255,255,.3);margin-top:4px}
+
+        /* ===== DAY-BY-DAY CHART ===== */
+        .chart-section{
+            background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+            border-radius:18px;padding:24px 28px;margin-bottom:28px;
+            animation:slideUp .8s ease-out .6s both;
+        }
+        .chart-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+
+        .chart{display:flex;align-items:flex-end;gap:8px;height:180px;padding:0 4px}
+        .chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+        .chart-bar-wrap{width:100%;flex:1;display:flex;align-items:flex-end;justify-content:center}
+        .chart-bar{
+            width:70%;border-radius:8px 8px 2px 2px;min-height:4px;
+            position:relative;transition:height .8s ease-out;
+            animation:chartBarGrow 1s ease-out forwards;
+            transform-origin:bottom;transform:scaleY(0);
+        }
+        @keyframes chartBarGrow{to{transform:scaleY(1)}}
+        .chart-bar.seoul{background:linear-gradient(180deg,#a78bfa,#7c3aed)}
+        .chart-bar.transfer{background:linear-gradient(180deg,#4ecdc4,#0d9488)}
+        .chart-bar.siargao{background:linear-gradient(180deg,#4ecdc4,#059669)}
+        .chart-bar.ritorno{background:linear-gradient(180deg,#e94560,#dc2626)}
+        .chart-bar-val{position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:.6rem;font-weight:700;color:rgba(255,255,255,.6);white-space:nowrap}
+        .chart-label{font-size:.55rem;color:rgba(255,255,255,.35);text-align:center;line-height:1.2}
+        .chart-day{font-size:.7rem;font-weight:700;color:rgba(255,255,255,.5)}
+
+        .chart-legend{display:flex;gap:20px;margin-top:16px;justify-content:center}
+        .legend-item{display:flex;align-items:center;gap:6px;font-size:.68rem;color:rgba(255,255,255,.45)}
+        .legend-dot{width:10px;height:10px;border-radius:3px}
+        .legend-dot.seoul{background:#a78bfa}
+        .legend-dot.transfer{background:#4ecdc4}
+        .legend-dot.siargao{background:#059669}
+        .legend-dot.ritorno{background:#e94560}
+
+        /* ===== BUDGET GAUGE ===== */
+        .gauge-section{
+            background:linear-gradient(135deg,rgba(78,205,196,.06),rgba(255,230,109,.04));
+            border:1px solid rgba(78,205,196,.15);border-radius:20px;padding:28px 32px;
+            margin-bottom:28px;animation:slideUp .8s ease-out .7s both;text-align:center;
+        }
+        .gauge-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);font-weight:600;margin-bottom:20px}
+        .gauge-track{width:100%;height:32px;background:rgba(255,255,255,.06);border-radius:16px;overflow:hidden;position:relative;margin-bottom:12px}
+        .gauge-fill{
+            height:100%;border-radius:16px;
+            background:linear-gradient(90deg,#4ecdc4,#ffe66d,#e94560);
+            background-size:200% 100%;animation:gaugeGrow 2s ease-out .8s forwards,gaugeShimmer 3s linear 2.8s infinite;
+            transform-origin:left;transform:scaleX(0);
+            position:relative;
+        }
+        @keyframes gaugeGrow{to{transform:scaleX(1)}}
+        @keyframes gaugeShimmer{0%{background-position:0% 0}100%{background-position:200% 0}}
+        .gauge-markers{display:flex;justify-content:space-between;padding:0 2px}
+        .gauge-marker{font-size:.65rem;color:rgba(255,255,255,.3)}
+        .gauge-summary{display:flex;justify-content:center;gap:40px;margin-top:18px}
+        .gauge-stat{text-align:center}
+        .gauge-stat-value{font-size:1.4rem;font-weight:800}
+        .gauge-stat-value.spent{background:linear-gradient(135deg,#ffe66d,#e94560);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .gauge-stat-value.remaining{background:linear-gradient(135deg,#4ecdc4,#6ee7de);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .gauge-stat-value.budget{background:linear-gradient(135deg,#a78bfa,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .gauge-stat-label{font-size:.65rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+
+        /* ===== DAY-BY-DAY TABLE ===== */
+        .table-section{
+            background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+            border-radius:18px;padding:24px 28px;margin-bottom:28px;
+            animation:slideUp .8s ease-out .78s both;
+        }
+        .table-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .budget-table{width:100%;border-collapse:collapse}
+        .budget-table th{font-size:.6rem;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;padding:8px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.06)}
+        .budget-table th:last-child{text-align:right}
+        .budget-table td{font-size:.78rem;padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(255,255,255,.6)}
+        .budget-table td:last-child{text-align:right;font-weight:700;background:linear-gradient(135deg,#4ecdc4,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .budget-table tr:hover td{background:rgba(255,255,255,.02)}
+        .budget-table .row-seoul td:first-child{border-left:3px solid #a78bfa;padding-left:14px}
+        .budget-table .row-transfer td:first-child{border-left:3px solid #4ecdc4;padding-left:14px}
+        .budget-table .row-siargao td:first-child{border-left:3px solid #059669;padding-left:14px}
+        .budget-table .row-ritorno td:first-child{border-left:3px solid #e94560;padding-left:14px}
+        .budget-table .row-accom td:first-child{border-left:3px solid #ff9a56;padding-left:14px}
+        .budget-table .row-total{border-top:2px solid rgba(255,230,109,.2)}
+        .budget-table .row-total td{font-size:.9rem;font-weight:800;color:#fff;padding:14px 10px}
+        .budget-table .row-total td:last-child{font-size:1.1rem}
+
+        /* ===== NOTE ===== */
+        .note-bar{
+            background:rgba(255,230,109,.06);border:1px solid rgba(255,230,109,.12);
+            border-radius:14px;padding:16px 22px;margin-bottom:28px;
+            display:flex;align-items:flex-start;gap:12px;
+            animation:slideUp .8s ease-out .85s both;
+        }
+        .note-icon{font-size:1.3rem;margin-top:2px}
+        .note-text{font-size:.75rem;color:rgba(255,255,255,.45);line-height:1.6}
+        .note-text strong{color:#ffe66d}
+
+        /* ===== BOTTOM ===== */
+        .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#4ecdc4,#ffe66d,#e94560,#a78bfa,#4ecdc4);background-size:400% 100%;animation:shimmer 5s linear infinite;z-index:50}
+        @keyframes shimmer{0%{background-position:0% 0}100%{background-position:400% 0}}
+        .nav-indicator{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+        .nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);transition:all .3s}
+        .nav-dot{display:block}
+        a.nav-dot{cursor:pointer}
+        .nav-dot.active{background:#ffe66d;border-color:#ffe66d;box-shadow:0 0 10px rgba(255,230,109,.4);transform:scale(1.3)}
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .slide-container{padding:24px 20px 50px}
+            .top-bar{flex-direction:column;gap:12px;align-items:flex-start}
+            .grand-total{grid-template-columns:1fr}
+            .categories{grid-template-columns:repeat(2,1fr)}
+            .chart{height:140px}
+            .home-card{grid-template-columns:1fr}
+            .gauge-summary{flex-direction:column;gap:16px}
+            .budget-table{font-size:.7rem}
+        }
+
+        /* ===== SLIDE NAV ===== */
+        .slide-nav{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;z-index:60;animation:fadeIn 1s ease-out 1s both}
+        .nav-arrow{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,.08);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:30px;color:rgba(255,255,255,.7);text-decoration:none;font-size:.75rem;font-weight:600;letter-spacing:1px;transition:all .3s;font-family:'Poppins',sans-serif}
+        .nav-arrow:hover{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
+        .nav-arrow .arrow{font-size:1rem}
+        .nav-current{font-size:.65rem;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase}
+    </style>
+</head>
+<body>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <a href="index.html" class="nav-dot" title="Copertina"></a>
+        <a href="02-giorno1-8agosto.html" class="nav-dot" title="G1 · 8 Ago"></a>
+        <a href="03-giorno2-9agosto.html" class="nav-dot" title="G2 · 9 Ago"></a>
+        <a href="04-giorno3-10agosto.html" class="nav-dot" title="G3 · 10 Ago"></a>
+        <a href="05-giorno4-11agosto.html" class="nav-dot" title="G4 · 11 Ago"></a>
+        <a href="06-giorno5-12agosto.html" class="nav-dot" title="G5 · 12 Ago"></a>
+        <a href="07-giorno6-13agosto.html" class="nav-dot" title="G6 · 13 Ago"></a>
+        <a href="08-giorno7-14agosto.html" class="nav-dot" title="G7 · 14 Ago"></a>
+        <a href="09-giorno8-15agosto.html" class="nav-dot" title="G8 · 15 Ago"></a>
+        <a href="10-giorno9-16agosto.html" class="nav-dot" title="G9 · 16 Ago"></a>
+        <a href="11-giorno10-17agosto.html" class="nav-dot" title="G10 · 17 Ago"></a>
+        <a href="12-giorno11-18agosto.html" class="nav-dot" title="G11 · 18 Ago"></a>
+        <a href="13-giorno12-19agosto.html" class="nav-dot" title="G12 · 19 Ago"></a>
+        <a href="14-giorno13-20agosto.html" class="nav-dot" title="G13 · 20 Ago"></a>
+        <a href="15-giorno14-21agosto.html" class="nav-dot" title="G14 · 21 Ago"></a>
+        <a href="16-riepilogo-budget.html" class="nav-dot active" title="Budget"></a>
+    </div>
+
+    <!-- Fireworks -->
+    <div class="fireworks">
+        <div class="fw-burst fw-1"></div>
+        <div class="fw-burst fw-2"></div>
+        <div class="fw-burst fw-3"></div>
+        <div class="fw-burst fw-4"></div>
+        <div class="fw-burst fw-5"></div>
+        <div class="fw-burst fw-6"></div>
+        <div class="fw-burst fw-7"></div>
+        <span class="sparkle sparkle-1">✦</span>
+        <span class="sparkle sparkle-2">✧</span>
+        <span class="sparkle sparkle-3">✦</span>
+        <span class="sparkle sparkle-4">✧</span>
+        <span class="sparkle sparkle-5">✦</span>
+    </div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="day-badge">
+                <div class="day-number">💰</div>
+                <div class="day-info">
+                    <h2>Riepilogo Budget Completo</h2>
+                    <p>Seoul & Siargao 2026 — 14 giorni, 13 persone, ogni euro contato</p>
+                </div>
+            </div>
+            <div class="slide-tag">Budget</div>
+        </div>
+
+        <!-- GRAND TOTAL -->
+        <div class="grand-total">
+            <div class="gt-left">
+                <h3>Costo Totale Stimato</h3>
+                <p>
+                    Tutto compreso: voli internazionali e domestici, alloggio, cibo,
+                    attività, trasporti locali, souvenirs e serate.
+                    Un viaggio da sogno restando sotto budget!
+                </p>
+                <div class="gt-amount">~€2.020</div>
+                <div class="gt-amount-label">per persona</div>
+                <div class="gt-vs">
+                    <span class="gt-vs-budget">Budget: €3.000</span>
+                    <span class="gt-vs-badge">~€980 risparmiati!</span>
+                </div>
+            </div>
+            <div class="gt-right">
+                <div class="gt-bar-item">
+                    <span class="gt-bar-label">Voli</span>
+                    <div class="gt-bar-track">
+                        <div class="gt-bar-fill voli" style="width:57%">
+                            <span class="gt-bar-value">€1.050</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gt-bar-item">
+                    <span class="gt-bar-label">Alloggio</span>
+                    <div class="gt-bar-track">
+                        <div class="gt-bar-fill alloggio" style="width:15%">
+                            <span class="gt-bar-value">€280</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gt-bar-item">
+                    <span class="gt-bar-label">Cibo</span>
+                    <div class="gt-bar-track">
+                        <div class="gt-bar-fill cibo" style="width:20%">
+                            <span class="gt-bar-value">€370</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gt-bar-item">
+                    <span class="gt-bar-label">Attività</span>
+                    <div class="gt-bar-track">
+                        <div class="gt-bar-fill attivita" style="width:12%">
+                            <span class="gt-bar-value">€215</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="gt-bar-item">
+                    <span class="gt-bar-label">Trasporti</span>
+                    <div class="gt-bar-track">
+                        <div class="gt-bar-fill trasporti" style="width:6%">
+                            <span class="gt-bar-value">€105</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORY CARDS -->
+        <div class="categories">
+            <div class="cat-card">
+                <div class="cat-icon">✈️</div>
+                <div class="cat-name">Voli</div>
+                <div class="cat-value">€1.050</div>
+                <div class="cat-pct">52% del totale</div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-icon">🏨</div>
+                <div class="cat-name">Alloggio</div>
+                <div class="cat-value">€280</div>
+                <div class="cat-pct">14% del totale</div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-icon">🍽️</div>
+                <div class="cat-name">Cibo</div>
+                <div class="cat-value">€370</div>
+                <div class="cat-pct">18% del totale</div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-icon">🎯</div>
+                <div class="cat-name">Attività</div>
+                <div class="cat-value">€215</div>
+                <div class="cat-pct">11% del totale</div>
+            </div>
+            <div class="cat-card">
+                <div class="cat-icon">🚐</div>
+                <div class="cat-name">Trasporti</div>
+                <div class="cat-value">€105</div>
+                <div class="cat-pct">5% del totale</div>
+            </div>
+        </div>
+
+        <!-- DAY-BY-DAY CHART -->
+        <div class="chart-section">
+            <div class="chart-title">📊 Spesa Giornaliera — Grafico a Barre</div>
+            <div class="chart">
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar seoul" style="height:100%;animation-delay:.3s"><span class="chart-bar-val">€561</span></div>
+                    </div>
+                    <div class="chart-day">G1</div>
+                    <div class="chart-label">8 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar seoul" style="height:9.4%;animation-delay:.36s"><span class="chart-bar-val">€53</span></div>
+                    </div>
+                    <div class="chart-day">G2</div>
+                    <div class="chart-label">9 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar seoul" style="height:9.4%;animation-delay:.42s"><span class="chart-bar-val">€53</span></div>
+                    </div>
+                    <div class="chart-day">G3</div>
+                    <div class="chart-label">10 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar seoul" style="height:8.2%;animation-delay:.48s"><span class="chart-bar-val">€46</span></div>
+                    </div>
+                    <div class="chart-day">G4</div>
+                    <div class="chart-label">11 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar seoul" style="height:10.3%;animation-delay:.54s"><span class="chart-bar-val">€58</span></div>
+                    </div>
+                    <div class="chart-day">G5</div>
+                    <div class="chart-label">12 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar seoul" style="height:10.9%;animation-delay:.6s"><span class="chart-bar-val">€61</span></div>
+                    </div>
+                    <div class="chart-day">G6</div>
+                    <div class="chart-label">13 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar transfer" style="height:38.9%;animation-delay:.66s"><span class="chart-bar-val">€218</span></div>
+                    </div>
+                    <div class="chart-day">G7</div>
+                    <div class="chart-label">14 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar siargao" style="height:7.1%;animation-delay:.72s"><span class="chart-bar-val">€40</span></div>
+                    </div>
+                    <div class="chart-day">G8</div>
+                    <div class="chart-label">15 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar siargao" style="height:6.2%;animation-delay:.78s"><span class="chart-bar-val">€35</span></div>
+                    </div>
+                    <div class="chart-day">G9</div>
+                    <div class="chart-label">16 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar siargao" style="height:6.4%;animation-delay:.84s"><span class="chart-bar-val">€36</span></div>
+                    </div>
+                    <div class="chart-day">G10</div>
+                    <div class="chart-label">17 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar siargao" style="height:7.5%;animation-delay:.9s"><span class="chart-bar-val">€42</span></div>
+                    </div>
+                    <div class="chart-day">G11</div>
+                    <div class="chart-label">18 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar siargao" style="height:5.3%;animation-delay:.96s"><span class="chart-bar-val">€30</span></div>
+                    </div>
+                    <div class="chart-day">G12</div>
+                    <div class="chart-label">19 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar siargao" style="height:6.8%;animation-delay:1.02s"><span class="chart-bar-val">€38</span></div>
+                    </div>
+                    <div class="chart-day">G13</div>
+                    <div class="chart-label">20 Ago</div>
+                </div>
+                <div class="chart-col">
+                    <div class="chart-bar-wrap">
+                        <div class="chart-bar ritorno" style="height:83.2%;animation-delay:1.08s"><span class="chart-bar-val">€467</span></div>
+                    </div>
+                    <div class="chart-day">G14</div>
+                    <div class="chart-label">21 Ago</div>
+                </div>
+            </div>
+            <div class="chart-legend">
+                <div class="legend-item"><div class="legend-dot seoul"></div> Seoul</div>
+                <div class="legend-item"><div class="legend-dot transfer"></div> Trasferimento</div>
+                <div class="legend-item"><div class="legend-dot siargao"></div> Siargao</div>
+                <div class="legend-item"><div class="legend-dot ritorno"></div> Ritorno</div>
+            </div>
+        </div>
+
+        <!-- BUDGET GAUGE -->
+        <div class="gauge-section">
+            <div class="gauge-title">📏 Budget Utilizzato — €3.000 per persona</div>
+            <div class="gauge-track">
+                <div class="gauge-fill" style="width:67.3%"></div>
+            </div>
+            <div class="gauge-markers">
+                <span class="gauge-marker">€0</span>
+                <span class="gauge-marker">€750</span>
+                <span class="gauge-marker">€1.500</span>
+                <span class="gauge-marker">€2.250</span>
+                <span class="gauge-marker">€3.000</span>
+            </div>
+            <div class="gauge-summary">
+                <div class="gauge-stat">
+                    <div class="gauge-stat-value budget">€3.000</div>
+                    <div class="gauge-stat-label">Budget</div>
+                </div>
+                <div class="gauge-stat">
+                    <div class="gauge-stat-value spent">€2.020</div>
+                    <div class="gauge-stat-label">Speso (67%)</div>
+                </div>
+                <div class="gauge-stat">
+                    <div class="gauge-stat-value remaining">€980</div>
+                    <div class="gauge-stat-label">Rimanente</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY-BY-DAY TABLE -->
+        <div class="table-section">
+            <div class="table-title">📋 Dettaglio Giorno per Giorno</div>
+            <table class="budget-table">
+                <thead>
+                    <tr>
+                        <th>Giorno</th>
+                        <th>Data</th>
+                        <th>Descrizione</th>
+                        <th>Costo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row-seoul"><td>G1</td><td>8 Ago</td><td>Volo BLQ → IST → ICN + AREX + T-money</td><td>€561</td></tr>
+                    <tr class="row-seoul"><td>G2</td><td>9 Ago</td><td>Gyeongbokgung, Bukchon, Gwangjang, N Tower</td><td>€53</td></tr>
+                    <tr class="row-seoul"><td>G3</td><td>10 Ago</td><td>Hongdae, Han River, Crociera Serale</td><td>€53</td></tr>
+                    <tr class="row-seoul"><td>G4</td><td>11 Ago</td><td>Changdeokgung, Ikseon-dong, DDP, Jjimjilbang</td><td>€46</td></tr>
+                    <tr class="row-seoul"><td>G5</td><td>12 Ago</td><td>Gangnam, Starfield Library, Lotte World</td><td>€58</td></tr>
+                    <tr class="row-seoul"><td>G6</td><td>13 Ago</td><td>War Memorial, Itaewon, Myeongdong, Noraebang</td><td>€61</td></tr>
+                    <tr class="row-transfer"><td>G7</td><td>14 Ago</td><td>Volo ICN → MNL → IAO + Trasferimento</td><td>€218</td></tr>
+                    <tr class="row-siargao"><td>G8</td><td>15 Ago</td><td>Cloud 9 Surf, Scooter Tour, Magpupungko</td><td>€40</td></tr>
+                    <tr class="row-siargao"><td>G9</td><td>16 Ago</td><td>Island Hopping: Naked, Daku, Guyam</td><td>€35</td></tr>
+                    <tr class="row-siargao"><td>G10</td><td>17 Ago</td><td>Sugba Lagoon & Tayangban Cave Pool</td><td>€36</td></tr>
+                    <tr class="row-siargao"><td>G11</td><td>18 Ago</td><td>Sohoton Cove & Jellyfish Sanctuary</td><td>€42</td></tr>
+                    <tr class="row-siargao"><td>G12</td><td>19 Ago</td><td>Maasin River, Pacifico Beach</td><td>€30</td></tr>
+                    <tr class="row-siargao"><td>G13</td><td>20 Ago</td><td>Relax, Ultimo Surf, Beach Party d'Addio</td><td>€38</td></tr>
+                    <tr class="row-ritorno"><td>G14</td><td>21 Ago</td><td>Volo IAO → MNL → IST → BLQ</td><td>€467</td></tr>
+                    <tr class="row-accom"><td colspan="2">—</td><td>Alloggio Seoul (6 notti × ~€28)</td><td>€168</td></tr>
+                    <tr class="row-accom"><td colspan="2">—</td><td>Alloggio Siargao (7 notti × ~€16)</td><td>€112</td></tr>
+                    <tr class="row-total"><td colspan="3">TOTALE PER PERSONA</td><td>~€2.020</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- NOTE -->
+        <div class="note-bar">
+            <div class="note-icon">💡</div>
+            <div class="note-text">
+                <strong>Note sul budget:</strong> I costi sono stime basate su prezzi medi 2026 e possono variare.
+                I voli andrebbero prenotati entro <strong>marzo 2026</strong> per i prezzi migliori.
+                Il budget non include: shopping personale, assicurazione viaggio (~€30–50), visto Filippine (gratuito <30 giorni),
+                eventuali extra e mance. Con <strong>€980 di margine</strong>, c'è ampio spazio per imprevisti e capricci!
+            </div>
+        </div>
+
+    </div>
+
+    <div class="slide-nav">
+        <a href="15-giorno14-21agosto.html" class="nav-arrow"><span class="arrow">&larr;</span> Giorno 14</a>
+        <span class="nav-current">16 / 16</span>
+    </div>
+
+    <div class="bottom-bar"></div>
+
+</body>
+</html>

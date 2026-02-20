@@ -455,9 +455,36 @@
             .cost-grid { grid-template-columns: repeat(2, 1fr); }
             .bubble { display: none; }
         }
+
+        /* ===== SLIDE NAV ===== */
+        .slide-nav{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;z-index:60;animation:fadeIn 1s ease-out 1s both}
+        .nav-arrow{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,.08);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:30px;color:rgba(255,255,255,.7);text-decoration:none;font-size:.75rem;font-weight:600;letter-spacing:1px;transition:all .3s;font-family:'Poppins',sans-serif}
+        .nav-arrow:hover{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
+        .nav-arrow .arrow{font-size:1rem}
+        .nav-current{font-size:.65rem;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase}
     </style>
 </head>
 <body>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <a href="index.html" class="nav-dot" title="Copertina"></a>
+        <a href="02-giorno1-8agosto.html" class="nav-dot active" title="G1 · 8 Ago"></a>
+        <a href="03-giorno2-9agosto.html" class="nav-dot" title="G2 · 9 Ago"></a>
+        <a href="04-giorno3-10agosto.html" class="nav-dot" title="G3 · 10 Ago"></a>
+        <a href="05-giorno4-11agosto.html" class="nav-dot" title="G4 · 11 Ago"></a>
+        <a href="06-giorno5-12agosto.html" class="nav-dot" title="G5 · 12 Ago"></a>
+        <a href="07-giorno6-13agosto.html" class="nav-dot" title="G6 · 13 Ago"></a>
+        <a href="08-giorno7-14agosto.html" class="nav-dot" title="G7 · 14 Ago"></a>
+        <a href="09-giorno8-15agosto.html" class="nav-dot" title="G8 · 15 Ago"></a>
+        <a href="10-giorno9-16agosto.html" class="nav-dot" title="G9 · 16 Ago"></a>
+        <a href="11-giorno10-17agosto.html" class="nav-dot" title="G10 · 17 Ago"></a>
+        <a href="12-giorno11-18agosto.html" class="nav-dot" title="G11 · 18 Ago"></a>
+        <a href="13-giorno12-19agosto.html" class="nav-dot" title="G12 · 19 Ago"></a>
+        <a href="14-giorno13-20agosto.html" class="nav-dot" title="G13 · 20 Ago"></a>
+        <a href="15-giorno14-21agosto.html" class="nav-dot" title="G14 · 21 Ago"></a>
+        <a href="16-riepilogo-budget.html" class="nav-dot" title="Budget"></a>
+    </div>
 
     <!-- Image Bubbles -->
     <div class="bubble bubble-a">
@@ -474,14 +501,6 @@
     </div>
 
     <!-- Navigation dots -->
-    <div class="nav-indicator">
-        <div class="nav-dot" title="Copertina"></div>
-        <div class="nav-dot active" title="Giorno 1"></div>
-        <div class="nav-dot" title="Giorno 2"></div>
-        <div class="nav-dot" title="Giorno 3"></div>
-        <div class="nav-dot" title="Giorno 4"></div>
-        <div class="nav-dot" title="Giorno 5"></div>
-        <div class="nav-dot" title="Giorno 6"></div>
     </div>
 
     <!-- Scroll hint -->
@@ -636,6 +655,12 @@
             </div>
         </div>
 
+    </div>
+
+    <div class="slide-nav">
+        <a href="index.html" class="nav-arrow"><span class="arrow">&larr;</span> Copertina</a>
+        <span class="nav-current">2 / 16</span>
+        <a href="03-giorno2-9agosto.html" class="nav-arrow">Giorno 2 <span class="arrow">&rarr;</span></a>
     </div>
 
     <div class="bottom-bar"></div>

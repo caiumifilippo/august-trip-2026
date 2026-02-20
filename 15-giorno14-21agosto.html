@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giorno 14 – 21 Agosto | Ritorno: Siargao → Bologna</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 30%,#0f3460 70%,#1a1a2e 100%);color:#fff;min-height:100vh;overflow-x:hidden}
+
+        /* ===== BUBBLES ===== */
+        .bubble{position:fixed;border-radius:50%;overflow:hidden;border:3px solid rgba(255,255,255,.10);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 0 30px rgba(0,0,0,.2);z-index:1;opacity:0;animation:bubbleIn 1s ease-out forwards}
+        .bubble img{width:100%;height:100%;object-fit:cover;filter:brightness(.55) saturate(1.3)}
+        .bubble::after{content:'';position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.12) 0%,transparent 60%);pointer-events:none}
+
+        .bubble-a{width:190px;height:190px;top:2%;right:1%;animation:bubbleIn 1s ease-out .2s forwards,dA 14s ease-in-out 1.2s infinite}
+        .bubble-b{width:150px;height:150px;bottom:3%;right:2%;animation:bubbleIn 1s ease-out .5s forwards,dB 12s ease-in-out 1.5s infinite}
+        .bubble-c{width:135px;height:135px;top:50%;right:1.5%;animation:bubbleIn 1s ease-out .7s forwards,dC 15s ease-in-out 1.7s infinite}
+        .bubble-d{width:155px;height:155px;top:3%;left:1%;animation:bubbleIn 1s ease-out .35s forwards,dD 13s ease-in-out 1.35s infinite}
+        .bubble-e{width:115px;height:115px;bottom:5%;left:1.5%;animation:bubbleIn 1s ease-out .85s forwards,dE 11s ease-in-out 1.85s infinite}
+
+        @keyframes bubbleIn{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:scale(1)}}
+        @keyframes dA{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-14px,-20px) rotate(2deg)}50%{transform:translate(10px,-28px) rotate(-1deg)}75%{transform:translate(-16px,-8px) rotate(3deg)}}
+        @keyframes dB{0%,100%{transform:translate(0,0)}25%{transform:translate(14px,12px)}50%{transform:translate(-10px,22px)}75%{transform:translate(12px,-10px)}}
+        @keyframes dC{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(-16px,14px) rotate(-2deg)}50%{transform:translate(10px,20px) rotate(1deg)}75%{transform:translate(-12px,-10px) rotate(-1deg)}}
+        @keyframes dD{0%,100%{transform:translate(0,0) rotate(0)}25%{transform:translate(12px,-16px) rotate(1deg)}50%{transform:translate(-10px,-24px) rotate(-2deg)}75%{transform:translate(14px,-6px) rotate(2deg)}}
+        @keyframes dE{0%,100%{transform:translate(0,0)}33%{transform:translate(14px,-12px)}66%{transform:translate(-12px,14px)}}
+
+        /* ===== LAYOUT ===== */
+        .slide-container{max-width:1100px;margin:0 auto;padding:40px 50px 60px;position:relative;z-index:10}
+
+        /* ===== TOP BAR ===== */
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;animation:fadeIn .8s ease-out}
+        .day-badge{display:flex;align-items:center;gap:14px}
+        .day-number{background:linear-gradient(135deg,#e94560,#ff6b6b);color:#fff;font-size:2.4rem;font-weight:800;width:70px;height:70px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;box-shadow:0 4px 20px rgba(233,69,96,.35)}
+        .day-info h2{font-size:1.5rem;font-weight:700;line-height:1.2}
+        .day-info p{font-size:.85rem;color:rgba(255,255,255,.5)}
+        .slide-tag{background:rgba(233,69,96,.12);backdrop-filter:blur(10px);border:1px solid rgba(233,69,96,.2);padding:8px 20px;border-radius:50px;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#e94560}
+
+        /* ===== THEME ===== */
+        .theme-banner{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 28px;margin-bottom:28px;display:flex;align-items:center;gap:16px;animation:slideUp .8s ease-out .15s both}
+        .theme-emoji{font-size:2.2rem}
+        .theme-text h3{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#e94560,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .theme-text p{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:2px}
+
+        /* ===== TRANSITION BANNER ===== */
+        .transition-banner{
+            background:linear-gradient(135deg,rgba(78,205,196,.06),rgba(233,69,96,.06));
+            border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:20px 30px;
+            margin-bottom:28px;display:flex;align-items:center;justify-content:center;gap:20px;
+            animation:slideUp .8s ease-out .2s both;
+        }
+        .transition-flag{font-size:2.8rem}
+        .transition-arrow{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,.3)}
+        .transition-arrow .plane{font-size:1.6rem;animation:flyHome 3s ease-in-out infinite}
+        @keyframes flyHome{0%,100%{transform:translateX(0) rotate(0)}50%{transform:translateX(12px) rotate(-3deg)}}
+        .transition-arrow .dots{font-size:.8rem;letter-spacing:4px}
+
+        /* ===== MORNING TIMELINE ===== */
+        .morning-card{
+            background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+            border-radius:18px;padding:24px 28px;margin-bottom:28px;
+            animation:slideUp .8s ease-out .28s both;
+        }
+        .morning-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:#ffe66d;font-weight:600;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+        .timeline{display:flex;flex-direction:column;gap:0}
+        .timeline-item{display:flex;align-items:flex-start;gap:16px;padding:12px 0;position:relative}
+        .timeline-item:not(:last-child)::after{
+            content:'';position:absolute;left:17px;top:40px;bottom:-12px;width:2px;
+            background:linear-gradient(180deg,rgba(233,69,96,.3),rgba(233,69,96,.08));
+        }
+        .timeline-dot{width:36px;height:36px;border-radius:50%;background:rgba(233,69,96,.1);border:2px solid rgba(233,69,96,.25);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+        .timeline-content{flex:1}
+        .timeline-time{font-size:.7rem;color:rgba(255,255,255,.35);font-weight:600;letter-spacing:1px}
+        .timeline-label{font-size:.88rem;font-weight:600;margin-top:2px}
+        .timeline-desc{font-size:.75rem;color:rgba(255,255,255,.45);margin-top:2px}
+
+        /* ===== FLIGHT CARDS ===== */
+        .flights{display:flex;flex-direction:column;gap:18px;margin-bottom:28px}
+
+        .flight-card{
+            border-radius:20px;padding:24px 28px;
+            display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;
+            animation:slideUp .8s ease-out both;
+        }
+        .flight-card.leg1{
+            background:linear-gradient(135deg,rgba(78,205,196,.08),rgba(78,205,196,.03));
+            border:1px solid rgba(78,205,196,.18);animation-delay:.35s;
+        }
+        .flight-card.leg2{
+            background:linear-gradient(135deg,rgba(233,69,96,.08),rgba(233,69,96,.03));
+            border:1px solid rgba(233,69,96,.18);animation-delay:.42s;
+        }
+        .flight-card.leg3{
+            background:linear-gradient(135deg,rgba(255,230,109,.08),rgba(255,230,109,.03));
+            border:1px solid rgba(255,230,109,.18);animation-delay:.49s;
+        }
+
+        .flight-from,.flight-to{text-align:center}
+        .flight-code{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:800}
+        .flight-city{font-size:.72rem;color:rgba(255,255,255,.45);margin-top:2px}
+        .flight-time{font-size:.8rem;font-weight:600;margin-top:6px}
+
+        .flight-path{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:140px}
+        .flight-line{width:100%;height:2px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.2) 0,rgba(255,255,255,.2) 6px,transparent 6px,transparent 12px);position:relative}
+        .flight-line .plane-icon{position:absolute;top:-10px;font-size:1.2rem;animation:planeFly 4s ease-in-out infinite}
+        @keyframes planeFly{0%{left:0%}50%{left:calc(100% - 20px)}100%{left:0%}}
+        .flight-duration{font-size:.68rem;color:rgba(255,255,255,.35);letter-spacing:1px}
+        .flight-airline{font-size:.65rem;color:rgba(255,255,255,.3)}
+
+        .flight-leg-badge{
+            display:inline-flex;align-items:center;gap:6px;padding:4px 12px;border-radius:20px;
+            font-size:.65rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;
+        }
+        .leg1 .flight-leg-badge{background:rgba(78,205,196,.12);color:#4ecdc4}
+        .leg2 .flight-leg-badge{background:rgba(233,69,96,.12);color:#e94560}
+        .leg3 .flight-leg-badge{background:rgba(255,230,109,.12);color:#ffe66d}
+
+        /* ===== LAYOVER CARD ===== */
+        .layover-card{
+            background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.1);
+            border-radius:14px;padding:14px 20px;margin:-8px 0;
+            display:flex;align-items:center;gap:14px;animation:slideUp .8s ease-out .45s both;
+        }
+        .layover-icon{font-size:1.4rem}
+        .layover-text{font-size:.78rem;color:rgba(255,255,255,.45)}
+        .layover-text strong{color:rgba(255,255,255,.7)}
+
+        /* ===== PRICE NOTE ===== */
+        .price-note{
+            background:rgba(233,69,96,.06);border:1px solid rgba(233,69,96,.15);
+            border-radius:16px;padding:18px 24px;margin-bottom:28px;
+            display:flex;align-items:flex-start;gap:14px;
+            animation:slideUp .8s ease-out .55s both;
+        }
+        .price-note-icon{font-size:1.6rem;margin-top:2px}
+        .price-note-content h4{font-size:.85rem;font-weight:700;color:#e94560;margin-bottom:6px}
+        .price-note-content p{font-size:.78rem;color:rgba(255,255,255,.5);line-height:1.5}
+        .price-note-content strong{color:rgba(255,255,255,.8)}
+        .price-routes{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+        .price-route{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:5px 12px;border-radius:20px;font-size:.68rem;color:rgba(255,255,255,.5)}
+
+        /* ===== WELCOME HOME CARD ===== */
+        .home-card{
+            background:linear-gradient(135deg,rgba(255,230,109,.08),rgba(233,69,96,.06));
+            border:1px solid rgba(255,230,109,.18);border-radius:22px;padding:30px 34px;
+            margin-bottom:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px;
+            animation:slideUp .8s ease-out .6s both;position:relative;overflow:hidden;
+        }
+        .home-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,230,109,.12);color:#ffe66d;padding:5px 14px;border-radius:20px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+        .home-title{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:800;margin-bottom:8px;background:linear-gradient(135deg,#ffe66d,#e94560);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .home-desc{font-size:.82rem;color:rgba(255,255,255,.55);line-height:1.7}
+
+        .home-visual{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;min-height:200px}
+        .home-flag{font-size:5rem;animation:flagWave 3s ease-in-out infinite}
+        @keyframes flagWave{0%,100%{transform:rotate(-3deg) scale(1)}50%{transform:rotate(3deg) scale(1.05)}}
+        .home-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;width:100%}
+        .home-stat{background:rgba(255,255,255,.05);border-radius:10px;padding:10px 14px;text-align:center;border:1px solid rgba(255,255,255,.06)}
+        .home-stat-value{font-size:1.1rem;font-weight:800;background:linear-gradient(135deg,#ffe66d,#e94560);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .home-stat-label{font-size:.6rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+
+        /* ===== COST BAR ===== */
+        .cost-bar{background:rgba(255,255,255,.05);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:26px 36px;animation:slideUp .8s ease-out .68s both}
+        .cost-bar-title{font-size:.8rem;text-transform:uppercase;letter-spacing:3px;color:rgba(255,255,255,.4);margin-bottom:18px;font-weight:600}
+        .cost-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+        .cost-item{text-align:center;padding:14px 6px;background:rgba(255,255,255,.04);border-radius:12px;border:1px solid rgba(255,255,255,.06);transition:transform .3s}
+        .cost-item:hover{transform:translateY(-3px)}
+        .cost-icon{font-size:1.3rem;margin-bottom:6px}
+        .cost-label{font-size:.6rem;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+        .cost-value{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,#e94560,#ffe66d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .cost-note{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:2px}
+        .cost-total{text-align:center;padding:14px 6px;background:rgba(233,69,96,.08);border-radius:12px;border:1px solid rgba(233,69,96,.15)}
+        .cost-total .cost-value{font-size:1.3rem}
+
+        /* ===== BOTTOM ===== */
+        .bottom-bar{position:fixed;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#4ecdc4,#ffe66d,#e94560,#4ecdc4);background-size:300% 100%;animation:shimmer 4s linear infinite;z-index:50}
+        @keyframes shimmer{0%{background-position:0% 0}100%{background-position:300% 0}}
+        .nav-indicator{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:50}
+        .nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);transition:all .3s}
+        .nav-dot{display:block}
+        a.nav-dot{cursor:pointer}
+        .nav-dot.active{background:#e94560;border-color:#e94560;box-shadow:0 0 10px rgba(233,69,96,.4);transform:scale(1.3)}
+
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+        @media(max-width:768px){
+            .slide-container{padding:24px 20px 50px}
+            .top-bar{flex-direction:column;gap:12px;align-items:flex-start}
+            .flight-card{grid-template-columns:1fr;text-align:center}
+            .flight-path{min-width:auto}
+            .home-card{grid-template-columns:1fr}
+            .cost-grid{grid-template-columns:repeat(2,1fr)}
+            .transition-banner{flex-wrap:wrap;justify-content:center}
+            .bubble{display:none}
+        }
+
+        /* ===== SLIDE NAV ===== */
+        .slide-nav{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:14px;z-index:60;animation:fadeIn 1s ease-out 1s both}
+        .nav-arrow{display:flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,255,255,.08);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.12);border-radius:30px;color:rgba(255,255,255,.7);text-decoration:none;font-size:.75rem;font-weight:600;letter-spacing:1px;transition:all .3s;font-family:'Poppins',sans-serif}
+        .nav-arrow:hover{background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
+        .nav-arrow .arrow{font-size:1rem}
+        .nav-current{font-size:.65rem;color:rgba(255,255,255,.3);letter-spacing:2px;text-transform:uppercase}
+    </style>
+</head>
+<body>
+
+    <!-- Nav dots -->
+    <div class="nav-indicator">
+        <a href="index.html" class="nav-dot" title="Copertina"></a>
+        <a href="02-giorno1-8agosto.html" class="nav-dot" title="G1 · 8 Ago"></a>
+        <a href="03-giorno2-9agosto.html" class="nav-dot" title="G2 · 9 Ago"></a>
+        <a href="04-giorno3-10agosto.html" class="nav-dot" title="G3 · 10 Ago"></a>
+        <a href="05-giorno4-11agosto.html" class="nav-dot" title="G4 · 11 Ago"></a>
+        <a href="06-giorno5-12agosto.html" class="nav-dot" title="G5 · 12 Ago"></a>
+        <a href="07-giorno6-13agosto.html" class="nav-dot" title="G6 · 13 Ago"></a>
+        <a href="08-giorno7-14agosto.html" class="nav-dot" title="G7 · 14 Ago"></a>
+        <a href="09-giorno8-15agosto.html" class="nav-dot" title="G8 · 15 Ago"></a>
+        <a href="10-giorno9-16agosto.html" class="nav-dot" title="G9 · 16 Ago"></a>
+        <a href="11-giorno10-17agosto.html" class="nav-dot" title="G10 · 17 Ago"></a>
+        <a href="12-giorno11-18agosto.html" class="nav-dot" title="G11 · 18 Ago"></a>
+        <a href="13-giorno12-19agosto.html" class="nav-dot" title="G12 · 19 Ago"></a>
+        <a href="14-giorno13-20agosto.html" class="nav-dot" title="G13 · 20 Ago"></a>
+        <a href="15-giorno14-21agosto.html" class="nav-dot active" title="G14 · 21 Ago"></a>
+        <a href="16-riepilogo-budget.html" class="nav-dot" title="Budget"></a>
+    </div>
+
+    <!-- Bubbles -->
+    <div class="bubble bubble-a">
+        <img src="https://images.unsplash.com/photo-1476673160081-cf065607f449?w=500&q=80" alt="Sunset Sky">
+    </div>
+    <div class="bubble bubble-b">
+        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=400&q=80" alt="Airport">
+    </div>
+    <div class="bubble bubble-c">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80" alt="Beach Memory">
+    </div>
+    <div class="bubble bubble-d">
+        <img src="https://images.unsplash.com/photo-1559128010-7c1ad6e1b6a5?w=400&q=80" alt="Tropical Memory">
+    </div>
+    <div class="bubble bubble-e">
+        <img src="https://images.unsplash.com/photo-1530841377377-3ff06c0ca713?w=300&q=80" alt="Bologna">
+    </div>
+    </div>
+
+    <div class="slide-container">
+
+        <!-- TOP BAR -->
+        <div class="top-bar">
+            <div class="day-badge">
+                <div class="day-number">14</div>
+                <div class="day-info">
+                    <h2>Venerdì 21 Agosto 2026</h2>
+                    <p>Ritorno — Siargao → Manila → Istanbul → Bologna</p>
+                </div>
+            </div>
+            <div class="slide-tag">Si Torna a Casa</div>
+        </div>
+
+        <!-- THEME -->
+        <div class="theme-banner">
+            <div class="theme-emoji">✈️</div>
+            <div class="theme-text">
+                <h3>14 giorni, 2 paesi, 13 amici, 1 viaggio indimenticabile — si torna a casa</h3>
+                <p>Ultimo giorno: 3 voli, 2 scali e tanti ricordi nel bagaglio a mano</p>
+            </div>
+        </div>
+
+        <!-- TRANSITION BANNER -->
+        <div class="transition-banner">
+            <div class="transition-flag">🇵🇭</div>
+            <div class="transition-arrow">
+                <span class="dots">· · · ·</span>
+                <span class="plane">✈️</span>
+                <span class="dots">· · · ·</span>
+            </div>
+            <div class="transition-flag">🇹🇷</div>
+            <div class="transition-arrow">
+                <span class="dots">· · · ·</span>
+                <span class="plane">✈️</span>
+                <span class="dots">· · · ·</span>
+            </div>
+            <div class="transition-flag">🇮🇹</div>
+        </div>
+
+        <!-- MORNING TIMELINE -->
+        <div class="morning-card">
+            <div class="morning-title">🌅 Mattina — Check-out & Trasferimento Aeroporto</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot">⏰</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">05:30</div>
+                        <div class="timeline-label">Sveglia & Ultime Valigie</div>
+                        <div class="timeline-desc">Ultimo controllo camera, niente lasciato dietro. Controllate passaporto e boarding pass!</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">🏨</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">06:00</div>
+                        <div class="timeline-label">Check-out Villa & Colazione Veloce</div>
+                        <div class="timeline-desc">Salutate lo staff, ultimo caffè e banana. Saldate eventuali conti rimasti.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">🚐</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">06:30</div>
+                        <div class="timeline-label">Van per Sayak Airport (IAO)</div>
+                        <div class="timeline-desc">~45 minuti da General Luna. Ultimo sguardo alle palme dal finestrino.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot">🛫</div>
+                    <div class="timeline-content">
+                        <div class="timeline-time">07:15</div>
+                        <div class="timeline-label">Arrivo Sayak Airport</div>
+                        <div class="timeline-desc">Aeroporto piccolo, check-in veloce. Niente liquidi nel bagaglio a mano!</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FLIGHTS -->
+        <div class="flights">
+
+            <!-- LEG 1: IAO → MNL -->
+            <div class="flight-card leg1">
+                <div class="flight-from">
+                    <div class="flight-leg-badge">Leg 1 · Domestico</div>
+                    <div class="flight-code">IAO</div>
+                    <div class="flight-city">Sayak, Siargao</div>
+                    <div class="flight-time">🛫 08:30</div>
+                </div>
+                <div class="flight-path">
+                    <div class="flight-duration">~1h 40min</div>
+                    <div class="flight-line"><span class="plane-icon">✈️</span></div>
+                    <div class="flight-airline">Cebu Pacific / Philippine Airlines</div>
+                </div>
+                <div class="flight-to">
+                    <div style="height:26px"></div>
+                    <div class="flight-code">MNL</div>
+                    <div class="flight-city">Manila, Filippine</div>
+                    <div class="flight-time">🛬 10:10</div>
+                </div>
+            </div>
+
+            <!-- LAYOVER MANILA -->
+            <div class="layover-card">
+                <div class="layover-icon">⏳</div>
+                <div class="layover-text">
+                    <strong>Scalo Manila (NAIA) — ~4 ore.</strong>
+                    Tempo per pranzare, ultimo Jollibee, comprare dried mango al duty free
+                    e passare all'imbarco internazionale. Cambiate gli ultimi pesos!
+                </div>
+            </div>
+
+            <!-- LEG 2: MNL → IST -->
+            <div class="flight-card leg2">
+                <div class="flight-from">
+                    <div class="flight-leg-badge">Leg 2 · Internazionale</div>
+                    <div class="flight-code">MNL</div>
+                    <div class="flight-city">Manila, Filippine</div>
+                    <div class="flight-time">🛫 14:15</div>
+                </div>
+                <div class="flight-path">
+                    <div class="flight-duration">~11h 30min</div>
+                    <div class="flight-line"><span class="plane-icon">✈️</span></div>
+                    <div class="flight-airline">Turkish Airlines</div>
+                </div>
+                <div class="flight-to">
+                    <div style="height:26px"></div>
+                    <div class="flight-code">IST</div>
+                    <div class="flight-city">Istanbul, Turchia</div>
+                    <div class="flight-time">🛬 20:45 (ora locale)</div>
+                </div>
+            </div>
+
+            <!-- LAYOVER ISTANBUL -->
+            <div class="layover-card">
+                <div class="layover-icon">⏳</div>
+                <div class="layover-text">
+                    <strong>Scalo Istanbul (IST) — ~3 ore.</strong>
+                    Il duty free più grande del mondo! Prendete un çay (tè turco) e un simit.
+                    Riposate nell'area lounge se avete la carta giusta.
+                </div>
+            </div>
+
+            <!-- LEG 3: IST → BLQ -->
+            <div class="flight-card leg3">
+                <div class="flight-from">
+                    <div class="flight-leg-badge">Leg 3 · Finale</div>
+                    <div class="flight-code">IST</div>
+                    <div class="flight-city">Istanbul, Turchia</div>
+                    <div class="flight-time">🛫 23:50</div>
+                </div>
+                <div class="flight-path">
+                    <div class="flight-duration">~2h 30min</div>
+                    <div class="flight-line"><span class="plane-icon">✈️</span></div>
+                    <div class="flight-airline">Turkish Airlines</div>
+                </div>
+                <div class="flight-to">
+                    <div style="height:26px"></div>
+                    <div class="flight-code">BLQ</div>
+                    <div class="flight-city">Bologna, Italia</div>
+                    <div class="flight-time">🛬 02:15+1 (22 Agosto)</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- PRICE NOTE -->
+        <div class="price-note">
+            <div class="price-note-icon">💰</div>
+            <div class="price-note-content">
+                <h4>Volo di Ritorno — Stima Prezzo</h4>
+                <p>
+                    Il volo di ritorno <strong>IAO → MNL → IST → BLQ</strong> costa circa
+                    <strong>€400–500 a persona</strong> prenotando con anticipo.
+                    Il volo domestico IAO–MNL (~€50) va prenotato separatamente su Cebu Pacific.
+                    Il volo internazionale MNL–IST–BLQ (~€350–450) è operato da Turkish Airlines.
+                    Consigliamo di prenotare tutti i voli entro marzo 2026 per i prezzi migliori.
+                </p>
+                <div class="price-routes">
+                    <span class="price-route">✈️ IAO→MNL: ~€50 (Cebu Pacific)</span>
+                    <span class="price-route">✈️ MNL→IST→BLQ: ~€400 (Turkish Airlines)</span>
+                    <span class="price-route">📅 Prenotare entro marzo 2026</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- WELCOME HOME -->
+        <div class="home-card">
+            <div>
+                <div class="home-badge">🏠 Arrivo a Casa</div>
+                <div class="home-title">Bentornati a Bologna!</div>
+                <div class="home-desc">
+                    Atterraggio al <strong>Marconi di Bologna</strong> alle 02:15 di notte del 22 agosto.
+                    Stanchi ma con il cuore pieno. Due settimane fa eravate in partenza per
+                    l'Asia — ora tornate con migliaia di foto, ricordi incredibili e la
+                    certezza che 13 amici possono attraversare il mondo insieme.
+                    <br><br>
+                    Dal palazzo di Gyeongbokgung alle onde di Cloud 9, dalle meduse di
+                    Sohoton al falò sulla spiaggia — questo viaggio resterà per sempre.
+                    <br><br>
+                    <strong>A casa. Ma già con la voglia di ripartire.</strong>
+                </div>
+            </div>
+            <div class="home-visual">
+                <div class="home-flag">🇮🇹</div>
+                <div class="home-stats">
+                    <div class="home-stat">
+                        <div class="home-stat-value">14</div>
+                        <div class="home-stat-label">Giorni</div>
+                    </div>
+                    <div class="home-stat">
+                        <div class="home-stat-value">2</div>
+                        <div class="home-stat-label">Paesi</div>
+                    </div>
+                    <div class="home-stat">
+                        <div class="home-stat-value">13</div>
+                        <div class="home-stat-label">Amici</div>
+                    </div>
+                    <div class="home-stat">
+                        <div class="home-stat-value">∞</div>
+                        <div class="home-stat-label">Ricordi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COST SUMMARY -->
+        <div class="cost-bar">
+            <div class="cost-bar-title">💰 Riepilogo Costi Giorno 14 — per persona</div>
+            <div class="cost-grid">
+                <div class="cost-item" style="background:rgba(78,205,196,.06);border-color:rgba(78,205,196,.12)">
+                    <div class="cost-icon">✈️</div>
+                    <div class="cost-label">IAO → MNL</div>
+                    <div class="cost-value">€50</div>
+                    <div class="cost-note">Cebu Pacific</div>
+                </div>
+                <div class="cost-item" style="background:rgba(233,69,96,.06);border-color:rgba(233,69,96,.12)">
+                    <div class="cost-icon">✈️</div>
+                    <div class="cost-label">MNL → IST → BLQ</div>
+                    <div class="cost-value">€400</div>
+                    <div class="cost-note">Turkish Airlines</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🚐</div>
+                    <div class="cost-label">Van Aeroporto</div>
+                    <div class="cost-value">€5</div>
+                    <div class="cost-note">GL → Sayak</div>
+                </div>
+                <div class="cost-item">
+                    <div class="cost-icon">🍽️</div>
+                    <div class="cost-label">Pasti & Snack</div>
+                    <div class="cost-value">€12</div>
+                    <div class="cost-note">Colazione + scali</div>
+                </div>
+                <div class="cost-total">
+                    <div class="cost-icon">📊</div>
+                    <div class="cost-label">Totale Giorno</div>
+                    <div class="cost-value">~€467</div>
+                    <div class="cost-note">ultimo giorno!</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="slide-nav">
+        <a href="14-giorno13-20agosto.html" class="nav-arrow"><span class="arrow">&larr;</span> Giorno 13</a>
+        <span class="nav-current">15 / 16</span>
+        <a href="16-riepilogo-budget.html" class="nav-arrow">Budget <span class="arrow">&rarr;</span></a>
+    </div>
+
+    <div class="bottom-bar"></div>
+
+</body>
+</html>
