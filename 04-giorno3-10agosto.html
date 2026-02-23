@@ -67,6 +67,10 @@
         .activity-card:hover { transform:translateY(-4px); border-color:rgba(255,255,255,0.18); background:rgba(255,255,255,0.08); }
         .activity-card.full-width { grid-column:1/-1; }
 
+        .card-image {
+            width:100%; height:240px; object-fit:cover; border-radius:12px;
+            margin-bottom:14px; border:1px solid rgba(255,255,255,0.08);
+        }
         .card-time {
             display:inline-block; background:rgba(255,230,109,0.12); color:#ffe66d;
             font-size:0.7rem; font-weight:600; padding:4px 12px; border-radius:20px;
@@ -289,6 +293,7 @@
 
             <!-- MATTINA: Hongdae -->
             <div class="activity-card full-width">
+                <img class="card-image" src="https://cf.creatrip.com/original/blog/4749/15621211781170.jpg?d=2800&q=75&f=webp" alt="Quartiere di Hongdae, Seoul" loading="lazy">
                 <div class="card-time">🌅 09:30 – 13:00 · Mattina</div>
                 <div class="card-title">
                     <span class="emoji">🎨</span> Quartiere di Hongdae
@@ -312,6 +317,7 @@
 
             <!-- PRANZO: Hongdae Food -->
             <div class="activity-card">
+                <img class="card-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Korean_fried_chicken_%28banban%29.jpg/1280px-Korean_fried_chicken_%28banban%29.jpg" alt="Korean Fried Chicken, Hongdae" loading="lazy">
                 <div class="card-time">🍜 13:00 – 14:15 · Pranzo</div>
                 <div class="card-title">
                     <span class="emoji">🍗</span> Pranzo a Hongdae
@@ -331,6 +337,7 @@
 
             <!-- POMERIGGIO: Han River Park -->
             <div class="activity-card">
+                <img class="card-image" src="https://image.arrivalguides.com/1230x800/06/b5cefbb3dd03343fa08b678e25392feb.jpg" alt="Yeouido Hangang Park, Seoul" loading="lazy">
                 <div class="card-time">🚲 15:00 – 17:30 · Pomeriggio</div>
                 <div class="card-title">
                     <span class="emoji">🌳</span> Yeouido Hangang Park
@@ -382,8 +389,7 @@
                 </div>
             </div>
             <div class="cruise-visual">
-                <div class="cruise-icon-big">🚢</div>
-                <div class="cruise-wave">〰️〰️〰️〰️</div>
+                <img class="card-image" style="height:200px; margin-bottom:12px;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/2011%EB%85%84_11%EC%9B%94_%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C_%EB%AA%85%EC%86%8C_%28Seoul_best_attractions%29_%EB%8B%AC%EB%B9%9B%EB%AC%B4%EC%A7%80%EA%B0%9C%EB%B6%84%EC%88%981.jpg/1280px-2011%EB%85%84_11%EC%9B%94_%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD_%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C_%EB%AA%85%EC%86%8C_%28Seoul_best_attractions%29_%EB%8B%AC%EB%B9%9B%EB%AC%B4%EC%A7%80%EA%B0%9C%EB%B6%84%EC%88%981.jpg" alt="Banpo Bridge Rainbow Fountain, Han River" loading="lazy">
                 <div class="cruise-price-tag">€16 / persona</div>
             </div>
         </div>
